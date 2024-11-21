@@ -1,0 +1,99 @@
+:root {
+    --primary-color: #FF9900;
+    --secondary-color: #FFC700;
+    --minor-color: #FFE7C2;
+    --bg: #F2EDE5;
+
+    /* Font */
+    --title-size: 1.5rem;
+    --body-size: 1rem;
+    --desctiprion-size: 0.8rem;
+
+    --body-text-color: #000000;
+    --note-text-color: #979797;
+
+    /* Button */
+    --button-border-radius: 0.2rem;
+
+    /* Colors */
+    --primary-green: #2BA600;
+    --secondary-green: #1BBF00;
+    --minor-green: #CCEAC2;
+
+    --primary-yellow: #FF9900;
+    --secondary-yellow: #FFC700;
+    --minor-yellow: #FFE7C2;
+
+    --primary-blue: #00A3FF;
+    --secondary-blue: #00C2FF;
+    --minor-blue: #C2E9FF;
+
+    --primary-purple: #B900B1;
+    --secondary-purple: #D848D2;
+    --minor-purple: #DF7FDB;
+
+    --primary-red: #E95757;
+    --secondary-red: #C14D4D;
+  }
+
+  .body {
+    background: var(--bg);
+    color: var(--body-text-color);
+    font-size: var(--body-size);
+  }
+
+  div.sideBarButtonContainer{
+    background-color: var(--secondary-purple);
+    text-align: center;
+  }
+
+  .sideBarButton {
+    background: var(--primary-color);
+    color: white;
+    border: solid 0.2rem white;
+    width: 5rem;
+    border-radius: 100%;
+    aspect-ratio: 1/1;
+    padding: 1rem 1rem;
+    margin: 0.3rem;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .sideBarButton:hover {
+    filter: brightness(0.8);
+    transition: all 0.3s;
+  }
+
+  div.topBar {
+    width: 100%;
+    height: 15vh;
+    max-height: 20rem;
+    background-color: blue;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  div.upperPart{
+    background-color: var(--primary-purple);
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+  }
+
+  div.buttonScroll{
+    background-color: var(--primary-yellow);
+    width: 100%;
+    height: 100%;
+  }
+
+  div.titleContainer{
+    display: flex;
+    align-items: center;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    font-size: var(--title-size);
+  }
+
+  
