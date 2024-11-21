@@ -8,12 +8,13 @@
     --title-size: 1.5rem;
     --body-size: 1rem;
     --desctiprion-size: 0.8rem;
+    --title-weight: 100;
 
-    --body-text-color: #000000;
+    --body-text-color: #222222;
     --note-text-color: #979797;
 
     /* Button */
-    --button-border-radius: 0.2rem;
+    --button-border-radius: 0.8rem;
 
     /* Colors */
     --primary-green: #2BA600;
@@ -35,6 +36,28 @@
     --primary-red: #E95757;
     --secondary-red: #C14D4D;
   }
+
+  @font-face {
+    font-family: 'Itim';
+    src: url('./resources/fonts/Itim-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Inter';
+    src: url('./resources/fonts/static/Inter_18pt-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'GasoekOne';
+    src: url('.resources./fonts/GasoekOne-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
 
   .body {
     background: var(--bg);
@@ -61,7 +84,7 @@
   }
 
   .sideBarButton:hover {
-    filter: brightness(0.8);
+    filter: brightness(0.9);
     transition: all 0.3s;
   }
 
@@ -80,20 +103,80 @@
     flex-direction: row;
     width: 100%;
     height: 100%;
+    max-width: 100vw;
   }
 
   div.buttonScroll{
-    background-color: var(--primary-yellow);
+    background-color: var(--primary-red);
     width: 100%;
     height: 100%;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    overflow: hidden;
+    overflow-x: auto;
+    max-width: 100vw;
   }
 
+  div.buttonScroll::-webkit-scrollbar {
+    height: 0.3rem;
+  }
+
+  div.buttonScroll::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+    border-radius: 100rem;
+  }
+
+  div.buttonScroll::-webkit-scrollbar-track {
+    height: 0.3rem;
+    background: rgba(211, 211, 211, 0.192);
+  }
+  
   div.titleContainer{
+    font-family: 'Inter';
     display: flex;
     align-items: center;
     padding-left: 0.4rem;
     padding-right: 0.4rem;
     font-size: var(--title-size);
+    font-weight: var(--title-weight);
+    text-transform: capitalize;
   }
 
+  b.decoratedTitle{
+    color: var(--primary-color);
+    text-transform: uppercase;
+  }
   
+  b.buttonText{
+    font-size: var(--body-size);
+    font-weight: var(--title-weight);
+    font-family: 'Inter';
+  }
+
+  button.quickButton{
+    flex-shrink: 0;
+    color: white;
+    background-color: var(--primary-color);
+    border: none;
+    height: 100%;
+    width: 8rem;
+    border-radius: var(--button-border-radius);
+    transition: all 0.3s;
+  }
+
+  button.quickButton:hover{
+    filter: brightness(0.9);
+    transition: all 0.3s;
+  }
+
+  img.icon{
+    margin-right: 0.5rem;
+  }
+
+  div.body{
+    width: 100%;
+    height: 85vh;
+    background-color: var(--primary-blue);
+  }

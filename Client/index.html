@@ -12,22 +12,38 @@
     </head>
     <body class="body">
         <div class="page">
+            <!--Contains the upper part of the screen witch is the same everywhere exept Auth pages and settings-->
             <div class="topBar">
+                <!--Here's the upper part of tuhe top bar: sidebar button & page title-->
                 <div class="upperPart">
                     <div class="sideBarButtonContainer">
                         <button class="sideBarButton" onclick="openSideBar()">☰</button>
                     </div>
                     <div class="titleContainer">
-                        <h1 class="titoloPagina">title here</h1>
+                        <h1 class="titoloPagina">title <b class="decoratedTitle">here</b></h1>
                     </div>
                 </div>
+                <!--Here's the lower part of the top part top bar: quick buttons-->
                 <div>
                     <div class="buttonScroll">
-                        <button>
-                            
+                        <button class="quickButton">
+                            <img class="icon" src="resources/icons/calendar.webp">
+                            <b clas="buttonText">Calendar</b>
+                        </button>
+                        <button class="quickButton">
+                            <img class="icon" src="resources/icons/grade.webp">
+                            <b clas="buttonText">Grades</b>
+                        </button>
+                        <button class="quickButton">
+                            <img class="icon" src="resources/icons/clock.webp">
+                            <b clas="buttonText">Schedule</b>
                         </button>
                     </div>
                 </div>
+            </div>
+            <!--contains the body of each screen-->
+            <div class="body">
+
             </div>
         </div>
     </body>
