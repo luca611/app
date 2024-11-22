@@ -13,8 +13,9 @@
     --body-text-color: #222222;
     --note-text-color: #979797;
 
-    /* Button */
-    --button-border-radius: 0.8rem;
+    /* borders */
+    --button-border-radius: 0.5rem;
+    --sidebar-border-radius: 0.8rem;
 
     /* Colors */
     --primary-green: #2BA600;
@@ -182,4 +183,48 @@
     width: 100%;
     height: calc(100vh - 11rem);
     background-color: var(--primary-blue);
+  }
+
+  div.section{
+    background-color: var(--primary-green);
+    height: 100%;
+  }
+
+  div.hidden{
+    display: none;
+  }
+
+  div.sidebar{
+    z-index: 3;
+    position: fixed;
+    top: 0;
+    left: -20rem;
+    background: var(--primary-color);
+    height: 100vh;
+    width: 20rem;
+    border-top-right-radius: var(--sidebar-border-radius);
+    border-bottom-right-radius: var(--sidebar-border-radius);
+    transition: all 0.3s;
+  }
+
+  div.sidebar.open{
+    left: 0;
+    transition: all 0.3s;
+  }
+
+  div.overlay{
+    position: fixed;
+    top: 0;
+    left: 0rem;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.151);
+    transition: all 0.3s;
+  }
+
+  div.overlay.visible{
+    display: block;
+    transition: all 0.3s;
   }
