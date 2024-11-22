@@ -35,6 +35,8 @@
 
     --primary-red: #E95757;
     --secondary-red: #C14D4D;
+
+    --shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
   }
 
   @font-face {
@@ -66,7 +68,7 @@
   }
 
   div.sideBarButtonContainer{
-    background-color: var(--secondary-purple);
+    /*background-color: var(--secondary-purple);*/
     text-align: center;
   }
 
@@ -81,6 +83,7 @@
     margin: 0.3rem;
     cursor: pointer;
     transition: all 0.3s;
+    box-shadow: var(--shadow);
   }
 
   .sideBarButton:hover {
@@ -89,34 +92,32 @@
   }
 
   div.topBar {
+    margin-top: 1rem;
     width: 100%;
-    height: 15vh;
-    max-height: 20rem;
-    background-color: blue;
+    height: 10rem;
+    /*background-color: blue;*/
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 6rem 4rem;
   }
 
   div.upperPart{
-    background-color: var(--primary-purple);
+    /*background-color: var(--primary-purple);*/
     display: flex;
     flex-direction: row;
     width: 100%;
     height: 100%;
-    max-width: 100vw;
   }
 
   div.buttonScroll{
-    background-color: var(--primary-red);
+    /*background-color: var(--primary-red);*/
     width: 100%;
-    height: 100%;
+    height: 4rem;
     padding: 0.5rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     overflow: hidden;
     overflow-x: auto;
-    max-width: 100vw;
   }
 
   div.buttonScroll::-webkit-scrollbar {
@@ -139,6 +140,7 @@
     align-items: center;
     padding-left: 0.4rem;
     padding-right: 0.4rem;
+    padding-top: 0.3rem;
     font-size: var(--title-size);
     font-weight: var(--title-weight);
     text-transform: capitalize;
@@ -164,6 +166,7 @@
     width: 8rem;
     border-radius: var(--button-border-radius);
     transition: all 0.3s;
+    box-shadow: var(--shadow);
   }
 
   button.quickButton:hover{
@@ -177,6 +180,6 @@
 
   div.body{
     width: 100%;
-    height: 85vh;
+    height: calc(100vh - 11rem);
     background-color: var(--primary-blue);
   }
