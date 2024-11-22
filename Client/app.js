@@ -25,4 +25,20 @@ xhr.onerror=function(){
 xhr.open("GET","pwaversion.txt?t="+Date.now())
 xhr.send();
 
-//Your code here
+//app code
+
+//sidebar functions
+function openSideBar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('visible');
+}
+
+
+function closeSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    sidebar.classList.remove('open');
+    overlay.classList.remove('visible');
+}
