@@ -110,11 +110,6 @@
     height: 100%;
   }
 
-  div.lowerPart{
-    overflow: hidden;
-    width: 100%;
-  }
-
   div.buttonScroll{
     /*background-color: var(--primary-red);*/
     width: 100%;
@@ -129,7 +124,6 @@
 
   div.buttonScroll::-webkit-scrollbar {
     height: 0.3rem;
-    box-shadow: var(--shadow);
   }
 
   div.buttonScroll::-webkit-scrollbar-thumb {
@@ -256,21 +250,6 @@
     border-radius: var(--general-border-radius);
   }
 
-
-  div.eventsList::-webkit-scrollbar {
-    width: 0.5rem;
-    box-shadow: var(--shadow);
-  }
-
-  div.eventsList::-webkit-scrollbar-thumb {
-    background-color: lightgray;
-    border-radius: 100rem;
-  }
-
-  div.eventsList::-webkit-scrollbar-track {
-    background: rgba(211, 211, 211, 0.192);
-  }
-
   div#eventPlaceholder.visible{
     width: 100%;
     height: 100%;
@@ -301,7 +280,6 @@
     gap: 0.5rem;
     overflow: hidden;
     overflow-y: auto;
-    padding-right: .2rem;
   }
 
   div.upcomingEvent{
@@ -346,7 +324,7 @@
   }
 
   button.eventButton{
-    height: 70%;
+    height: 100%;
     aspect-ratio: 1/1;
     background-color: var(--primary-color);
     background: var(--primary-color);
@@ -369,14 +347,7 @@
   }
 
   img.eventIcon{
-    width: 1.5rem;
+    width: 2.5rem;
   }
 
-  div.eventButtonContainer{
-    display: flex;
-    align-items: center;
-  }
-
-  
-  
   
