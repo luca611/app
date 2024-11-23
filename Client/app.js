@@ -63,8 +63,6 @@ function closePopup(){
 
 //popUp body functions
 function toggleEventCreation(){
-    var eventCreation = document.getElementById('eventCreation');
-    eventCreation.classList.toggle('open');
 }
 
 function openEventCreation(){
