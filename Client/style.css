@@ -149,6 +149,7 @@
     padding-left: 0.4rem;
     padding-right: 0.4rem;
     padding-top: 0.3rem;
+    width: 100%;
     font-size: var(--title-size);
     font-weight: var(--title-weight);
     text-transform: capitalize;
@@ -219,6 +220,25 @@
 
   div.sidebar.open{
     left: 0;
+    transition: all 0.3s;
+  }
+
+  div.popup{
+    z-index: 3;
+    position: fixed;
+    bottom: -60vh;
+    left: 0;
+    width: 100vw;
+    height: 60vh;
+    background: white;
+    border-top-left-radius: var(--sidebar-border-radius);
+    border-top-right-radius: var(--sidebar-border-radius);
+    transition: all 0.3s;
+    box-shadow: var(--shadow);
+  }
+
+  div.popup.open{
+    bottom: 0;
     transition: all 0.3s;
   }
 
@@ -377,6 +397,31 @@
     align-items: center;
   }
 
-  
+  div.addButtonContainer{
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    margin-right: 0;
+  }
+
+  button.addButton{
+    background-color: var(--primary-color);
+    width: 3rem;
+    aspect-ratio: 1/1;
+    border: none;
+    border-radius: var(--button-border-radius);
+    transition: all 0.3s;
+    box-shadow: var(--shadow);
+  }
+
+  button.addButton:hover{
+    filter: brightness(0.9);
+    transition: all 0.3s;
+  }
   
   

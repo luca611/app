@@ -27,18 +27,48 @@ xhr.send();
 
 //app code
 
-//sidebar functions
-function openSideBar() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    sidebar.classList.toggle('open');
-    overlay.classList.toggle('visible');
+var sidebar, overlayBar;
+var overlayPopUp, popUp;
+var eventCreation, gradeCreation, hourCreation, nameChange, passwordChange;
+
+window.onload = function() {
+    sidebar = document.getElementById('sidebar');
+    overlayBar = document.getElementById('overlaySidebar');
+
+    overlayPopUp = document.getElementById('overlayPopUp');
+    popUp = document.getElementById('popup');
 }
 
+//sidebar functions
+function openSideBar() {
+    sidebar.classList.add('open');
+    overlayBar.classList.add('visible');
+}
 
 function closeSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
     sidebar.classList.remove('open');
-    overlay.classList.remove('visible');
+    overlayBar.classList.remove('visible');
+}
+
+//popup functions
+function openPopup(){
+    popUp.classList.add('open');
+    overlayPopUp.classList.add('visible');
+}
+
+function closePopup(){
+    popUp.classList.remove('open');
+    overlayPopUp.classList.remove('visible');
+}
+
+//popUp body functions
+function toggleEventCreation(){
+    var eventCreation = document.getElementById('eventCreation');
+    eventCreation.classList.toggle('open');
+}
+
+function openEventCreation(){
+    closeSidebar();
+    toggleEventCreation();
+    openPopup();
 }

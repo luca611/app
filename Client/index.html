@@ -13,6 +13,11 @@
     <body class="body">
         
         
+        <div class="addButtonContainer">
+            <button class="addButton" onclick="openEventCreation()">
+                <img class="addIcon" src="resources/icons/add.svg">
+            </button>
+        </div>
 
         <div class="page">
             <!--Contains the upper part of the screen witch is the same everywhere exept Auth pages and settings-->
@@ -167,11 +172,17 @@
                 </div>
             </div>
         </div>
-        <div class="sibarContainer">
-            <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+        <div class="sidebarContainer">
+            <div class="overlay" id="overlaySidebar" onclick="closeSidebar()"></div>
             <div id="sidebar" class="sidebar">
 
             </div>
         </div>
+
+        <div class="popupContainer">
+            <div class="overlay" id="overlayPopUp" onclick="closePopup()"></div>
+            <div id="popup" class="popup">
+                
+            </div>
     </body>
 </html>
