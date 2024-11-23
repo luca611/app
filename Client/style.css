@@ -61,7 +61,10 @@
     font-weight: normal;
     font-style: normal;
   }
-  
+
+  html{
+    min-width: fit-content;
+  }
 
   .body {
     background: var(--bg);
