@@ -17,6 +17,7 @@
     --button-border-radius: 0.5rem;
     --sidebar-border-radius: 0.8rem;
     --general-border-radius: 0.6rem;
+    --minor-border-radius: 0.4rem;
 
     /* Colors */
     --primary-green: #2BA600;
@@ -176,6 +177,7 @@
     border: none;
     height: 100%;
     width: 8rem;
+    min-width: fit-content;
     border-radius: var(--button-border-radius);
     transition: all 0.3s;
     box-shadow: var(--shadow);
@@ -227,6 +229,7 @@
   }
 
   div.popup{
+    color: var(--body-text-color);
     z-index: 3;
     position: fixed;
     bottom: -60vh;
@@ -425,6 +428,113 @@
   button.addButton:hover{
     filter: brightness(0.9);
     transition: all 0.3s;
+  }
+
+  div.EventAddContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+  }
+
+  div.fillContainer{
+    width: 100%;
+    padding: 0.3rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: var(--body-size);
+    background: var(--primary-color);
+    border-radius: var(--minor-border-radius);
+    font-weight: bold;
+    color: white;
+  }
+
+  div.inputContainer{
+    width: 100%;
+    height: calc(var(--body-size) + 1.35rem);
+  }
+
+  input.inputField, textarea.inputField{
+    width: 100%;
+    height: 100%;
+    border: solid 0.19rem var(--primary-color);
+    border-radius: var(--minor-border-radius);
+    padding: 0.1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-size: var(--body-size);
+    font-family: 'Inter';
+    font-weight: 500;
+    resize: none;
+  }
+
+  div.largeInputContainer{
+    height: 35%;
+  }
+
+  div.buttonContainer{
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 3.5rem;
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 0.5rem;
+    margin-top: 0.3rem;
+  }
+
+  button.popupButton{
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: var(--button-border-radius);
+    color: white;
+    font-size: var(--body-size);
+    font-family: 'Inter';
+    font-weight: bold;
+    transition: all 0.3s;
+    box-shadow: var(--shadow);
+    text-transform: uppercase;
+  }
+
+  button.popupButton:hover{
+    filter: brightness(0.9);
+    transition: all 0.3s;
+  }
+
+  div.popUpBody{
+    width: 100%;
+    height: calc(60vh - 4.5rem);
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  button.danger{
+    background: var(--primary-red);
+  }
+
+  @media screen and (max-height: 800px) {
+    div.popup {
+      height: 70vh;
+      max-height: 70vh;
+      bottom: -70vh;
+      overflow: hidden;
+      overflow-Y: auto;
+    }
+
+    div.popup.open {
+      bottom: 0;
+    }
+
+    div.popUpBody{
+      height: calc(70vh - 4rem);
+    }
   }
   
   

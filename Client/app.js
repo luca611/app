@@ -57,6 +57,7 @@ function openPopup(){
 }
 
 function closePopup(){
+    clearForm();
     popUp.classList.remove('open');
     overlayPopUp.classList.remove('visible');
 }
@@ -66,7 +67,17 @@ function toggleEventCreation(){
 }
 
 function openEventCreation(){
+    clearForm();
     closeSidebar();
     toggleEventCreation();
     openPopup();
+}
+
+function clearForm(){
+    var form = document.getElementById('eventName');
+    form.innerText = '';
+    form = document.getElementById('eventDescription');
+    form.innerText = '';
+    form = document.getElementById('eventDate');
+    form.innerText = '';
 }

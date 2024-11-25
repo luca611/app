@@ -44,7 +44,7 @@
                         </button>
                         <button class="quickButton">
                             <img class="icon" src="resources/icons/clock.webp">
-                            <b clas="buttonText">Schedule</b>
+                            <b class="buttonText">Schedule</b>
                         </button>
                     </div>
                 </div>
@@ -182,7 +182,32 @@
         <div class="popupContainer">
             <div class="overlay" id="overlayPopUp" onclick="closePopup()"></div>
             <div id="popup" class="popup">
-                
+                <div class="popUpBody">
+                    <div class="EventAddContainer">
+                        <div class="fillContainer">
+                            event name
+                        </div>
+                        <div class="inputContainer">
+                            <input class="inputField" type="text" id="eventName" placeholder="Event name">
+                        </div>
+                        <div class="fillContainer">
+                            description
+                        </div>
+                        <div class="largeInputContainer">
+                            <textarea class="inputField" id="eventDescription" placeholder="Event description"></textarea>
+                        </div>
+                        <div class="fillContainer">
+                            Date
+                        </div>
+                        <div class="inputContainer">
+                            <input class="inputField" type="date" id="eventDate" placeholder="Event date">
+                        </div>
+                    </div>
+                </div>
+                <div class="buttonContainer">
+                    <button class="popupButton danger" onclick="closePopup()">Cancel</button>
+                    <button class="popupButton" onclick="createEvent()">Create</button>
+                </div>
             </div>
     </body>
 </html>
