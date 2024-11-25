@@ -57,9 +57,9 @@ function openPopup(){
 }
 
 function closePopup(){
-    clearForm();
     popUp.classList.remove('open');
     overlayPopUp.classList.remove('visible');
+    clearForm();
 }
 
 //popUp body functions
@@ -67,17 +67,17 @@ function toggleEventCreation(){
 }
 
 function openEventCreation(){
-    clearForm();
     closeSidebar();
     toggleEventCreation();
+    clearForm();
     openPopup();
 }
 
 function clearForm(){
     var form = document.getElementById('eventName');
-    form.innerText = '';
+    form.value = '';
     form = document.getElementById('eventDescription');
-    form.innerText = '';
+    form.value = '';
     form = document.getElementById('eventDate');
-    form.innerText = '';
+    form.value = '';
 }
