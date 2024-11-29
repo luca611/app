@@ -54,8 +54,7 @@
 - **Frontend:** HTML5, CSS3, JavaScript
 - **Backend:** Node.js, Express
 - **Database:** MongoDB
-- **AI Engine:** TensorFlow.js / OpenAI API
-- **PWA Frameworks:** Workbox for offline support, service workers
+- **AI Engine:** TensorFlow.js / GROQ API
 
 ---
 
