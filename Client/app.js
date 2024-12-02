@@ -59,7 +59,7 @@ function openPopup(){
 function closePopup(){
     popUp.classList.remove('open');
     overlayPopUp.classList.remove('visible');
-    clearForm();
+    //clearForm();
 }
 
 //popUp body functions
@@ -69,7 +69,7 @@ function toggleEventCreation(){
 function openEventCreation(){
     closeSidebar();
     toggleEventCreation();
-    clearForm();
+    //clearForm();
     openPopup();
 }
 
