@@ -430,7 +430,7 @@
     transition: all 0.3s;
   }
 
-  div.EventAddContainer{
+  div.bodyContainer{
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
