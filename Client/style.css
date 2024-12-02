@@ -10,6 +10,8 @@
     --desctiprion-size: 1rem;
     --title-weight: 100;
 
+    --welcomeSize: 3rem;
+
     --body-text-color: #222222;
     --note-text-color: #979797;
 
@@ -39,6 +41,10 @@
     --primary-red: #E95757;
     --secondary-red: #C14D4D;
 
+    --primary-brown: #DDC298;
+    --secondary-brown: #C3AF8E;
+
+
     --shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
   }
 
@@ -58,8 +64,8 @@
   
   @font-face {
     font-family: 'GasoekOne';
-    src: url('.resources./fonts/GasoekOne-Regular.ttf') format('truetype');
-    font-weight: normal;
+    src: url('resources./fonts/GasoekOne-Regular.ttf') format('truetype');
+    font-weight: bold;
     font-style: normal;
   }
 
@@ -517,6 +523,47 @@
 
   button.danger{
     background: var(--primary-red);
+  }
+
+
+  div.autenticazione{
+    height: 100vh;
+    width: 100%;
+    z-index: 9999;
+  }
+
+  div.autenticazione img{
+    max-width: 20rem;
+    margin-left: 32.5rem;
+    margin-top: 4rem;
+  }
+
+  .titleWelcome{
+    font-size: var(--welcomeSize);
+    font-weight: bold;
+    text-align: center;
+    color: var(--secondary-brown);
+    font-family: "GasoekOne";
+
+  }
+  .changeColor{
+    color: var(--primary-brown);
+  }
+
+  .welcomePage hr{
+    width: 29%;
+    margin: 0 auto;
+    border: 0.2rem solid black;
+    border-radius: var(--general-border-radius);
+    margin-bottom: 1rem;
+  }
+
+
+  .bottoneLogin{
+    height: 4rem;
+    width: 12rem;
+    margin-left: 37.5rem;
+    margin-top: 3rem;
   }
 
   @media screen and (max-height: 800px) {
