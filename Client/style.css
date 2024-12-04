@@ -655,15 +655,11 @@ div.campiCont input[type="username"] {
   margin-bottom: 2vh;
 }
 
-.loginPage hr {
+hr.authHr {
   width: 100%;
   border: 0.1rem solid var(--secondary-brown);
   border-radius: var(--general-border-radius);
   margin-bottom: 5vh;
-}
-
-#confermaLogin{
-  margin-top: 5vh;
 }
 
 div.registerPage {
@@ -685,7 +681,7 @@ h1.registerTitle {
   transition: all 0.3s;
 }
 
-#confermaRegistrazione{
+button.confirm{
   margin-top: 5vh;
 }
 
@@ -693,9 +689,6 @@ h1.registerTitle {
   margin-bottom: 2vh;
 }
 
-#hrReg{
-  margin-bottom: 2rem;
-}
 
 @media screen and (max-height: 800px) {
   div.popup {
