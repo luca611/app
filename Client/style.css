@@ -620,7 +620,7 @@ h1.loginTitle {
   font-size: 5rem;
   font-weight: bold;
   text-align: center;
-  color: var(--secondary-brown);
+  color: var(--primary-brown);
   font-family: "GasoekOne";
   transition: all 0.3s;
 }
@@ -659,6 +659,11 @@ div.campiCont input[type="username"] {
   width: 100%;
   border: 0.1rem solid var(--secondary-brown);
   border-radius: var(--general-border-radius);
+  margin-bottom: 6rem;
+}
+
+#confermaLogin{
+  margin-top: 5rem;
 }
 
 @media screen and (max-height: 800px) {
