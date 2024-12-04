@@ -652,21 +652,19 @@ p.campi {
 }
 
 div.campiCont input[type="username"] {
-  margin-bottom: 2rem;
+  margin-bottom: 2vh;
 }
 
 .loginPage hr {
   width: 100%;
   border: 0.1rem solid var(--secondary-brown);
   border-radius: var(--general-border-radius);
-  margin-bottom: 6rem;
+  margin-bottom: 5vh;
 }
 
 #confermaLogin{
-  margin-top: 5rem;
+  margin-top: 5vh;
 }
-
-
 
 div.registerPage {
   display: flex;
@@ -688,11 +686,11 @@ h1.registerTitle {
 }
 
 #confermaRegistrazione{
-  margin-top: 5rem;
+  margin-top: 5vh;
 }
 
 #password {
-  margin-bottom: 2rem;
+  margin-bottom: 2vh;
 }
 
 #hrReg{
@@ -740,5 +738,9 @@ h1.registerTitle {
 
   div.actionContainer {
     margin-top: 6vh;
+  }
+
+  h1.registerTitle{
+    font-size: 4rem;
   }
 }
