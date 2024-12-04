@@ -666,6 +666,39 @@ div.campiCont input[type="username"] {
   margin-top: 5rem;
 }
 
+
+
+div.registerPage {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+h1.registerTitle {
+  font-size: 5rem;
+  font-weight: bold;
+  text-align: center;
+  color: var(--primary-brown);
+  font-family: "GasoekOne";
+  transition: all 0.3s;
+}
+
+#confermaRegistrazione{
+  margin-top: 5rem;
+}
+
+#password {
+  margin-bottom: 2rem;
+}
+
+#hrReg{
+  margin-bottom: 2rem;
+}
+
 @media screen and (max-height: 800px) {
   div.popup {
     height: 70vh;
