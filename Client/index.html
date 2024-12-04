@@ -1,40 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>Pocket dIary</title>
-        <link rel="stylesheet" type="text/css" href="style.css" />
-        <script src="app.js" type="text/javascript"></script>
-        <link rel="manifest" href="manifest.json" />
-        <link rel="icon" type="image/png" href="favicon.png" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    </head>
-    <body class="body">  
-        
-       <!-- 
-        <div class="addButtonContainer" id="addButtonContainer">
-            <button class="addButton" onclick="openEventCreation()">
-                <img class="addIcon" src="resources/icons/add.svg">
-            </button>
-        </div>
-        -->
-        <div class="autenticazione" id="autenticazione">
-        <!--    <div class="welcomePage">
-                <img class="logo" src="resources/imgs/pocketDiaryLogo.svg" alt="">
-                <h1 class="titleWelcome" > 
-                    <b class="changeColor">Welcome to your</b> 
-                    <br>Pocket D<b class="changeColor">IA</b>ry
-                </h1>
-                <hr>
-                <div class="actionContainer">
-                    <button class="bottoneLogin"> Login </button>
-                    <button class="bottoneSignUp">Don’t have an account yet?</button>
-                </div>
-            </div>
 
-        -->
-            <div class="loginPage">
+<head>
+    <meta charset="utf-8" />
+    <title>Pocket dIary</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="app.js" type="text/javascript"></script>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+</head>
+
+<body class="body">
+
+    <div class="addButtonContainer hidden" id="addButtonContainer">
+        <button class="addButton" onclick="openEventCreation()">
+            <img class="addIcon" src="resources/icons/add.svg">
+        </button>
+    </div>
+
+    <!-- Auth pages (inlcuding hero page since it has same layout) -->
+    <div class="autenticazione" id="autenticazione">
+        <!-- Hero page -->
+        <div class="welcomePage hidden">
+            <img class="logo" src="resources/imgs/pocketDiaryLogo.svg" alt="">
+            <h1 class="titleWelcome">
+                <b class="changeColor">Welcome to your</b>
+                <br>Pocket D<b class="changeColor">IA</b>ry
+            </h1>
+            <hr>
+            <div class="actionContainer">
+                <button class="bottoneLogin"> Login </button>
+                <button class="bottoneSignUp">Don’t have an account yet?</button>
+            </div>
+        </div>
+
+        <!-- Sign up page -->
+        <div class="loginPage">
+            <div>
                 <h1 class="loginTitle">Login</h1>
                 <hr>
                 <div class="campiCont">
@@ -43,258 +47,190 @@
                     <p class="campi">Password</p>
                     <input type="password" class="inputField" id="password">
                 </div>
+            </div>
         </div>
-        
-        <div class="page" id="page">
-            <!--Contains the upper part of the screen witch is the same everywhere exept Auth pages and settings-->
-            <div class="topBar">
-                <!--Here's the upper part of tuhe top bar: sidebar button & page title-->
-                <div class="upperPart">
-                    <div class="sideBarButtonContainer">
-                        <button class="sideBarButton" onclick="openSideBar()">☰</button>
-                    </div>
-                    <div class="titleContainer">
-                        <h1 id="pageTitle">title <b class="decoratedTitle">here</b></h1>
-                    </div>
+    </div>
+
+    <div class="page hidden" id="page">
+        <!--Contains the upper part of the screen witch is the same everywhere exept Auth pages and settings-->
+        <div class="topBar">
+            <!--Here's the upper part of tuhe top bar: sidebar button & page title-->
+            <div class="upperPart">
+                <div class="sideBarButtonContainer">
+                    <button class="sideBarButton" onclick="openSideBar()">☰</button>
                 </div>
-                <!--Here's the lower part of the top part top bar: quick buttons-->
-                <div class="lowerPart">
-                    <div class="buttonScroll">
-                        <button class="quickButton">
-                            <img class="icon" src="resources/icons/calendar.webp">
-                            <b clas="buttonText">Calendar</b>
-                        </button>
-                        <button class="quickButton">
-                            <img class="icon" src="resources/icons/grade.webp">
-                            <b clas="buttonText">Grades</b>
-                        </button>
-                        <button class="quickButton">
-                            <img class="icon" src="resources/icons/clock.webp">
-                            <b class="buttonText">Schedule</b>
-                        </button>
-                    </div>
+                <div class="titleContainer">
+                    <h1 id="pageTitle">title <b class="decoratedTitle">here</b></h1>
                 </div>
             </div>
-            <!--contains the body of each screen-->
-            <div class="body">
-                <div id="homepage" class="section">
-                    <h2 class="subtitle">Upcoming</h2>
-                    <div id="eventContainer" class="eventContainer">
-                        <div id="eventPlaceholder" class="hidden"> <!--This is the placeholder for the event list to see it put "visible" class-->
-                            <img class="emptyImg" src="./resources/imgs/emptyLogo.svg">
-                            <p class="infoText">Seems like you have nothing left to do today,<br>enjoy a break!</p>
-                        </div>
-                        <div id="eventsList" class="eventsList">
-                            <div id="event1" class="upcomingEvent">
-                                <div class="eventButtonContainer">
-                                    <button class="eventButton" onclick="openEvent()">
-                                        <img class="eventIcon" src="resources/icons/edit.svg">
-                                    </button>
-                                </div>
-                                <div class="eventInfoContainer">
-                                    <h3 class="eventTitle">event name</h3>
-                                    <p class="eventInfo">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                                </div>
-                            </div>
-
-                            <div id="event1" class="upcomingEvent">
-                                <div class="eventButtonContainer">
-                                    <button class="eventButton" onclick="openEvent()">
-                                        <img class="eventIcon" src="resources/icons/edit.svg">
-                                    </button>
-                                </div>
-                                <div class="eventInfoContainer">
-                                    <h3 class="eventTitle">event name</h3>
-                                    <p class="eventInfo">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                                </div>
-                            </div>
-
-                            <div id="event1" class="upcomingEvent">
-                                <div class="eventButtonContainer">
-                                    <button class="eventButton" onclick="openEvent()">
-                                        <img class="eventIcon" src="resources/icons/edit.svg">
-                                    </button>
-                                </div>
-                                <div class="eventInfoContainer">
-                                    <h3 class="eventTitle">event name</h3>
-                                    <p class="eventInfo">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                                </div>
-                            </div>
-
-                            <div id="event1" class="upcomingEvent">
-                                <div class="eventButtonContainer">
-                                    <button class="eventButton" onclick="openEvent()">
-                                        <img class="eventIcon" src="resources/icons/edit.svg">
-                                    </button>
-                                </div>
-                                <div class="eventInfoContainer">
-                                    <h3 class="eventTitle">event name</h3>
-                                    <p class="eventInfo">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                                </div>
-                            </div>
-
-                            <div id="event1" class="upcomingEvent">
-                                <div class="eventButtonContainer">
-                                    <button class="eventButton" onclick="openEvent()">
-                                        <img class="eventIcon" src="resources/icons/edit.svg">
-                                    </button>
-                                </div>
-                                <div class="eventInfoContainer">
-                                    <h3 class="eventTitle">event name</h3>
-                                    <p class="eventInfo">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                                </div>
-                            </div>
-
-                            <div id="event1" class="upcomingEvent">
-                                <div class="eventButtonContainer">
-                                    <button class="eventButton" onclick="openEvent()">
-                                        <img class="eventIcon" src="resources/icons/edit.svg">
-                                    </button>
-                                </div>
-                                <div class="eventInfoContainer">
-                                    <h3 class="eventTitle">event name</h3>
-                                    <p class="eventInfo">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                                </div>
-                            </div>
-
-                            <div id="event1" class="upcomingEvent">
-                                <div class="eventButtonContainer">
-                                    <button class="eventButton" onclick="openEvent()">
-                                        <img class="eventIcon" src="resources/icons/edit.svg">
-                                    </button>
-                                </div>
-                                <div class="eventInfoContainer">
-                                    <h3 class="eventTitle">event name</h3>
-                                    <p class="eventInfo">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                                </div>
-                            </div>
-
-                            <div id="event1" class="upcomingEvent">
-                                <div class="eventButtonContainer">
-                                    <button class="eventButton" onclick="openEvent()">
-                                        <img class="eventIcon" src="resources/icons/edit.svg">
-                                    </button>
-                                </div>
-                                <div class="eventInfoContainer">
-                                    <h3 class="eventTitle">event name</h3>
-                                    <p class="eventInfo">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div id="calendar" class="section hidden">
-
-                </div>
-                <div id="schedule" class="section hidden">
-
-                </div>
-                <div id="grades" class="section hidden">
-                
-                </div>
-                <div id="aiChat" class="section hidden">
-
+            <!--Here's the lower part of the top part top bar: quick buttons-->
+            <div class="lowerPart">
+                <div class="buttonScroll">
+                    <button class="quickButton">
+                        <img class="icon" src="resources/icons/calendar.webp">
+                        <b clas="buttonText">Calendar</b>
+                    </button>
+                    <button class="quickButton">
+                        <img class="icon" src="resources/icons/grade.webp">
+                        <b clas="buttonText">Grades</b>
+                    </button>
+                    <button class="quickButton">
+                        <img class="icon" src="resources/icons/clock.webp">
+                        <b class="buttonText">Schedule</b>
+                    </button>
                 </div>
             </div>
         </div>
-        
-        <div class="sidebarContainer">
-            <div class="overlay" id="overlaySidebar" onclick="closeSidebar()"></div>
-            <div id="sidebar" class="sidebar">
+        <!--contains the body of each screen-->
+        <div class="body">
+            <div id="homepage" class="section">
+                <h2 class="subtitle">Upcoming</h2>
+                <div id="eventContainer" class="eventContainer">
+                    <div id="eventPlaceholder" class="hidden">
+                        <!--This is the placeholder for the event list to see it put "visible" class-->
+                        <img class="emptyImg" src="./resources/imgs/emptyLogo.svg">
+                        <p class="infoText">Seems like you have nothing left to do today,<br>enjoy a break!</p>
+                    </div>
+                    <div id="eventsList" class="eventsList">
+                        <div id="event1" class="upcomingEvent">
+                            <div class="eventButtonContainer">
+                                <button class="eventButton" onclick="openEvent()">
+                                    <img class="eventIcon" src="resources/icons/edit.svg">
+                                </button>
+                            </div>
+                            <div class="eventInfoContainer">
+                                <h3 class="eventTitle">event name</h3>
+                                <p class="eventInfo">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                    eiusmod tempor</p>
+                            </div>
+                        </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="calendar" class="section hidden">
+
+            </div>
+            <div id="schedule" class="section hidden">
+
+            </div>
+            <div id="grades" class="section hidden">
+
+            </div>
+            <div id="aiChat" class="section hidden">
 
             </div>
         </div>
+    </div>
 
-        <div class="popupContainer">
-            <div class="overlay" id="overlayPopUp" onclick="closePopup()"></div>
-            <div id="popup" class="popup">
-                <div class="popUpBody">
-                    <!--<div class="bodyContainer">
-                        <div class="fillContainer">
-                            event name
-                        </div>
-                        <div class="inputContainer">
-                            <input class="inputField" type="text" id="eventName" placeholder="Event name">
-                        </div>
-                        <div class="fillContainer">
-                            description
-                        </div>
-                        <div class="largeInputContainer">
-                            <textarea class="inputField" id="eventDescription" placeholder="Event description"></textarea>
-                        </div>
-                        <div class="fillContainer">
-                            Date
-                        </div>
-                        <div class="inputContainer">
-                            <input class="inputField" type="date" id="eventDate" placeholder="Event date">
-                        </div>
-                    </div>-->
-                    <!--<div class="bodyContainer">
-                        <div class="fillContainer">
-                            NEW NAME
-                        </div>
-                        <div class="inputContainer">
-                            <input class="inputField" type="text" id="newName" placeholder="Mario Rossi">
-                        </div>
-                    </div>-->
-                    <!--<div class="bodyContainer">
-                        <div class="fillContainer">
-                            CURRENT PASSWORD 
-                        </div>
-                        <div class="inputContainer">
-                            <input class="inputField" type="text" id="currentPassword">
-                        </div>
-                        <div class="fillContainer">
-                            NEW PASSWORD 
-                        </div>
-                        <div class="inputContainer">
-                            <input class="inputField" type="text" id="newPassword">
-                        </div>
-                        <div class="fillContainer">
-                            CONFIRM PASSWORD 
-                        </div>
-                        <div class="inputContainer">
-                            <input class="inputField" type="text" id="confirmPassword">
-                        </div>
+    <div class="sidebarContainer">
+        <div class="overlay" id="overlaySidebar" onclick="closeSidebar()"></div>
+        <div id="sidebar" class="sidebar">
 
-                    </div>-->
-                    <div class="bodyContainer">
-                        <div class="fillContainer">
-                            GRADE NAME
-                        </div>
-                        <div class="inputContainer">
-                            <input class="inputField" type="text" id="gradeName">
-                        </div>
-                        <div class="fillContainer">
-                            SUBJECT
-                        </div>
-                        <div class="inputContainer">
-                            <input class="inputField" type="text" id="subject">
-                        </div>
-                        <div class="fillContainer">
-                            GRADE
-                        </div>
-                        <div class="inputContainer">
-                            <input class="inputField" type="text" id="grade">
-                        </div>
-                        <div class="fillContainer">
-                            DATE
-                        </div>
-                        <div class="inputContainer">
-                            <input class="inputField" type="date" id="gradeDate">
-                        </div>
-                    </div>   
+        </div>
+    </div>
+
+    <div class="popupContainer">
+        <div class="overlay" id="overlayPopUp" onclick="closePopup()"></div>
+        <div id="popup" class="popup">
+            <div class="popUpBody">
+                <!-- event popUp -->
+                <div id="eventContainer" class="bodyContainer hidden">
+                    <div class="fillContainer">
+                        event name
+                    </div>
+                    <div class="inputContainer">
+                        <input class="inputField" type="text" id="eventName" placeholder="Event name">
+                    </div>
+                    <div class="fillContainer">
+                        description
+                    </div>
+                    <div class="largeInputContainer">
+                        <textarea class="inputField" id="eventDescription" placeholder="Event description"></textarea>
+                    </div>
+                    <div class="fillContainer">
+                        Date
+                    </div>
+                    <div class="inputContainer">
+                        <input class="inputField" type="date" id="eventDate" placeholder="Event date">
+                    </div>
                 </div>
-                <div class="buttonContainer">
-                    <button class="popupButton danger" onclick="closePopup()">Cancel</button>
-                    <button class="popupButton" onclick="createEvent()">Create</button>
+
+                <!-- settings popUp -->
+                <!-- name -->
+                <div id="nameContainer" class="bodyContainer hidden">
+                    <div class="fillContainer">
+                        NEW NAME
+                    </div>
+                    <div class="inputContainer">
+                        <input class="inputField" type="text" id="newName" placeholder="Mario Rossi">
+                    </div>
+                </div>
+
+                <!-- password -->
+                <div id="passwoswordContainer"class="bodyContainer hidden">
+                    <div class="fillContainer">
+                        CURRENT PASSWORD
+                    </div>
+                    <div class="inputContainer">
+                        <input class="inputField" type="text" id="currentPassword">
+                    </div>
+                    <div class="fillContainer">
+                        NEW PASSWORD
+                    </div>
+                    <div class="inputContainer">
+                        <input class="inputField" type="text" id="newPassword">
+                    </div>
+                    <div class="fillContainer">
+                        CONFIRM PASSWORD
+                    </div>
+                    <div class="inputContainer">
+                        <input class="inputField" type="text" id="confirmPassword">
+                    </div>
+
+                </div>
+
+                <!-- grade popUp -->
+
+                <div id="gradeContainer" class="bodyContainer">
+                    <div class="fillContainer">
+                        GRADE NAME
+                    </div>
+                    <div class="inputContainer">
+                        <input class="inputField" type="text" id="gradeName">
+                    </div>
+                    <div class="fillContainer">
+                        SUBJECT
+                    </div>
+                    <div class="inputContainer">
+                        <input class="inputField" type="text" id="subject">
+                    </div>
+                    <div class="fillContainer">
+                        GRADE
+                    </div>
+                    <div class="inputContainer">
+                        <input class="inputField" type="text" id="grade">
+                    </div>
+                    <div class="fillContainer">
+                        DATE
+                    </div>
+                    <div class="inputContainer">
+                        <input class="inputField" type="date" id="gradeDate">
+                    </div>
                 </div>
             </div>
-
-            
+            <div class="buttonContainer">
+                <button class="popupButton danger" onclick="closePopup()">Cancel</button>
+                <button class="popupButton" onclick="createEvent()">Create</button>
+            </div>
         </div>
 
 
-    </body>
+    </div>
+
+
+</body>
+
 </html>
