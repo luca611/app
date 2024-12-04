@@ -657,7 +657,7 @@ div.campiCont input[type="username"] {
 
 .loginPage hr {
   width: 100%;
-  h border: 0.1rem solid var(--secondary-brown);
+  border: 0.1rem solid var(--secondary-brown);
   border-radius: var(--general-border-radius);
 }
 
