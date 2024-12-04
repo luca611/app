@@ -104,31 +104,28 @@
                                     eiusmod tempor</p>
                             </div>
                         </div>
-
-                        </div>
-
                     </div>
                 </div>
             </div>
-            <div id="calendar" class="section hidden">
+        </div>
+        <div id="calendar" class="section hidden">
 
-            </div>
-            <div id="schedule" class="section hidden">
+        </div>
+        <div id="schedule" class="section hidden">
 
-            </div>
-            <div id="grades" class="section hidden">
+        </div>
+        <div id="grades" class="section hidden">
 
-            </div>
-            <div id="aiChat" class="section hidden">
+        </div>
+        <div id="aiChat" class="section hidden">
 
-            </div>
         </div>
     </div>
 
     <div class="sidebarContainer">
         <div class="overlay" id="overlaySidebar" onclick="closeSidebar()"></div>
         <div id="sidebar" class="sidebar">
-
+            <!--nav Buttons-->
         </div>
     </div>
 
@@ -159,6 +156,7 @@
                 </div>
 
                 <!-- settings popUp -->
+
                 <!-- name -->
                 <div id="nameContainer" class="bodyContainer hidden">
                     <div class="fillContainer">
@@ -170,7 +168,7 @@
                 </div>
 
                 <!-- password -->
-                <div id="passwoswordContainer"class="bodyContainer hidden">
+                <div id="passwoswordContainer" class="bodyContainer hidden">
                     <div class="fillContainer">
                         CURRENT PASSWORD
                     </div>
@@ -193,7 +191,6 @@
                 </div>
 
                 <!-- grade popUp -->
-
                 <div id="gradeContainer" class="bodyContainer">
                     <div class="fillContainer">
                         GRADE NAME
@@ -221,16 +218,15 @@
                     </div>
                 </div>
             </div>
+
+            <!-- lower part of the pop up same as always-->
             <div class="buttonContainer">
-                <button class="popupButton danger" onclick="closePopup()">Cancel</button>
-                <button class="popupButton" onclick="createEvent()">Create</button>
+                <button id="popupCalncelButton" class="popupButton danger" onclick="closePopup()">Cancel</button>
+                <button id="popupConfrimButton" class="popupButton">Create</button>
             </div>
+
         </div>
-
-
     </div>
-
-
 </body>
 
 </html>
