@@ -975,3 +975,25 @@ div.UsernamePage hr {
     font-size: 4rem;
   }
 }
+
+@media screen and (max-height:450px) {
+  img.logo {
+    display: none;
+  }
+
+  h1.titleWelcome {
+    font-size: 3rem !important;
+  }
+
+  h1.loginTitle {
+    display: none;
+  }
+
+  hr.authHr {
+    display: none;
+  }
+
+  h1.registerTitle {
+    color: transparent;
+  }
+}
