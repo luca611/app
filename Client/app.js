@@ -81,3 +81,7 @@ function clearForm(){
     form = document.getElementById('eventDate');
     form.value = '';
 }
+
+function disableLoading(){
+    document.getElementById('loadingScreen').classList.add('hidden');
+}
