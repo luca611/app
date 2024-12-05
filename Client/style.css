@@ -815,6 +815,31 @@ div.tuttiTemi {
 }
 
 
+div.UsernamePage {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+div.UsernamePage img {
+
+    width: 100%;
+    max-width: 20rem;
+    transition: all 0.3s;
+}
+
+div.UsernamePage hr{
+  margin-top: 0rem;
+}
+
+#campoUser{
+  max-width: 20rem;
+  font-size: 0.8rem;
+}
 
 
 @media screen and (max-height: 800px) {
