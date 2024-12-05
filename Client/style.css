@@ -708,6 +708,25 @@ div.loadingScreen{
   animation: spin 1s linear infinite;
 }
 
+h1.selezioneTema {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  color: var(--primary-brown);
+  transition: all 0.3s;
+  font-family: "Inter";
+}
+
+.style1{
+  color: var(--primary-blue);
+}
+.style2{
+  color: var(--primary-green);
+}
+.style3{
+  color: var(--primary-color);
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -725,6 +744,8 @@ div.temi {
   align-content: center;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  text-align: center;
 }
 
 div.tuttiTemi {
@@ -740,8 +761,9 @@ div.tuttiTemi {
   justify-content: center;
   align-items: center;
   gap: 10%;
-
 }
+
+
 
 
 /* Stile per la griglia principale */
@@ -749,7 +771,7 @@ div.tuttiTemi {
   display: grid;
   grid-template-areas:
     'Primary Primary'
-    'SideBar Pins'; 
+    'SideBar Pins';
   gap: 0.5rem;
   height: fit-content;
   width: 60%;
