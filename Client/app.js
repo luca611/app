@@ -29,9 +29,13 @@ xhr.send();
 
 //app code
 
+const serverURL = "https://pocketdiary-server.onrender.com";
+
 var sidebar, overlayBar;
 var overlayPopUp, popUp;
 var eventCreation, gradeCreation, hourCreation, nameChange, passwordChange;
+
+let currentTheme = 1;
 
 window.onload = function () {
   sidebar = document.getElementById("sidebar");
@@ -88,12 +92,16 @@ function disableLoading() {
 }
 
 function swapToLogin() {
+  cleanRegister();
+  cleanLogin();
   document.getElementById("welcome").classList.add("hidden");
   document.getElementById("login").classList.remove("hidden");
   document.getElementById("register").classList.add("hidden");
 }
 
 function swapToRegister() {
+  cleanLogin();
+  cleanRegister();
   document.getElementById("welcome").classList.add("hidden");
   document.getElementById("login").classList.add("hidden");
   document.getElementById("register").classList.remove("hidden");
@@ -104,20 +112,86 @@ function swapToHome() {
   document.getElementById("page").classList.remove("hidden");
 }
 
+function topage(page1, page2) {
+  document.getElementById(page1).classList.add("hidden");
+  document.getElementById(page2).classList.remove("hidden");
+}
+
+async function checkEmailAvailability(email) {
+  try {
+    const response = await fetch(serverURL + "/checkAvailability", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    await response.json();
+
+    if (response.ok) {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error("Error checking email availability:", error);
+    return false;
+  }
+}
+
+async function proceedToTheme() {
+  console.log("Proceeding to the next step...");
+  let email = document.getElementById("registerUsername").value;
+  let password = document.getElementById("registerPassword").value;
+  let confirmPassword = document.getElementById("confirmPassword").value;
+
+  if (email == "" || password == "" || confirmPassword == "") {
+    document.getElementById("registerError").innerText =
+      "Please fill in all fields";
+    return;
+  }
+
+  if (password != confirmPassword) {
+    document.getElementById("registerError").innerText =
+      "Passwords do not match";
+    return;
+  }
+
+  console.log("Checking email availability...");
+  // Check if email is available
+  let available = await checkEmailAvailability(email);
+
+  console.log("Email availability:", available);
+  if (available) {
+    topage("register", "theme");
+  } else {
+    document.getElementById("registerError").innerText = "Email already taken";
+  }
+}
+
+function cleanRegister() {
+  document.getElementById("registerUsername").value = "";
+  document.getElementById("registerPassword").value = "";
+  document.getElementById("confirmPassword").value = "";
+  document.getElementById("registerError").innerText = "";
+}
+
 async function register() {
   let email = document.getElementById("registerUsername").value;
   let password = document.getElementById("registerPassword").value;
   let confirmPassword = document.getElementById("confirmPassword").value;
 
-  if(email == "" || password == "" || confirmPassword == ""){
-    document.getElementById("registerError").innerText=("Please fill in all fields");
+  if (email == "" || password == "" || confirmPassword == "") {
+    document.getElementById("registerError").innerText =
+      "Please fill in all fields";
     return;
   }
 
-  const url = "https://pocketdiary-server.onrender.com/register";
+  const url = serverURL + "/register";
 
   if (password != confirmPassword) {
-    document.getElementById("registerError").innerText=("Passwords do not match");
+    document.getElementById("registerError").innerText =
+      "Passwords do not match";
     return;
   }
 
@@ -138,55 +212,114 @@ async function register() {
     });
 
     if (!response.ok) {
+      swapToRegister();
       const errorData = await response.json();
       console.error("Error:", errorData);
-      document.getElementById("registerError").innerText=("Registration failed: " + errorData.message);
+      document.getElementById("registerError").innerText =
+        "Registration failed: " + errorData.message;
     } else {
       const result = await response.json();
-      console.log("Success:", result);
+      cleanRegister();
       swapToHome();
     }
   } catch (error) {
     console.error("Network error:", error);
-    document.getElementById("registerError").innerText=("Network error. Please try again.");
+    swapToRegister();
+    document.getElementById("registerError").innerText =
+      "Network error. Please try again.";
   }
 }
 
+function cleanLogin() {
+  document.getElementById("loginUsername").value = "";
+  document.getElementById("loginPassword").value = "";
+  document.getElementById("loginError").innerText = "";
+}
+
 async function login() {
-  const url = 'https://pocketdiary-server.onrender.com/login';
+  const url = serverURL + "/login";
 
-  let email = document.getElementById('loginUsername').value;
-  let password = document.getElementById('loginPassword').value;
+  let email = document.getElementById("loginUsername").value;
+  let password = document.getElementById("loginPassword").value;
 
-  if(email == "" || password == ""){
-    document.getElementById("loginError").innerText=("Please fill in all fields");
+  if (email === "" || password === "") {
+    document.getElementById("loginError").innerText =
+      "Please fill in all fields";
     return;
   }
 
   const data = { email, password };
+  console.log("Sending data:", data); // Debug payload
 
   try {
     const response = await fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error('Error:', errorData);
-      document.getElementById("loginError").innerText=('Login failed: ' + errorData.message);
+      console.error("Error:", errorData);
+      document.getElementById("loginError").innerText =
+        "Login failed: " + (errorData.message || "Unknown error");
     } else {
       const result = await response.json();
-      console.log('Success:', result);
-      document.getElementById("loginError").innerText=('Login successful! Your key is: ' + result.key);
+      cleanLogin();
+      swapToHome();
     }
   } catch (error) {
-    console.error('Network error:', error);
-    document.getElementById("loginError").innerText=('Network error. Please try again.'+ error.message);
+    console.error("Network error:", error);
+    document.getElementById("loginError").innerText =
+      "Network error. Please try again.";
   }
 }
 
 
+function setTheme(theme) {
+  let colorArry = [];
+  let yellow = document.getElementById("yellow");
+  let blue = document.getElementById("blue");
+  let green = document.getElementById("green");
+  let purple = document.getElementById("purple");
+
+  colorArry.push(yellow, blue, green, purple);
+
+  colorArry.forEach((color) => {
+    color.classList.remove("border");
+  });
+
+  switch(theme) {
+    case 1:{
+      let primaryYellowValue = getComputedStyle(document.documentElement).getPropertyValue('--primary-yellow');
+      document.documentElement.style.setProperty("--currentBorderColor", primaryYellowValue);
+      yellow.classList.add("border");
+      currentTheme = 1;
+      break;
+    }
+    case 2:{
+      let primaryBlueValue = getComputedStyle(document.documentElement).getPropertyValue('--primary-blue');
+      document.documentElement.style.setProperty("--currentBorderColor", primaryBlueValue);
+      blue.classList.add("border");
+      currentTheme = 2;
+      break;
+    }
+    case 3:{
+      let primaryGreenValue = getComputedStyle(document.documentElement).getPropertyValue('--primary-green');
+      document.documentElement.style.setProperty("--currentBorderColor", primaryGreenValue);
+      green.classList.add("border");
+      currentTheme = 3;
+      break;
+    }
+    case 4:{
+      let primaryPurpleValue = getComputedStyle(document.documentElement).getPropertyValue('--primary-purple');
+      document.documentElement.style.setProperty("--currentBorderColor", primaryPurpleValue);
+      purple.classList.add("border");
+      currentTheme = 4;
+      break;
+    }
+
+  }
+}

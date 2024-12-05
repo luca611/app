@@ -74,48 +74,50 @@
                     <input type="password" class="inputField" id="confirmPassword">
                     <p id="registerError" class="error"></p>
                 </div>
-                <button class="bottoneLogin confirm" id="confermaRegistrazione" onclick="register()">Register</button>
-                <button class="bottoneSignUp" onclick="swapToLogin" >Have an account already?</button>
+                <button class="bottoneLogin confirm" id="confermaRegistrazione" onclick="proceedToTheme()">Continue</button>
+                <button class="bottoneSignUp" onclick="swapToLogin()" >Have an account already?</button>
             </div>
         </div>
         
-        <div class="temi hidden">
-            <h1 class="selezioneTema">Choose a <b class="style1">th</b><b class="style2">e</b><b class="style3">me</b></h1>
-            <div>
+        <div class="temi hidden" id="theme">
+            <div class="themeContainer">
                 <h1 class="selezioneTema">Choose a <b class="style1">th</b><b class="style2">e</b><b class="style3">me</b></h1>
                 <hr class="authHr">
-                <div class="tuttiTemi">
-                    <img src="resources/imgs/YellowBook.svg" alt="">
-                    <div class="raggruppamento">
-                        <div class="primoDivTema"> Primary</div>
-                        <div class="secondoDivTema"> Side Bar</div>
-                        <div class="terzoDivTema"> Pins</div>
+                <div class="themeScroll">
+                    <div id="yellow" class="tuttiTemi border" onclick="setTheme(1)">
+                        <img src="resources/imgs/YellowBook.svg" alt="">
+                        <div class="raggruppamento">
+                            <div class="primoDivTema"> Primary</div>
+                            <div class="secondoDivTema"> Side Bar</div>
+                            <div class="terzoDivTema"> Pins</div>
+                        </div>
+                    </div>
+                    <div id="blue" class="tuttiTemi" onclick="setTheme(2)">
+                        <img src="resources/imgs/BlueBook.svg" alt="">
+                        <div class="raggruppamento">
+                            <div class="primoDivTema bluePrimary"> Primary</div>
+                            <div class="secondoDivTema blueSecondary"> Side Bar</div>
+                            <div class="terzoDivTema bluePins"> Pins</div>
+                        </div>
+                    </div>
+                    <div id="green" class="tuttiTemi" onclick="setTheme(3)">
+                        <img src="resources/imgs/GreenBook.svg" alt="">
+                        <div class="raggruppamento">
+                            <div class="primoDivTema greenPrimary"> Primary</div>
+                            <div class="secondoDivTema greenSecondary"> Side Bar</div>
+                            <div class="terzoDivTema greenPins"> Pins</div>
+                        </div>
+                    </div>
+                    <div id="purple" class="tuttiTemi" onclick="setTheme(4)">
+                        <img src="resources/imgs/PurpleBook.svg" alt="">
+                        <div class="raggruppamento">
+                            <div class="primoDivTema purplePrimary"> Primary</div>
+                            <div class="secondoDivTema purpleSecondary"> Side Bar</div>
+                            <div class="terzoDivTema purplePins"> Pins</div>
+                        </div>
                     </div>
                 </div>
-                <div class="tuttiTemi">
-                    <img src="resources/imgs/BlueBook.svg" alt="">
-                    <div class="raggruppamento">
-                        <div class="primoDivTema"> Primary</div>
-                        <div class="secondoDivTema"> Side Bar</div>
-                        <div class="terzoDivTema"> Pins</div>
-                    </div>
-                </div>
-                <div class="tuttiTemi">
-                    <img src="resources/imgs/GreenBook.svg" alt="">
-                    <div class="raggruppamento">
-                        <div class="primoDivTema"> Primary</div>
-                        <div class="secondoDivTema"> Side Bar</div>
-                        <div class="terzoDivTema"> Pins</div>
-                    </div>
-                </div>
-                <div class="tuttiTemi">
-                    <img src="resources/imgs/PurpleBook.svg" alt="">
-                    <div class="raggruppamento">
-                        <div class="primoDivTema"> Primary</div>
-                        <div class="secondoDivTema"> Side Bar</div>
-                        <div class="terzoDivTema"> Pins</div>
-                    </div>
-                </div>
+                <button class="bottoneLogin confirm" id="confermaRegistrazione" onclick="proceedToTheme()">Continue</button>
             </div>
         </div>
 

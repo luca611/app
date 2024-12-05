@@ -3,6 +3,7 @@
   --secondary-color: #FFC700;
   --minor-color: #FFE7C2;
   --bg: #F2EDE5;
+  --currentBorderColor: #FF9900;
 
   /* Font */
   --title-size: 1.5rem;
@@ -80,7 +81,6 @@ html {
 }
 
 div.sideBarButtonContainer {
-  /*background-color: var(--secondary-purple);*/
   text-align: center;
 }
 
@@ -569,7 +569,7 @@ div.welcomePage {
   width: 29%;
   min-width: 10rem;
   margin: 0 auto;
-  border: 0.2rem solid black;
+  border: 0.1rem solid black;
   border-radius: var(--general-border-radius);
 }
 
@@ -581,7 +581,13 @@ button.bottoneLogin {
   background-color: var(--primary-brown);
   color: white;
   font-family: "GasoekOne";
+  letter-spacing: 0.1rem;
   font-size: var(--title-size);
+}
+
+button.bottoneLogin:hover {
+  filter: brightness(0.9);
+  transition: all 0.3s;
 }
 
 .bottoneSignUp {
@@ -593,6 +599,11 @@ button.bottoneLogin {
   font-weight: bold;
   text-decoration: underline;
   color: var(--secondary-brown);
+}
+
+.bottoneSignUp:hover {
+  filter: brightness(0.9);
+  transition: all 0.3s;
 }
 
 div.actionContainer {
@@ -689,7 +700,7 @@ p.error {
   margin: 0;
 }
 
-button.confirm{
+button.confirm {
   margin-top: 5vh;
 }
 
@@ -697,7 +708,7 @@ button.confirm{
   margin-bottom: 2vh;
 }
 
-div.loadingScreen{
+div.loadingScreen {
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -709,7 +720,7 @@ div.loadingScreen{
   background: var(--bg);
 }
 
-.loadingIcon{
+.loadingIcon {
   width: 10%;
   flex-grow: 0;
   flex-shrink: 0;
@@ -717,7 +728,7 @@ div.loadingScreen{
 }
 
 h1.selezioneTema {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
   text-align: center;
   color: var(--primary-brown);
@@ -725,13 +736,15 @@ h1.selezioneTema {
   font-family: "Inter";
 }
 
-.style1{
+.style1 {
   color: var(--primary-blue);
 }
-.style2{
+
+.style2 {
   color: var(--primary-green);
 }
-.style3{
+
+.style3 {
   color: var(--primary-color);
 }
 
@@ -739,6 +752,7 @@ h1.selezioneTema {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -760,7 +774,7 @@ div.tuttiTemi {
   height: fit-content;
   display: flex;
   flex-direction: row;
-  margin-bottom: 2rem;
+  margin-bottom: 2vh;
   width: 100%;
   background-color: #F6F6F6;
   border-radius: var(--general-border-radius);
@@ -769,12 +783,15 @@ div.tuttiTemi {
   justify-content: center;
   align-items: center;
   gap: 10%;
+  transition: all 0.3s;
+}
+
+div.themeContainer {
+  width: 90%;
+  max-width: 40rem;
 }
 
 
-
-
-/* Stile per la griglia principale */
 .raggruppamento {
   display: grid;
   grid-template-areas:
@@ -785,41 +802,102 @@ div.tuttiTemi {
   width: 60%;
 }
 
-/* Stile per il div "Primary" */
-.primoDivTema { 
+div.primoDivTema {
   grid-area: Primary;
-  background-color: #f5a623; 
-  text-align: center; 
-  padding: 0.2rem; 
-  border-radius: 8px; 
-  color: white; 
-  font-weight: bold; 
-  font-size: 1.2rem; 
+  background-color: var(--primary-yellow);
+  text-align: center;
+  padding: 0.2rem;
+  border-radius: var(--minor-border-radius);
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
   width: 100%;
 }
 
-/* Stile per il div "Side Bar" */
-.secondoDivTema { 
-  grid-area: SideBar; 
-  background-color: #f8e71c; 
-  text-align: center; 
-  padding: 0.2rem; 
-  border-radius: 8px; 
-  color: white; 
+div.secondoDivTema {
+  grid-area: SideBar;
+  background-color: var(--secondary-yellow);
+  text-align: center;
+  padding: 0.2rem;
+  border-radius: var(--minor-border-radius);
+  color: white;
   font-weight: bold;
-  font-size: 1.2rem; 
+  font-size: 1.2rem;
 
 }
 
-.terzoDivTema { 
-  grid-area: Pins; 
-  background-color: #ffe8d6; 
-  text-align: center; 
-  padding: 0.2rem; 
-  border-radius: var(--minor-border-radius); 
-  color: white; 
-  font-weight: bold; 
-  font-size: 1.2rem; 
+div.themeScroll {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 50vh;
+}
+
+div.themeScroll::-webkit-scrollbar {
+  width: 0.5rem;
+  box-shadow: var(--shadow);
+}
+
+div.themeScroll::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+  border-radius: 100rem;
+}
+
+div.themeScroll::-webkit-scrollbar-track {
+  background: rgba(211, 211, 211, 0.192);
+}
+
+div.terzoDivTema {
+  grid-area: Pins;
+  background-color: #ffe8d6;
+  text-align: center;
+  padding: 0.2rem;
+  border-radius: var(--minor-border-radius);
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+div.bluePrimary {
+  background-color: var(--primary-blue) !important;
+}
+
+div.greenPrimary {
+  background-color: var(--primary-green) !important;
+}
+
+div.purplePrimary {
+  background-color: var(--primary-purple) !important;
+}
+
+div.blueSecondary {
+  background-color: var(--secondary-blue) !important;
+}
+
+div.greenSecondary {
+  background-color: var(--secondary-green) !important;
+}
+
+div.purpleSecondary {
+  background-color: var(--secondary-purple) !important;
+}
+
+div.bluePins {
+  background-color: var(--minor-blue) !important;
+}
+
+div.greenPins {
+  background-color: var(--minor-green) !important;
+}
+
+div.purplePins {
+  background-color: var(--minor-purple) !important;
+}
+
+div.border {
+  border: 0.2rem solid var(--currentBorderColor) !important;
 }
 
 
@@ -835,16 +913,16 @@ div.UsernamePage {
 
 div.UsernamePage img {
 
-    width: 100%;
-    max-width: 20rem;
-    transition: all 0.3s;
+  width: 100%;
+  max-width: 20rem;
+  transition: all 0.3s;
 }
 
-div.UsernamePage hr{
+div.UsernamePage hr {
   margin-top: 0rem;
 }
 
-#campoUser{
+#campoUser {
   max-width: 20rem;
   font-size: 0.8rem;
 }
@@ -886,14 +964,14 @@ div.UsernamePage hr{
 
   .welcomePage hr {
     width: 80%;
-    border: 0.15rem solid black;
+    border: 0.1rem solid black;
   }
 
   div.actionContainer {
     margin-top: 6vh;
   }
 
-  h1.registerTitle{
+  h1.registerTitle {
     font-size: 4rem;
   }
 }
