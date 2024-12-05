@@ -681,6 +681,14 @@ h1.registerTitle {
   transition: all 0.3s;
 }
 
+p.error {
+  color: var(--primary-red);
+  font-size: var(--body-size);
+  font-family: "Inter";
+  font-weight: bold;
+  margin: 0;
+}
+
 button.confirm{
   margin-top: 5vh;
 }
