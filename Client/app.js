@@ -106,12 +106,14 @@ async function register() {
   const url = "https://pocketdiary-server.onrender.com/register";
 
   if (password != confirmPassword) {
-    alert("Passwords do not match");
+    document.getElementById("registerError").innerText=("Passwords do not match");
     return;
   }
 
+  //----waiting for games to be done---
   let ntema = 1;
   let name = "testAccount";
+  //-----------------------------------
 
   const data = { email, password, ntema, name };
 
@@ -127,14 +129,14 @@ async function register() {
     if (!response.ok) {
       const errorData = await response.json();
       console.error("Error:", errorData);
-      alert("Registration failed: " + errorData.message);
+      document.getElementById("registerError").innerText=("Registration failed: " + errorData.message);
     } else {
       const result = await response.json();
       console.log("Success:", result);
-      alert("Registration successful!");
+      document.getElementById("registerError").innerText=("Registration successful!");
     }
   } catch (error) {
     console.error("Network error:", error);
-    alert("Network error. Please try again.");
+    document.getElementById("registerError").innerText=("Network error. Please try again.");
   }
 }
