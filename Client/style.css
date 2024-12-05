@@ -662,10 +662,6 @@ p.campi {
   margin-bottom: 0.2rem;
 }
 
-div.campiCont input[type="username"] {
-  margin-bottom: 2vh;
-}
-
 hr.authHr {
   width: 100%;
   border: 0.1rem solid var(--secondary-brown);

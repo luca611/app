@@ -156,9 +156,6 @@ async function proceedToTheme() {
       "Passwords do not match";
     return;
   }
-
-  console.log("Checking email availability...");
-  // Check if email is available
   let available = await checkEmailAvailability(email);
 
   console.log("Email availability:", available);
@@ -175,6 +172,13 @@ function cleanRegister() {
   document.getElementById("confirmPassword").value = "";
   document.getElementById("registerError").innerText = "";
 }
+
+function cleanLogin() {
+  document.getElementById("loginUsername").value = "";
+  document.getElementById("loginPassword").value = "";
+  document.getElementById("loginError").innerText = "";
+}
+
 
 async function register() {
   let email = document.getElementById("registerUsername").value;
@@ -195,7 +199,7 @@ async function register() {
     return;
   }
 
-  //----waiting for games to be done---
+  //----waiting for pages to be done---
   let ntema = 1;
   let name = "testAccount";
   //-----------------------------------
@@ -230,11 +234,7 @@ async function register() {
   }
 }
 
-function cleanLogin() {
-  document.getElementById("loginUsername").value = "";
-  document.getElementById("loginPassword").value = "";
-  document.getElementById("loginError").innerText = "";
-}
+
 
 async function login() {
   const url = serverURL + "/login";
@@ -291,33 +291,31 @@ function setTheme(theme) {
     color.classList.remove("border");
   });
 
+  currentTheme = theme;
+
   switch(theme) {
     case 1:{
       let primaryYellowValue = getComputedStyle(document.documentElement).getPropertyValue('--primary-yellow');
       document.documentElement.style.setProperty("--currentBorderColor", primaryYellowValue);
       yellow.classList.add("border");
-      currentTheme = 1;
       break;
     }
     case 2:{
       let primaryBlueValue = getComputedStyle(document.documentElement).getPropertyValue('--primary-blue');
       document.documentElement.style.setProperty("--currentBorderColor", primaryBlueValue);
       blue.classList.add("border");
-      currentTheme = 2;
       break;
     }
     case 3:{
       let primaryGreenValue = getComputedStyle(document.documentElement).getPropertyValue('--primary-green');
       document.documentElement.style.setProperty("--currentBorderColor", primaryGreenValue);
       green.classList.add("border");
-      currentTheme = 3;
       break;
     }
     case 4:{
       let primaryPurpleValue = getComputedStyle(document.documentElement).getPropertyValue('--primary-purple');
       document.documentElement.style.setProperty("--currentBorderColor", primaryPurpleValue);
       purple.classList.add("border");
-      currentTheme = 4;
       break;
     }
 
