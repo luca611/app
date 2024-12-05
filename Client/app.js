@@ -69,7 +69,7 @@ function closePopup() {
 }
 
 //popUp body functions
-function toggleEventCreation() {}
+function toggleEventCreation() { }
 
 function openEventCreation() {
   closeSidebar();
@@ -108,6 +108,7 @@ function swapToRegister() {
 }
 
 function swapToHome() {
+  document.getElementById("addButtonContainer").classList.remove("hidden");
   document.getElementById("autenticazione").classList.add("hidden");
   document.getElementById("page").classList.remove("hidden");
 }
@@ -118,6 +119,10 @@ function topage(page1, page2) {
 }
 
 async function checkEmailAvailability(email) {
+  if (!navigator.onLine) {
+    return false;
+  }
+
   try {
     const response = await fetch(serverURL + "/checkAvailability", {
       method: "POST",
@@ -162,7 +167,11 @@ async function proceedToTheme() {
   if (available) {
     topage("register", "theme");
   } else {
-    document.getElementById("registerError").innerText = "Email already taken";
+    if (navigator.onLine) {
+      document.getElementById("registerError").innerText = "Email already taken";
+      return
+    }
+    document.getElementById("registerError").innerText = "No connection. Please try again.";
   }
 }
 
@@ -237,6 +246,12 @@ async function register() {
 
 
 async function login() {
+  if (!navigator.onLine) {
+    document.getElementById("loginError").innerText =
+      "No connection. Please try again.";
+    return;
+  }
+
   const url = serverURL + "/login";
 
   let email = document.getElementById("loginUsername").value;
@@ -293,26 +308,26 @@ function setTheme(theme) {
 
   currentTheme = theme;
 
-  switch(theme) {
-    case 1:{
+  switch (theme) {
+    case 1: {
       let primaryYellowValue = getComputedStyle(document.documentElement).getPropertyValue('--primary-yellow');
       document.documentElement.style.setProperty("--currentBorderColor", primaryYellowValue);
       yellow.classList.add("border");
       break;
     }
-    case 2:{
+    case 2: {
       let primaryBlueValue = getComputedStyle(document.documentElement).getPropertyValue('--primary-blue');
       document.documentElement.style.setProperty("--currentBorderColor", primaryBlueValue);
       blue.classList.add("border");
       break;
     }
-    case 3:{
+    case 3: {
       let primaryGreenValue = getComputedStyle(document.documentElement).getPropertyValue('--primary-green');
       document.documentElement.style.setProperty("--currentBorderColor", primaryGreenValue);
       green.classList.add("border");
       break;
     }
-    case 4:{
+    case 4: {
       let primaryPurpleValue = getComputedStyle(document.documentElement).getPropertyValue('--primary-purple');
       document.documentElement.style.setProperty("--currentBorderColor", primaryPurpleValue);
       purple.classList.add("border");
