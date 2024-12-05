@@ -99,10 +99,21 @@ function swapToRegister() {
   document.getElementById("register").classList.remove("hidden");
 }
 
+function swapToHome() {
+  document.getElementById("autenticazione").classList.add("hidden");
+  document.getElementById("page").classList.remove("hidden");
+}
+
 async function register() {
   let email = document.getElementById("registerUsername").value;
   let password = document.getElementById("registerPassword").value;
   let confirmPassword = document.getElementById("confirmPassword").value;
+
+  if(email == "" || password == "" || confirmPassword == ""){
+    document.getElementById("registerError").innerText=("Please fill in all fields");
+    return;
+  }
+
   const url = "https://pocketdiary-server.onrender.com/register";
 
   if (password != confirmPassword) {
@@ -133,10 +144,49 @@ async function register() {
     } else {
       const result = await response.json();
       console.log("Success:", result);
-      document.getElementById("registerError").innerText=("Registration successful!");
+      swapToHome();
     }
   } catch (error) {
     console.error("Network error:", error);
     document.getElementById("registerError").innerText=("Network error. Please try again.");
   }
 }
+
+async function login() {
+  const url = 'https://pocketdiary-server.onrender.com/login';
+
+  let email = document.getElementById('loginUsername').value;
+  let password = document.getElementById('loginPassword').value;
+
+  if(email == "" || password == ""){
+    document.getElementById("loginError").innerText=("Please fill in all fields");
+    return;
+  }
+
+  const data = { email, password };
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Error:', errorData);
+      document.getElementById("loginError").innerText=('Login failed: ' + errorData.message);
+    } else {
+      const result = await response.json();
+      console.log('Success:', result);
+      document.getElementById("loginError").innerText=('Login successful! Your key is: ' + result.key);
+    }
+  } catch (error) {
+    console.error('Network error:', error);
+    document.getElementById("loginError").innerText=('Network error. Please try again.'+ error.message);
+  }
+}
+
+

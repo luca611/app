@@ -50,9 +50,10 @@
                 <hr class="authHr">
                 <div class="campiCont">
                     <p class="campi">Username</p>
-                    <input type="username" class="inputField" id="username">
+                    <input type="username" class="inputField" id="loginUsername">
                     <p class="campi">Password</p>
-                    <input type="password" class="inputField" id="password">
+                    <input type="password" class="inputField" id="loginPassword">
+                    <p id="loginError" class="error"></p>
                 </div>
                 <button class="bottoneLogin confirm" id="confermaLogin"  onclick="login()" >Login</button>
                 <button class="bottoneSignUp" onclick="swapToRegister()">Don’t have an account yet?</button>
@@ -71,13 +72,15 @@
                     <input type="password" class="inputField" id="registerPassword">
                     <p class="campi"> Conferma Password</p>
                     <input type="password" class="inputField" id="confirmPassword">
+                    <p id="registerError" class="error"></p>
                 </div>
                 <button class="bottoneLogin confirm" id="confermaRegistrazione" onclick="register()">Register</button>
                 <button class="bottoneSignUp" onclick="swapToLogin" >Have an account already?</button>
             </div>
         </div>
-        <h1 class="selezioneTema">Choose a <b class="style1">th</b><b class="style2">e</b><b class="style3">me</b></h1>
-        <div class="temi">
+        
+        <div class="temi hidden">
+            <h1 class="selezioneTema">Choose a <b class="style1">th</b><b class="style2">e</b><b class="style3">me</b></h1>
             <div>
                 
                 <hr class="authHr">
