@@ -30,7 +30,7 @@
     <!-- Auth pages (inlcuding hero page since it has same layout) -->
     <div class="autenticazione" id="autenticazione">
         <!-- Hero page -->
-        <div class="welcomePage hidden">
+        <div class="welcomePage" id="welcome">
             <img class="logo" src="resources/imgs/pocketDiaryLogo.svg" alt="">
             <h1 class="titleWelcome">
                 <b class="changeColor">Welcome to your</b>
@@ -38,13 +38,13 @@
             </h1>
             <hr>
             <div class="actionContainer">
-                <button class="bottoneLogin"> Login </button>
-                <button class="bottoneSignUp">Don’t have an account yet?</button>
+                <button class="bottoneLogin" onclick="swapToLogin()"> Login </button>
+                <button class="bottoneSignUp" onclick="swapToRegister()">Don’t have an account yet?</button>
             </div>
         </div>
 
         <!-- Sign up page -->
-        <div class="loginPage hidden">
+        <div id="login" class="loginPage hidden">
             <div>
                 <h1 class="loginTitle">Login</h1>
                 <hr class="authHr">
@@ -54,30 +54,30 @@
                     <p class="campi">Password</p>
                     <input type="password" class="inputField" id="password">
                 </div>
-                <button class="bottoneLogin confirm" id="confermaLogin">Login</button>
-                <button class="bottoneSignUp">Don’t have an account yet?</button>
+                <button class="bottoneLogin confirm" id="confermaLogin"  onclick="login()" >Login</button>
+                <button class="bottoneSignUp" onclick="swapToRegister()">Don’t have an account yet?</button>
             </div>
         </div>
 
         <!-- Register page -->
-        <div class="registerPage hidden">
+        <div id="register" class="registerPage hidden">
             <div>
                 <h1 class="registerTitle">Register</h1>
                 <hr class="authHr"> 
                 <div class="campiCont">
                     <p class="campi">Username</p>
-                    <input type="username" class="inputField" id="username">
+                    <input type="username" class="inputField" id="registerUsername">
                     <p class="campi">Password</p>
-                    <input type="password" class="inputField" id="password">
+                    <input type="password" class="inputField" id="registerPassword">
                     <p class="campi"> Conferma Password</p>
-                    <input type="password" class="inputField" id="Confermapassword">
+                    <input type="password" class="inputField" id="confirmPassword">
                 </div>
-                <button class="bottoneLogin confirm" id="confermaRegistrazione">Register</button>
-                <button class="bottoneSignUp">Have an account yet?</button>
+                <button class="bottoneLogin confirm" id="confermaRegistrazione" onclick="register()">Register</button>
+                <button class="bottoneSignUp" onclick="swapToLogin" >Have an account already?</button>
             </div>
         </div>
 
-        <div class="temi">
+        <div class="temi hidden">
             <div>
                 <h1 class="selezioneTema">Choose a theme</h1>
                 <hr>
