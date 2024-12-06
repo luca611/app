@@ -117,20 +117,21 @@
                         </div>
                     </div>
                 </div>
-                <button class="bottoneLogin confirm" id="ContinueToName" onclick="proceedToTheme()">Continue</button>
+                <button class="bottoneLogin confirm" id="ContinueToName" onclick="toPage('theme','name')">Continue</button>
             </div>
         </div>
 
-        <div class="UsernamePage hidden">
+        <div class="UsernamePage hidden" id="name">
             <div>
                 <img src="resources/imgs/pocketDiaryLogo.svg" alt="">
                 <hr class="authHr" id="linea"> 
                 <div class="campiCont">
                     <p class="campi">Select an username</p>
-                    <input type="username" class="inputField" id="username" placeholder="my Cool Name">
+                    <input type="username" class="inputField" id="registerName" placeholder="my Cool Name">
                     <p class="campi" id="campoUser">Make sure you like it! This must tell the world who you are!</p>
+                    <p id="nameError" class="error"></p>
                 </div>
-                <button class="bottoneLogin confirm" id="actualRegisterButton">Confirm</button>
+                <button class="bottoneLogin confirm" id="actualRegisterButton" onclick="register()">Confirm</button>
             </div>
         </div>
 
