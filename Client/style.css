@@ -155,14 +155,19 @@ div.buttonScroll::-webkit-scrollbar-track {
 div.titleContainer {
   font-family: 'Inter';
   display: flex;
+  flex-direction: row;
   align-items: center;
   padding-left: 0.4rem;
   padding-right: 0.4rem;
   padding-top: 0.3rem;
   width: 100%;
+  max-width: calc(100vw - 8rem);
   font-size: var(--title-size);
   font-weight: var(--title-weight);
   text-transform: capitalize;
+  overflow: hidden;
+  overflow-x: auto;
+  text-overflow: ellipsis;
 }
 
 b.decoratedTitle {
@@ -532,7 +537,6 @@ button.danger {
 div.autenticazione {
   height: 100vh;
   width: 100%;
-  z-index: 9999;
 }
 
 img.logo {
@@ -936,7 +940,7 @@ div.UsernamePage hr {
   margin: 0 auto;
 }
 
-div.containerSettings{
+div.containerSettings {
   height: fit-content;
   display: flex;
   flex-direction: row;
@@ -951,7 +955,7 @@ div.containerSettings{
   width: 100%;
 }
 
-div.containerSettings p{
+div.containerSettings p {
   font-family: "Inter";
   align-items: center;
   display: flex;
@@ -959,8 +963,8 @@ div.containerSettings p{
   align-content: center;
   margin-bottom: 0rem;
 }
-div.containerSettings img{
-  z-index: 9999;
+
+div.containerSettings img {
   background-color: var(--primary-color);
   border-radius: var(--button-border-radius);
   padding: 0.3rem;
@@ -968,15 +972,15 @@ div.containerSettings img{
   width: auto;
 }
 
-#cPass{
+#cPass {
   background-color: var(--primary-red);
 }
 
-#info{
+#info {
   background-color: var(--primary-blue);
 }
 
-#logOut{
+#logOut {
   background-color: var(--primary-red);
 }
 

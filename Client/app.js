@@ -35,37 +35,60 @@ var sidebar, overlayBar;
 var overlayPopUp, popUp;
 var eventCreation, gradeCreation, hourCreation, nameChange, passwordChange;
 
-let currentTheme = 1;
+var currentTheme = 1;
 let email, password, username, key;
 
 window.onload = function () {
-  sidebar = document.getElementById("sidebar");
-  overlayBar = document.getElementById("overlaySidebar");
-
-  overlayPopUp = document.getElementById("overlayPopUp");
-  popUp = document.getElementById("popup");
+  applyTheme();
 };
+
+function ebi(id) {
+  return document.getElementById(id);
+}
+
+function applyTheme() {
+  const themeColors = {
+    1: "yellow",
+    2: "blue",
+    3: "green",
+    4: "purple"
+  };
+
+  if (themeColors[currentTheme]) {
+    let colorVar = `--primary-${themeColors[currentTheme]}`;
+    let colorValue = getComputedStyle(document.documentElement).getPropertyValue(colorVar);
+    document.documentElement.style.setProperty("--primary-color", colorValue);
+
+    colorVar = `--secondary-${themeColors[currentTheme]}`;
+    colorValue = getComputedStyle(document.documentElement).getPropertyValue(colorVar);
+    document.documentElement.style.setProperty("--secondary-color", colorValue);
+
+    colorVar = `--minor-${themeColors[currentTheme]}`;
+    colorValue = getComputedStyle(document.documentElement).getPropertyValue(colorVar);
+    document.documentElement.style.setProperty("--minor-color", colorValue);
+  }
+}
 
 //sidebar functions
 function openSideBar() {
-  sidebar.classList.add("open");
-  overlayBar.classList.add("visible");
+  ebi("sidebar").classList.add("open");
+  ebi("overlaySidebar").classList.add("visible");
 }
 
 function closeSidebar() {
-  sidebar.classList.remove("open");
-  overlayBar.classList.remove("visible");
+  ebi("sidebar").classList.remove("open");
+  ebi("overlaySidebar").classList.remove("visible");
 }
 
 //popup functions
 function openPopup() {
-  popUp.classList.add("open");
-  overlayPopUp.classList.add("visible");
+  ebi("popup").classList.add("open");
+  ebi("overlayPopUp").classList.add("visible");
 }
 
 function closePopup() {
-  popUp.classList.remove("open");
-  overlayPopUp.classList.remove("visible");
+  ebi("popup").classList.remove("open");
+  ebi("overlayPopUp").classList.remove("visible");
   //clearForm();
 }
 
@@ -80,47 +103,48 @@ function openEventCreation() {
 }
 
 function clearForm() {
-  var form = document.getElementById("eventName");
-  form.value = "";
-  form = document.getElementById("eventDescription");
-  form.value = "";
-  form = document.getElementById("eventDate");
-  form.value = "";
+  ebi("eventName").value = "";
+  ebi("eventDescription").value = "";
+  ebi("eventDate").value = "";
 }
 
 function disableLoading() {
-  document.getElementById("loadingScreen").classList.add("hidden");
+  ebi("loadingScreen").classList.add("hidden");
 }
 
 function enableLoading() {
-  document.getElementById("loadingScreen").classList.remove("hidden");
+  ebi("loadingScreen").classList.remove("hidden");
 }
 
 function swapToLogin() {
   cleanRegister();
   cleanLogin();
-  document.getElementById("welcome").classList.add("hidden");
-  document.getElementById("login").classList.remove("hidden");
-  document.getElementById("register").classList.add("hidden");
+  ebi("welcome").classList.add("hidden");
+  ebi("login").classList.remove("hidden");
+  ebi("register").classList.add("hidden");
 }
 
 function swapToRegister() {
   cleanLogin();
   cleanRegister();
-  document.getElementById("welcome").classList.add("hidden");
-  document.getElementById("login").classList.add("hidden");
-  document.getElementById("register").classList.remove("hidden");
+  ebi("welcome").classList.add("hidden");
+  ebi("login").classList.add("hidden");
+  ebi("register").classList.remove("hidden");
 }
 
 function swapToHome() {
-  document.getElementById("addButtonContainer").classList.remove("hidden");
-  document.getElementById("autenticazione").classList.add("hidden");
-  document.getElementById("page").classList.remove("hidden");
+  applyTheme();
+  ebi("addButtonContainer").classList.remove("hidden");
+  ebi("autenticazione").classList.add("hidden");
+  ebi("page").classList.remove("hidden");
+
+  ebi("pageTitle").innerText = "hi, ";
+  ebi("decoratedTitle").innerText = username;
 }
 
 function toPage(page1, page2) {
-  document.getElementById(page1).classList.add("hidden");
-  document.getElementById(page2).classList.remove("hidden");
+  ebi(page1).classList.add("hidden");
+  ebi(page2).classList.remove("hidden");
 }
 
 async function checkEmailAvailability(email) {
@@ -143,16 +167,15 @@ async function checkEmailAvailability(email) {
     }
     return false;
   } catch (error) {
-    console.error("Error checking email availability:", error);
     return false;
   }
 }
 
 async function proceedToTheme() {
   enableLoading();
-  email = document.getElementById("registerUsername").value;
-  password = document.getElementById("registerPassword").value;
-  const confirmPassword = document.getElementById("confirmPassword").value;
+  email = ebi("registerUsername").value;
+  password = ebi("registerPassword").value;
+  const confirmPassword = ebi("confirmPassword").value;
 
   if (!email || !password || !confirmPassword) {
     displayError("registerError", "Please fill in all fields");
@@ -179,27 +202,26 @@ async function proceedToTheme() {
   }
 }
 
-
 function cleanRegister() {
-  document.getElementById("registerUsername").value = "";
-  document.getElementById("registerPassword").value = "";
-  document.getElementById("confirmPassword").value = "";
-  document.getElementById("registerError").innerText = "";
+  ebi("registerUsername").value = "";
+  ebi("registerPassword").value = "";
+  ebi("confirmPassword").value = "";
+  ebi("registerError").innerText = "";
 }
 
 function cleanLogin() {
-  document.getElementById("loginUsername").value = "";
-  document.getElementById("loginPassword").value = "";
-  document.getElementById("loginError").innerText = "";
+  ebi("loginUsername").value = "";
+  ebi("loginPassword").value = "";
+  ebi("loginError").innerText = "";
 }
 
 async function register() {
   displayError("registerError", "");
   enableLoading();
-  username = document.getElementById("registerName").value;
+  username = ebi("registerName").value;
   ntema = currentTheme;
 
-  console.log("register data: "+JSON.stringify({ email, password, ntema, username }));
+  console.log("register data: " + JSON.stringify({ email, password, ntema, username }));
 
   const url = serverURL + "/register";
 
@@ -210,11 +232,11 @@ async function register() {
     return;
   }
 
-  if(!username){
+  if (!username) {
     displayError("nameError", "Please fill in all fields");
     disableLoading();
     return;
-  }  
+  }
 
   const data = { email, password, ntema, name: username };
 
@@ -224,7 +246,7 @@ async function register() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-    
+
     disableLoading();
     if (!response.ok) {
       const errorData = await response.json();
@@ -236,7 +258,7 @@ async function register() {
   } catch (error) {
     disableLoading();
     console.error("Network error:", error);
-    displayError("nameError", "Network error. Please try again.");ù
+    displayError("nameError", "Network error. Please try again.");
   }
 }
 
@@ -250,8 +272,8 @@ async function login() {
   }
 
   const url = serverURL + "/login";
-  email = document.getElementById("loginUsername").value;
-  password = document.getElementById("loginPassword").value;
+  email = ebi("loginUsername").value;
+  password = ebi("loginPassword").value;
 
   if (!email || !password) {
     disableLoading();
@@ -274,26 +296,26 @@ async function login() {
       const { key, name, theme } = await response.json();
 
       currentTheme = theme;
+      username = name;
       cleanLogin();
       swapToHome();
 
-      console.log("Key:", key); 
-      console.log("Name:", name); 
+      console.log("Key:", key);
+      console.log("Name:", name);
       console.log("Theme:", currentTheme);
     }
   } catch (error) {
-    
+
     disableLoading();
     displayError("loginError", "Network error. Please try again.");
   }
 }
 
-
 function displayError(elementId, message) {
-  document.getElementById(elementId).innerText = message;
+  ebi(elementId).innerText = message;
 }
 
-function setTheme(theme) {
+function setTheme(theme = 1) {
   const themeColors = {
     1: "yellow",
     2: "blue",
@@ -302,13 +324,13 @@ function setTheme(theme) {
   };
 
   Object.values(themeColors).forEach(color => {
-    document.getElementById(color).classList.remove("border");
+    ebi(color).classList.remove("border");
   });
 
   currentTheme = theme;
 
   if (themeColors[theme]) {
-    const element = document.getElementById(themeColors[theme]);
+    const element = ebi(themeColors[theme]);
     const colorVar = `--primary-${themeColors[theme]}`;
     const colorValue = getComputedStyle(document.documentElement).getPropertyValue(colorVar);
     document.documentElement.style.setProperty("--currentBorderColor", colorValue);
