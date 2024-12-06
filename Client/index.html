@@ -23,7 +23,7 @@
     <!-- Add button-->
     <div class="addButtonContainer hidden" id="addButtonContainer">
         <button class="addButton" onclick="openEventCreation()">
-            <img class="addIcon" src="resources/icons/add.svg">
+            <img class="addIcon" src="resources/icons/add.svg" alt="add">
         </button>
     </div>
 
@@ -66,9 +66,9 @@
                 <hr class="authHr">
                 <div class="campiCont">
                     <p class="campi">email</p>
-                    <input type="username" class="inputField" id="loginUsername">
+                    <input type="username" class="inputField" id="loginUsername" placeholder="myEmail@example.com">
                     <p class="campi">Password</p>
-                    <input type="password" class="inputField" id="loginPassword">
+                    <input type="password" class="inputField" id="loginPassword" placeholder="password">
                     <p id="loginError" class="error"></p>
                 </div>
                 <button class="bottoneLogin confirm" id="confermaLogin"  onclick="login()" >Login</button>
@@ -83,11 +83,11 @@
                 <hr class="authHr"> 
                 <div class="campiCont">
                     <p class="campi">email</p>
-                    <input type="username" class="inputField" id="registerUsername">
+                    <input type="username" class="inputField" id="registerUsername" placeholder="myEmail@example.test">
                     <p class="campi">Password</p>
-                    <input type="password" class="inputField" id="registerPassword">
+                    <input type="password" class="inputField" id="registerPassword" placeholder="password">
                     <p class="campi"> Conferma Password</p>
-                    <input type="password" class="inputField" id="confirmPassword">
+                    <input type="password" class="inputField" id="confirmPassword" placeholder="password">
                     <p id="registerError" class="error"></p>
                 </div>
                 <button class="bottoneLogin confirm" id="confermaRegistrazione" onclick="proceedToTheme()">Continue</button>
@@ -133,7 +133,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="bottoneLogin confirm" id="confermaRegistrazione" onclick="proceedToTheme()">Continue</button>
+                <button class="bottoneLogin confirm" id="ContinueToName" onclick="proceedToTheme()">Continue</button>
             </div>
         </div>
 
@@ -143,10 +143,10 @@
                 <hr class="authHr" id="linea"> 
                 <div class="campiCont">
                     <p class="campi">Select an username</p>
-                    <input type="username" class="inputField" id="username">
+                    <input type="username" class="inputField" id="username" placeholder="my Cool Name">
                     <p class="campi" id="campoUser">Make sure you like it! This must tell the world who you are!</p>
                 </div>
-                <button class="bottoneLogin confirm" id="confermaRegistrazione">Confirm</button>
+                <button class="bottoneLogin confirm" id="actualRegisterButton">Confirm</button>
             </div>
         </div>
 
@@ -168,15 +168,15 @@
             <div class="lowerPart">
                 <div class="buttonScroll">
                     <button class="quickButton">
-                        <img class="icon" src="resources/icons/calendar.webp">
+                        <img class="icon" src="resources/icons/calendar.webp" alt="">
                         <b clas="buttonText">Calendar</b>
                     </button>
                     <button class="quickButton">
-                        <img class="icon" src="resources/icons/grade.webp">
+                        <img class="icon" src="resources/icons/grade.webp" alt="">
                         <b clas="buttonText">Grades</b>
                     </button>
                     <button class="quickButton">
-                        <img class="icon" src="resources/icons/clock.webp">
+                        <img class="icon" src="resources/icons/clock.webp" alt="">
                         <b class="buttonText">Schedule</b>
                     </button>
                 </div>
@@ -189,14 +189,14 @@
                 <div id="eventContainer" class="eventContainer">
                     <div id="eventPlaceholder" class="hidden">
                         <!--This is the placeholder for the event list to see it put "visible" class-->
-                        <img class="emptyImg" src="./resources/imgs/emptyLogo.svg">
+                        <img class="emptyImg" src="./resources/imgs/emptyLogo.svg" alt="">
                         <p class="infoText">Seems like you have nothing left to do today,<br>enjoy a break!</p>
                     </div>
                     <div id="eventsList" class="eventsList">
                         <div id="event1" class="upcomingEvent">
                             <div class="eventButtonContainer">
                                 <button class="eventButton" onclick="openEvent()">
-                                    <img class="eventIcon" src="resources/icons/edit.svg">
+                                    <img class="eventIcon" src="resources/icons/edit.svg" alt="edit">
                                 </button>
                             </div>
                             <div class="eventInfoContainer">
@@ -273,19 +273,19 @@
                         CURRENT PASSWORD
                     </div>
                     <div class="inputContainer">
-                        <input class="inputField" type="text" id="currentPassword">
+                        <input class="inputField" type="text" id="currentPassword" placeholder="old Password">
                     </div>
                     <div class="fillContainer">
                         NEW PASSWORD
                     </div>
                     <div class="inputContainer">
-                        <input class="inputField" type="text" id="newPassword">
+                        <input class="inputField" type="text" id="newPassword" placeholder="new Password">
                     </div>
                     <div class="fillContainer">
                         CONFIRM PASSWORD
                     </div>
                     <div class="inputContainer">
-                        <input class="inputField" type="text" id="confirmPassword">
+                        <input class="inputField" type="text" id="newConfirmPassword" placeholder="new Password">
                     </div>
 
                 </div>
@@ -296,25 +296,25 @@
                         GRADE NAME
                     </div>
                     <div class="inputContainer">
-                        <input class="inputField" type="text" id="gradeName">
+                        <input class="inputField" type="text" id="gradeName" placeholder="Industrial revolution">
                     </div>
                     <div class="fillContainer">
                         SUBJECT
                     </div>
                     <div class="inputContainer">
-                        <input class="inputField" type="text" id="subject">
+                        <input class="inputField" type="text" id="subject" placeholder="history">
                     </div>
                     <div class="fillContainer">
                         GRADE
                     </div>
                     <div class="inputContainer">
-                        <input class="inputField" type="text" id="grade">
+                        <input class="inputField" type="text" id="grade" placeholder="6">
                     </div>
                     <div class="fillContainer">
                         DATE
                     </div>
                     <div class="inputContainer">
-                        <input class="inputField" type="date" id="gradeDate">
+                        <input class="inputField" type="date" id="gradeDate" placeholder="2024/01/12">
                     </div>
                 </div>
             </div>
