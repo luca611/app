@@ -36,6 +36,7 @@ var overlayPopUp, popUp;
 var eventCreation, gradeCreation, hourCreation, nameChange, passwordChange;
 
 let currentTheme = 1;
+let email, password, username, key;
 
 window.onload = function () {
   sidebar = document.getElementById("sidebar");
@@ -113,7 +114,7 @@ function swapToHome() {
   document.getElementById("page").classList.remove("hidden");
 }
 
-function topage(page1, page2) {
+function toPage(page1, page2) {
   document.getElementById(page1).classList.add("hidden");
   document.getElementById(page2).classList.remove("hidden");
 }
@@ -132,9 +133,8 @@ async function checkEmailAvailability(email) {
       body: JSON.stringify({ email }),
     });
 
-    await response.json();
-
     if (response.ok) {
+      await response.json();
       return true;
     }
     return false;
@@ -145,35 +145,32 @@ async function checkEmailAvailability(email) {
 }
 
 async function proceedToTheme() {
-  console.log("Proceeding to the next step...");
-  let email = document.getElementById("registerUsername").value;
-  let password = document.getElementById("registerPassword").value;
-  let confirmPassword = document.getElementById("confirmPassword").value;
+  email = document.getElementById("registerUsername").value;
+  password = document.getElementById("registerPassword").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
 
-  if (email == "" || password == "" || confirmPassword == "") {
-    document.getElementById("registerError").innerText =
-      "Please fill in all fields";
+  if (!email || !password || !confirmPassword) {
+    displayError("registerError", "Please fill in all fields");
     return;
   }
 
-  if (password != confirmPassword) {
-    document.getElementById("registerError").innerText =
-      "Passwords do not match";
+  if (password !== confirmPassword) {
+    displayError("registerError", "Passwords do not match");
     return;
   }
-  let available = await checkEmailAvailability(email);
 
-  console.log("Email availability:", available);
+  const available = await checkEmailAvailability(email);
+
   if (available) {
-    topage("register", "theme");
+    toPage("register", "theme");
   } else {
-    if (navigator.onLine) {
-      document.getElementById("registerError").innerText = "Email already taken";
-      return
-    }
-    document.getElementById("registerError").innerText = "No connection. Please try again.";
+    const errorMessage = navigator.onLine
+      ? "Email already taken"
+      : "No connection. Please try again.";
+    displayError("registerError", errorMessage);
   }
 }
+
 
 function cleanRegister() {
   document.getElementById("registerUsername").value = "";
@@ -188,151 +185,112 @@ function cleanLogin() {
   document.getElementById("loginError").innerText = "";
 }
 
-
 async function register() {
-  let email = document.getElementById("registerUsername").value;
-  let password = document.getElementById("registerPassword").value;
-  let confirmPassword = document.getElementById("confirmPassword").value;
+  username = document.getElementById("registerName").value;
+  ntema = currentTheme;
 
-  if (email == "" || password == "" || confirmPassword == "") {
-    document.getElementById("registerError").innerText =
-      "Please fill in all fields";
-    return;
-  }
+  console.log("register data: "+JSON.stringify({ email, password, ntema, username }));
 
   const url = serverURL + "/register";
 
-  if (password != confirmPassword) {
-    document.getElementById("registerError").innerText =
-      "Passwords do not match";
+  if (!email || !password) {
+    toPage("name", "register");
+    displayError("registerError", "an error occurred, please try again");
     return;
   }
 
-  //----waiting for pages to be done---
-  let ntema = 1;
-  let name = "testAccount";
-  //-----------------------------------
+  if(!username){
+    displayError("nameError", "Please fill in all fields");
+    return;
+  }  
 
-  const data = { email, password, ntema, name };
+  const data = { email, password, ntema, name: username };
 
   try {
     const response = await fetch(url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
 
     if (!response.ok) {
-      swapToRegister();
       const errorData = await response.json();
-      console.error("Error:", errorData);
-      document.getElementById("registerError").innerText =
-        "Registration failed: " + errorData.message;
+      displayError("nameError", "Registration failed: " + errorData.error);
     } else {
-      const result = await response.json();
-      cleanRegister();
+      await response.json();
       swapToHome();
     }
   } catch (error) {
     console.error("Network error:", error);
-    swapToRegister();
-    document.getElementById("registerError").innerText =
-      "Network error. Please try again.";
+    displayError("nameError", "Network error. Please try again.");ù
   }
 }
 
-
-
 async function login() {
   if (!navigator.onLine) {
-    document.getElementById("loginError").innerText =
-      "No connection. Please try again.";
+    displayError("loginError", "No connection. Please try again.");
     return;
   }
 
   const url = serverURL + "/login";
+  email = document.getElementById("loginUsername").value;
+  password = document.getElementById("loginPassword").value;
 
-  let email = document.getElementById("loginUsername").value;
-  let password = document.getElementById("loginPassword").value;
-
-  if (email === "" || password === "") {
-    document.getElementById("loginError").innerText =
-      "Please fill in all fields";
+  if (!email || !password) {
+    displayError("loginError", "Please fill in all fields");
     return;
   }
-
-  const data = { email, password };
-  console.log("Sending data:", data); // Debug payload
 
   try {
     const response = await fetch(url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
     });
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error("Error:", errorData);
-      document.getElementById("loginError").innerText =
-        "Login failed: " + (errorData.message || "Unknown error");
+      displayError("loginError", "Login failed: " + (errorData.error || "Unknown error"));
     } else {
-      const result = await response.json();
+      const { key, name, theme } = await response.json();
+
+      currentTheme = theme;
       cleanLogin();
       swapToHome();
+
+      console.log("Key:", key); 
+      console.log("Name:", name); 
+      console.log("Theme:", currentTheme);
     }
   } catch (error) {
-    console.error("Network error:", error);
-    document.getElementById("loginError").innerText =
-      "Network error. Please try again.";
+    displayError("loginError", "Network error. Please try again.");
   }
 }
 
 
+function displayError(elementId, message) {
+  document.getElementById(elementId).innerText = message;
+}
+
 function setTheme(theme) {
-  let colorArry = [];
-  let yellow = document.getElementById("yellow");
-  let blue = document.getElementById("blue");
-  let green = document.getElementById("green");
-  let purple = document.getElementById("purple");
+  const themeColors = {
+    1: "yellow",
+    2: "blue",
+    3: "green",
+    4: "purple"
+  };
 
-  colorArry.push(yellow, blue, green, purple);
-
-  colorArry.forEach((color) => {
-    color.classList.remove("border");
+  Object.values(themeColors).forEach(color => {
+    document.getElementById(color).classList.remove("border");
   });
 
   currentTheme = theme;
 
-  switch (theme) {
-    case 1: {
-      let primaryYellowValue = getComputedStyle(document.documentElement).getPropertyValue('--primary-yellow');
-      document.documentElement.style.setProperty("--currentBorderColor", primaryYellowValue);
-      yellow.classList.add("border");
-      break;
-    }
-    case 2: {
-      let primaryBlueValue = getComputedStyle(document.documentElement).getPropertyValue('--primary-blue');
-      document.documentElement.style.setProperty("--currentBorderColor", primaryBlueValue);
-      blue.classList.add("border");
-      break;
-    }
-    case 3: {
-      let primaryGreenValue = getComputedStyle(document.documentElement).getPropertyValue('--primary-green');
-      document.documentElement.style.setProperty("--currentBorderColor", primaryGreenValue);
-      green.classList.add("border");
-      break;
-    }
-    case 4: {
-      let primaryPurpleValue = getComputedStyle(document.documentElement).getPropertyValue('--primary-purple');
-      document.documentElement.style.setProperty("--currentBorderColor", primaryPurpleValue);
-      purple.classList.add("border");
-      break;
-    }
-
+  if (themeColors[theme]) {
+    const element = document.getElementById(themeColors[theme]);
+    const colorVar = `--primary-${themeColors[theme]}`;
+    const colorValue = getComputedStyle(document.documentElement).getPropertyValue(colorVar);
+    document.documentElement.style.setProperty("--currentBorderColor", colorValue);
+    element.classList.add("border");
   }
 }
