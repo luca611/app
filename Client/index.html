@@ -27,9 +27,9 @@
     </div>
 
     <!-- Auth pages (inlcuding hero page since it has same layout) -->
-    <div class="autenticazione" id="autenticazione">
+    <div class="autenticazione hidden" id="autenticazione">
         <!-- Hero page -->
-        <div class="welcomePage hidden" id="welcome">
+        <div class="welcomePage" id="welcome">
             <img class="logo" src="resources/imgs/pocketDiaryLogo.svg" alt="">
             <h1 class="titleWelcome">
                 <b class="changeColor">Welcome to your</b>
@@ -42,21 +42,7 @@
             </div>
         </div>
 
-        <div class="settings">
-            <div class="upperPart">
-                <div class="sideBarButtonContainer">
-                    <button class="sideBarButton" onclick="openSideBar()">☰</button>
-                </div>
-                <div class="titleContainer">
-                    <h1 id="pageTitle">Settings</h1>
-                </div>
-            </div>
-            <div class="impostazioni">
-                <div class="tuttiTemi">
-                    <img src="resources/icons/changeName.svg" alt="">
-                </div>
-            </div>
-        </div>
+        
 
         <!-- Sign up page -->
         <div id="login" class="loginPage hidden">
@@ -152,7 +138,7 @@
 
     </div>
     <!-- Settings page -->
-    <div class="page hidden" id="page">
+    <div class="page" id="page">
         <!--Contains the upper part of the screen witch is the same everywhere exept Auth pages and settings-->
         <div class="topBar">
             <!--Here's the upper part of tuhe top bar: sidebar button & page title-->
@@ -184,7 +170,7 @@
         </div>
         <!--contains the body of each screen-->
         <div class="body">
-            <div id="homepage" class="section">
+            <div id="homepage" class="section hidden">
                 <h2 class="subtitle">Upcoming</h2>
                 <div id="eventContainer" class="eventContainer">
                     <div id="eventPlaceholder" class="hidden">
@@ -207,18 +193,34 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="calendar" class="section hidden">
-
-        </div>
-        <div id="schedule" class="section hidden">
-
-        </div>
-        <div id="grades" class="section hidden">
-
-        </div>
-        <div id="aiChat" class="section hidden">
-
+            <div class="section">
+                <div class="impostazioni">
+                    <div class="containerSettings">
+                        <img src="resources/icons/changeName.svg" alt="" >
+                    </div>
+                    <div class="containerSettings">
+                        <img src="resources/icons/changeTheme.svg" alt="">
+                    </div>
+                    <div class="containerSettings">
+                        <img src="resources/icons/changePass.svg" alt="" id="cPass">
+                    </div>
+                    <div class="containerSettings">
+                        <img src="resources/icons/info.svg" alt="" id="info">
+                    </div>
+                </div>
+            </div>
+            <div id="calendar" class="section hidden">
+    
+            </div>
+            <div id="schedule" class="section hidden">
+    
+            </div>
+            <div id="grades" class="section hidden">
+    
+            </div>
+            <div id="aiChat" class="section hidden">
+    
+            </div>
         </div>
     </div>
 

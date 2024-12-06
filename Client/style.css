@@ -933,6 +933,34 @@ div.UsernamePage hr {
   margin: 0 auto;
 }
 
+div.containerSettings{
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2vh;
+  width: 100%;
+  background-color: #F6F6F6;
+  border-radius: var(--general-border-radius);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+  gap: 10%;
+  transition: all 0.3s;
+  width: 90%;
+}
+
+div.containerSettings img{
+  z-index: 9999;
+  background-color: var(--primary-color);
+  border-radius: var(--button-border-radius);
+}
+
+#cPass{
+  background-color: var(--primary-red);
+}
+
+#info{
+  background-color: var(--primary-blue);
+}
 
 
 @media screen and (max-height: 800px) {
