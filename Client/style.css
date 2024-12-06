@@ -923,6 +923,17 @@ div.UsernamePage hr {
   font-size: 0.8rem;
 }
 
+.containerSettings {
+  height: 100vh;
+  background-color: var(--minor-color);
+  border-radius: var(--general-border-radius);
+  width: 98%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+
 
 @media screen and (max-height: 800px) {
   div.popup {
