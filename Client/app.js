@@ -186,6 +186,8 @@ function cleanLogin() {
 }
 
 async function register() {
+  displayError("registerError", "");
+  
   username = document.getElementById("registerName").value;
   ntema = currentTheme;
 
@@ -227,6 +229,7 @@ async function register() {
 }
 
 async function login() {
+  displayError("loginError", "");
   if (!navigator.onLine) {
     displayError("loginError", "No connection. Please try again.");
     return;
