@@ -92,6 +92,10 @@ function disableLoading() {
   document.getElementById("loadingScreen").classList.add("hidden");
 }
 
+function enableLoading() {
+  document.getElementById("loadingScreen").classList.remove("hidden");
+}
+
 function swapToLogin() {
   cleanRegister();
   cleanLogin();
@@ -145,22 +149,26 @@ async function checkEmailAvailability(email) {
 }
 
 async function proceedToTheme() {
+  enableLoading();
   email = document.getElementById("registerUsername").value;
   password = document.getElementById("registerPassword").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
 
   if (!email || !password || !confirmPassword) {
     displayError("registerError", "Please fill in all fields");
+    disableLoading();
     return;
   }
 
   if (password !== confirmPassword) {
     displayError("registerError", "Passwords do not match");
+    disableLoading();
     return;
   }
 
   const available = await checkEmailAvailability(email);
 
+  disableLoading();
   if (available) {
     toPage("register", "theme");
   } else {
@@ -187,7 +195,7 @@ function cleanLogin() {
 
 async function register() {
   displayError("registerError", "");
-  
+  enableLoading();
   username = document.getElementById("registerName").value;
   ntema = currentTheme;
 
@@ -198,11 +206,13 @@ async function register() {
   if (!email || !password) {
     toPage("name", "register");
     displayError("registerError", "an error occurred, please try again");
+    disableLoading();
     return;
   }
 
   if(!username){
     displayError("nameError", "Please fill in all fields");
+    disableLoading();
     return;
   }  
 
@@ -214,7 +224,8 @@ async function register() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-
+    
+    disableLoading();
     if (!response.ok) {
       const errorData = await response.json();
       displayError("nameError", "Registration failed: " + errorData.error);
@@ -223,6 +234,7 @@ async function register() {
       swapToHome();
     }
   } catch (error) {
+    disableLoading();
     console.error("Network error:", error);
     displayError("nameError", "Network error. Please try again.");ù
   }
@@ -230,8 +242,10 @@ async function register() {
 
 async function login() {
   displayError("loginError", "");
+  enableLoading();
   if (!navigator.onLine) {
     displayError("loginError", "No connection. Please try again.");
+    disableLoading();
     return;
   }
 
@@ -240,6 +254,7 @@ async function login() {
   password = document.getElementById("loginPassword").value;
 
   if (!email || !password) {
+    disableLoading();
     displayError("loginError", "Please fill in all fields");
     return;
   }
@@ -251,6 +266,7 @@ async function login() {
       body: JSON.stringify({ email, password }),
     });
 
+    disableLoading();
     if (!response.ok) {
       const errorData = await response.json();
       displayError("loginError", "Login failed: " + (errorData.error || "Unknown error"));
@@ -266,6 +282,8 @@ async function login() {
       console.log("Theme:", currentTheme);
     }
   } catch (error) {
+    
+    disableLoading();
     displayError("loginError", "Network error. Please try again.");
   }
 }
