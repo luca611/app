@@ -37,10 +37,48 @@ var eventCreation, gradeCreation, hourCreation, nameChange, passwordChange;
 
 var currentTheme = 1;
 let email, password, username, key;
+function saveCredentials() {
+  localStorage.setItem("email", email);
+  localStorage.setItem("password", password);
+  localStorage.setItem("username", username);
+  localStorage.setItem("currentTheme", currentTheme);
+}
 
-window.onload = function () {
-  applyTheme();
-};
+function loadCredentials() {
+  email = localStorage.getItem("email");
+  password = localStorage.getItem("password");
+  username = localStorage.getItem("username");
+  currentTheme = localStorage.getItem("currentTheme");
+}
+
+function logout() {
+  email = "";
+  password = "";
+  username = "";
+  saveCredentials();
+  toPage("page", "autenticazione");
+  ebi("addButtonContainer").classList.add("hidden");
+}
+
+function log() {
+  loadCredentials();
+  console.log("email: " + email);
+  console.log("password: " + password);
+  console.log("username: " + username);
+  console.log("currentTheme: " + currentTheme);
+
+  if (email && password && username) {
+    if (navigator.onLine) {
+      if (login()) {
+        swapToHome();
+      }
+    } else {
+      //can't login without connection so use the page offline will connect after if account exist
+      swapToHome();
+    }
+    applyTheme();
+  };
+}
 
 function ebi(id) {
   return document.getElementById(id);
@@ -253,6 +291,7 @@ async function register() {
       displayError("nameError", "Registration failed: " + errorData.error);
     } else {
       await response.json();
+      saveCredentials();
       swapToHome();
     }
   } catch (error) {
@@ -268,17 +307,21 @@ async function login() {
   if (!navigator.onLine) {
     displayError("loginError", "No connection. Please try again.");
     disableLoading();
-    return;
+    return false;
   }
 
   const url = serverURL + "/login";
-  email = ebi("loginUsername").value;
-  password = ebi("loginPassword").value;
+
+  // If email and password are not already initializated, get them from the input fields
+  if (!email || !password) {
+    email = ebi("loginUsername").value;
+    password = ebi("loginPassword").value;
+  }
 
   if (!email || !password) {
     disableLoading();
     displayError("loginError", "Please fill in all fields");
-    return;
+    return false;
   }
 
   try {
@@ -303,11 +346,14 @@ async function login() {
       console.log("Key:", key);
       console.log("Name:", name);
       console.log("Theme:", currentTheme);
+      saveCredentials();
+      return true;
     }
   } catch (error) {
 
     disableLoading();
     displayError("loginError", "Network error. Please try again.");
+    return false;
   }
 }
 

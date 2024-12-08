@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 </head>
 
-<body class="body" onload="disableLoading()">
+<body class="body" onload="disableLoading();log()">
 
     <div class="loadingScreen" id="loadingScreen">
         <img class="loadingIcon" src="resources/imgs/loading.webp" alt="">
@@ -209,7 +209,7 @@
                         <img src="resources/icons/info.svg" alt="" id="info">
                         <p  style="color: var(--primary-blue);">APP INFO</p>
                     </div>
-                    <div class="containerSettings">
+                    <div class="containerSettings" onclick="logout()">
                         <img src="resources/icons/logOut.svg" alt="" id="logOut">
                         <p style="color: var(--primary-red);">LOG OUT</p>
                     </div>
