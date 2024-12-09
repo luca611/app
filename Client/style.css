@@ -222,6 +222,10 @@ div.section {
 }
 
 div.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .4rem;
   z-index: 3;
   position: fixed;
   top: 0;
@@ -761,6 +765,23 @@ h1.selezioneTema {
   }
 }
 
+button.barLink{
+  width: 90%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: .5rem;
+  border-radius: var(--button-border-radius);
+  color: white;
+}
+
+button.barlink:hover{
+  filter: brightness(0.9);
+}
+
+button.barlink.img{
+  background-color: var(--secondary-color);
+}
 
 div.temi {
   display: flex;
