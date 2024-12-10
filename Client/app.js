@@ -253,7 +253,7 @@ function cleanLogin() {
   ebi("loginError").innerText = "";
 }
 
-async function register() {
+function register() {
   displayError("registerError", "");
   enableLoading();
   username = ebi("registerName").value;
@@ -277,28 +277,29 @@ async function register() {
   }
 
   const data = { email, password, ntema, name: username };
+  const xhr = new XMLHttpRequest();
 
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
 
+  xhr.onload = function () {
     disableLoading();
-    if (!response.ok) {
-      const errorData = await response.json();
-      displayError("nameError", "Registration failed: " + errorData.error);
-    } else {
-      await response.json();
+    if (xhr.status >= 200 && xhr.status < 300) {
       saveCredentials();
       swapToHome();
+    } else {
+      const errorData = JSON.parse(xhr.responseText);
+      displayError("nameError", "Registration failed: " + errorData.error);
     }
-  } catch (error) {
+  };
+
+  xhr.onerror = function () {
     disableLoading();
-    console.error("Network error:", error);
+    console.error("Network error:", xhr);
     displayError("nameError", "Network error. Please try again.");
-  }
+  };
+
+  xhr.send(JSON.stringify(data));
 }
 
 async function login() {
@@ -312,7 +313,7 @@ async function login() {
 
   const url = serverURL + "/login";
 
-  // If email and password are not already initializated, get them from the input fields
+  // If email and password are not already initialized, get them from the input fields
   if (!email || !password) {
     email = ebi("loginUsername").value;
     password = ebi("loginPassword").value;
@@ -324,19 +325,14 @@ async function login() {
     return false;
   }
 
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
 
+  xhr.onload = function () {
     disableLoading();
-    if (!response.ok) {
-      const errorData = await response.json();
-      displayError("loginError", "Login failed: " + (errorData.error || "Unknown error"));
-    } else {
-      const { key, name, theme } = await response.json();
+    if (xhr.status >= 200 && xhr.status < 300) {
+      const { key, name, theme } = JSON.parse(xhr.responseText);
 
       currentTheme = theme;
       username = name;
@@ -348,13 +344,19 @@ async function login() {
       console.log("Theme:", currentTheme);
       saveCredentials();
       return true;
+    } else {
+      const errorData = JSON.parse(xhr.responseText);
+      displayError("loginError", "Login failed: " + (errorData.error || "Unknown error"));
     }
-  } catch (error) {
+  };
 
+  xhr.onerror = function () {
     disableLoading();
     displayError("loginError", "Network error. Please try again.");
     return false;
-  }
+  };
+
+  xhr.send(JSON.stringify({ email, password }));
 }
 
 function displayError(elementId, message) {
