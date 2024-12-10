@@ -170,9 +170,38 @@ div.titleContainer {
   text-overflow: ellipsis;
 }
 
+p.loadingText {
+  font-weight: bold;
+  position: relative;
+}
+
+p.loadingText::after {
+  content: 'loading...';
+  animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+  25% {
+    content: 'loading';
+  }
+
+  50% {
+    content: 'loading.';
+  }
+
+  75% {
+    content: 'loading..';
+  }
+
+  100% {
+    content: 'loading...';
+  }
+}
+
 b.decoratedTitle {
   color: var(--primary-color);
   text-transform: uppercase;
+  margin-left: 0.2rem;
 }
 
 b.buttonText {
@@ -763,6 +792,24 @@ h1.selezioneTema {
   100% {
     transform: rotate(360deg);
   }
+}
+
+div.impostazioni{
+  overflow: hidden;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+h3.navBarTitle{
+  color: white;
+  margin-top: 3vh;
+}
+
+hr.navSeparator{
+  width: 90%;
+  border: solid white .1rem;
+  margin: 0;
+  border-radius: var(--minor-border-radius);
 }
 
 button.barLink{
