@@ -171,8 +171,8 @@ div.titleContainer {
 }
 
 p.loadingText {
-  font-weight: bold;
   position: relative;
+  color: var(--secondary-brown);
 }
 
 p.loadingText::after {
