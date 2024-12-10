@@ -27,10 +27,7 @@ xhr.onerror = function () {
 xhr.open("GET", "pwaversion.txt?t=" + Date.now());
 xhr.send();
 
-window.addEventListener("offline", function () {
-  console.log("You are now offline.");
-  // Additional actions when offline can be added here
-});
+
 
 //app code
 const serverURL = "https://pocketdiary-server.onrender.com";
@@ -42,7 +39,7 @@ var eventCreation, gradeCreation, hourCreation, nameChange, passwordChange;
 var currentTheme = 1;
 var currentPage = 2;
 
-let email, password, username, key;
+var email, password, username, privKey;
 function saveCredentials() {
   const credentials = {
     email: email,
@@ -161,6 +158,7 @@ function swapToRegister() {
 function swapToHome() {
   applyTheme();
   setPopupPage(0);
+  loadNotes();
   updateActivePageLink();
 
   ebi("addButtonContainer").classList.remove("hidden");
@@ -297,43 +295,109 @@ function toHome() {
   ebi("homepage").classList.remove("hidden");
   ebi("pageTitle").innerText = "hi, ";
   ebi("decoratedTitle").innerText = username;
-  loadNotes();
   currentPage = 2;
+  loadNotes();
   updateActivePageLink();
   closeSidebar();
 }
 
-async function loadNotes() {
-  const url = serverURL + "/getTodayNotes";
+function loadNotes() {
+  const url = "https://pocketdiary-server.onrender.com/getTodayNotes"; // Ensure this URL is correct
+
+  if (!email || !privKey) {
+    console.error("Email or key is missing:", { email, privKey });
+    return;
+  }
+
+  const body = JSON.stringify({ key: privKey, email });
+
   const xhr = new XMLHttpRequest();
-  xhr.open("GET", url, true);
+  xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
   xhr.onload = function () {
     if (xhr.status >= 200 && xhr.status < 300) {
-      const response = JSON.parse(xhr.responseText);
-      if (response.success) {
-        const notes = response.data.notes;
-        console.log("Today's notes:", notes);
-        // Process and display notes as needed
-      } else {
-        console.error("Error fetching notes:", response.message);
+      try {
+        const data = JSON.parse(xhr.responseText);
+        if (Array.isArray(JSON.parse(xhr.responseText).notes)) {
+          if (data.notes.length > 0) {
+            showNotes(data.notes);
+          } else {
+            showPlaceholder();
+            return;
+          }
+        } else {
+          throw new Error("Unexpected response format");
+        }
+      } catch (e) {
+        throw new Error("Error parsing response" + e);
       }
     } else {
-      console.error("Failed to fetch notes. Status:", xhr.status);
+      throw new Error(xhr.responseText);
     }
   };
 
   xhr.onerror = function () {
-    console.error("Network error while fetching notes.");
+    throw new Error(xhr.statusText);
   };
 
-  const data = {
-    key: key,
-    email: email
-  };
+  // Log the request body for debugging
+  console.log("Sending request:", { url, body });
+  xhr.send(body);
+}
 
-  xhr.send(JSON.stringify(data));
+function showPlaceholder() {
+  ebi("eventsList").classList.add("hidden");
+  ebi("eventPlaceholder").classList.remove("hidden");
+  ebi("eventPlaceholder").classList.add("visible");
+}
+
+function showNotes(notes) {
+  ebi("eventsList").classList.remove("hidden");
+  ebi("eventPlaceholder").classList.add("hidden");
+  ebi("eventPlaceholder").classList.remove("visible");
+  console.log("Notes:", notes);
+  let list = ebi("eventsList");
+  list.innerHTML = "";
+
+  notes.forEach((note) => {
+    let event = document.createElement("div");
+    event.classList.add("upcomingEvent");
+
+    let buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("eventButtonContainer");
+
+    let button = document.createElement("button");
+    button.classList.add("eventButton");
+    button.onclick = () => openEvent(note);
+
+    let icon = document.createElement("img");
+    icon.classList.add("eventIcon");
+    icon.src = "resources/icons/edit.svg";
+    icon.alt = "edit";
+
+    button.appendChild(icon);
+    buttonContainer.appendChild(button);
+
+    let infoContainer = document.createElement("div");
+    infoContainer.classList.add("eventInfoContainer");
+
+    let title = document.createElement("h3");
+    title.classList.add("eventTitle");
+    title.innerText = note.title;
+
+    let info = document.createElement("p");
+    info.classList.add("eventInfo");
+    info.innerText = note.description;
+
+    infoContainer.appendChild(title);
+    infoContainer.appendChild(info);
+
+    event.appendChild(buttonContainer);
+    event.appendChild(infoContainer);
+
+    list.appendChild(event);
+  });
 }
 
 
@@ -420,6 +484,15 @@ function register() {
   xhr.send(JSON.stringify(data));
 }
 
+async function logout() {
+  email = "";
+  password = "";
+  username = "";
+  saveCredentials();
+  toPage("page", "autenticazione");
+  ebi("addButtonContainer").classList.add("hidden");
+}
+
 async function login() {
   displayError("loginError", "");
   enableLoading();
@@ -452,6 +525,7 @@ async function login() {
     if (xhr.status >= 200 && xhr.status < 300) {
       const { key, name, theme } = JSON.parse(xhr.responseText);
 
+      privKey = key;
       currentTheme = theme;
       username = name;
       cleanLogin();
@@ -475,15 +549,6 @@ async function login() {
   };
 
   xhr.send(JSON.stringify({ email, password }));
-}
-
-function logout() {
-  email = "";
-  password = "";
-  username = "";
-  saveCredentials();
-  toPage("page", "autenticazione");
-  ebi("addButtonContainer").classList.add("hidden");
 }
 
 //used for autologin
