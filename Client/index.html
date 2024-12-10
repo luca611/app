@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 </head>
 
-<body class="body" onload="disableLoading();log()">
+<body class="body" onload="disableLoading(); autologin()">
 
     <div class="loadingScreen" id="loadingScreen">
         <img class="loadingIcon" src="resources/imgs/loading.webp" alt="">
@@ -21,7 +21,7 @@
 
     <!-- Add button-->
     <div class="addButtonContainer hidden" id="addButtonContainer">
-        <button class="addButton" onclick="openEventCreation()">
+        <button class="addButton" onclick="openPopup()">
             <img class="addIcon" src="resources/icons/add.svg" alt="add">
         </button>
     </div>
@@ -168,7 +168,8 @@
         </div>
         <!--contains the body of each screen-->
         <div class="body">
-            <div id="homepage" class="section hidden">
+
+            <div id="homepage" class="section">
                 <h2 class="subtitle">Upcoming</h2>
                 <div id="eventContainer" class="eventContainer">
                     <div id="eventPlaceholder" class="hidden">
@@ -191,7 +192,8 @@
                     </div>
                 </div>
             </div>
-            <div class="section">
+
+            <div id="settings" class="section hidden">
                 <div class="impostazioni">
                     <div class="containerSettings">
                         <img src="resources/icons/changeName.svg" alt="" >
@@ -215,18 +217,19 @@
                     </div>
                 </div>
             </div>
+
             <div id="calendar" class="section hidden">
-    
             </div>
+
             <div id="schedule" class="section hidden">
-    
             </div>
+
             <div id="grades" class="section hidden">
-    
             </div>
+
             <div id="aiChat" class="section hidden">
-    
             </div>
+
         </div>
     </div>
 
@@ -238,21 +241,34 @@
                 Navigation
             </h3>
             <hr class="navSeparator">
+            
+            <button id="homeButton" class="barLink" onclick="toSettings()">
+                <img class="icon" src="resources/icons/settings.svg" alt="">
+                <b class="buttonText>">Settings</b>
+            </button>
+
             <button id="homeButton" class="barLink">
-                <img class="icon" src="resources/icons/clock.webp" alt="">
+                <img class="icon" src="resources/icons/chat.svg" alt="">
+                <b class="buttonText>">Pocket AI</b>
+            </button>
+
+            <hr class="navSeparator">
+            
+            <button id="homeButton" class="barLink" onclick="toHome()">
+                <img class="icon" src="resources/icons/home.svg" alt="">
                 <b class="buttonText>">Home</b>
             </button>
 
             <button id="gradeButton" class="barLink">
-                <img class="icon" src="resources/icons/clock.webp" alt="">
+                <img class="icon" src="resources/icons/grade.svg" alt="">
                 <b class="buttonText>">Grade</b>
             </button>
 
             <button id="calendarButton" class="barLink">
-                <img class="icon" src="resources/icons/clock.webp" alt="">
+                <img class="icon" src="resources/icons/calendar.svg" alt="">
                 <b class="buttonText>">Calendar</b>
             </button>
-            <hr class="navSeparator">
+
         </div>
     </div>
 
@@ -279,6 +295,33 @@
                     </div>
                     <div class="inputContainer">
                         <input class="inputField" type="date" id="eventDate" placeholder="Event date">
+                    </div>
+                </div>
+
+                <div id="gradeContainer" class="bodyContainer hidden">
+                    <div class="fillContainer">
+                        GRADE NAME
+                    </div>
+                    <div class="inputContainer">
+                        <input class="inputField" type="text" id="gradeName" placeholder="Industrial revolution">
+                    </div>
+                    <div class="fillContainer">
+                        SUBJECT
+                    </div>
+                    <div class="inputContainer">
+                        <input class="inputField" type="text" id="subject" placeholder="history">
+                    </div>
+                    <div class="fillContainer">
+                        GRADE
+                    </div>
+                    <div class="inputContainer">
+                        <input class="inputField" type="text" id="grade" placeholder="6">
+                    </div>
+                    <div class="fillContainer">
+                        DATE
+                    </div>
+                    <div class="inputContainer">
+                        <input class="inputField" type="date" id="gradeDate" placeholder="2024/01/12">
                     </div>
                 </div>
 
@@ -315,34 +358,6 @@
                         <input class="inputField" type="text" id="newConfirmPassword" placeholder="new Password">
                     </div>
 
-                </div>
-
-                <!-- grade popUp -->
-                <div id="gradeContainer" class="bodyContainer">
-                    <div class="fillContainer">
-                        GRADE NAME
-                    </div>
-                    <div class="inputContainer">
-                        <input class="inputField" type="text" id="gradeName" placeholder="Industrial revolution">
-                    </div>
-                    <div class="fillContainer">
-                        SUBJECT
-                    </div>
-                    <div class="inputContainer">
-                        <input class="inputField" type="text" id="subject" placeholder="history">
-                    </div>
-                    <div class="fillContainer">
-                        GRADE
-                    </div>
-                    <div class="inputContainer">
-                        <input class="inputField" type="text" id="grade" placeholder="6">
-                    </div>
-                    <div class="fillContainer">
-                        DATE
-                    </div>
-                    <div class="inputContainer">
-                        <input class="inputField" type="date" id="gradeDate" placeholder="2024/01/12">
-                    </div>
                 </div>
             </div>
 

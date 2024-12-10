@@ -27,8 +27,12 @@ xhr.onerror = function () {
 xhr.open("GET", "pwaversion.txt?t=" + Date.now());
 xhr.send();
 
-//app code
+window.addEventListener("offline", function () {
+  console.log("You are now offline.");
+  // Additional actions when offline can be added here
+});
 
+//app code
 const serverURL = "https://pocketdiary-server.onrender.com";
 
 var sidebar, overlayBar;
@@ -36,49 +40,30 @@ var overlayPopUp, popUp;
 var eventCreation, gradeCreation, hourCreation, nameChange, passwordChange;
 
 var currentTheme = 1;
+var currentPage = 2;
+
 let email, password, username, key;
 function saveCredentials() {
-  localStorage.setItem("email", email);
-  localStorage.setItem("password", password);
-  localStorage.setItem("username", username);
-  localStorage.setItem("currentTheme", currentTheme);
+  const credentials = {
+    email: email,
+    password: password,
+    username: username,
+    currentTheme: currentTheme
+  };
+  localStorage.setItem("credentials", JSON.stringify(credentials));
 }
 
 function loadCredentials() {
-  email = localStorage.getItem("email");
-  password = localStorage.getItem("password");
-  username = localStorage.getItem("username");
-  currentTheme = localStorage.getItem("currentTheme");
+  const credentials = JSON.parse(localStorage.getItem("credentials"));
+  if (credentials) {
+    email = credentials.email;
+    password = credentials.password;
+    username = credentials.username;
+    currentTheme = credentials.currentTheme;
+  }
 }
 
-function logout() {
-  email = "";
-  password = "";
-  username = "";
-  saveCredentials();
-  toPage("page", "autenticazione");
-  ebi("addButtonContainer").classList.add("hidden");
-}
 
-function log() {
-  loadCredentials();
-  console.log("email: " + email);
-  console.log("password: " + password);
-  console.log("username: " + username);
-  console.log("currentTheme: " + currentTheme);
-
-  if (email && password && username) {
-    if (navigator.onLine) {
-      if (login()) {
-        swapToHome();
-      }
-    } else {
-      //can't login without connection so use the page offline will connect after if account exist
-      swapToHome();
-    }
-    applyTheme();
-  };
-}
 
 function ebi(id) {
   return document.getElementById(id);
@@ -130,14 +115,17 @@ function closePopup() {
   //clearForm();
 }
 
-//popUp body functions
-function toggleEventCreation() { }
+function setPopupPage(page = 0) {
 
-function openEventCreation() {
-  closeSidebar();
-  toggleEventCreation();
-  //clearForm();
-  openPopup();
+  let pages = document.getElementsByClassName("bodyContainer");
+  if (page > pages.length - 1) {
+    page = 0;
+  }
+  Array.from(pages).forEach((e) => {
+    e.classList.add("hidden");
+  });
+
+  pages[page].classList.remove("hidden");
 }
 
 function clearForm() {
@@ -172,6 +160,9 @@ function swapToRegister() {
 
 function swapToHome() {
   applyTheme();
+  setPopupPage(0);
+  updateActivePageLink();
+
   ebi("addButtonContainer").classList.remove("hidden");
   ebi("autenticazione").classList.add("hidden");
   ebi("page").classList.remove("hidden");
@@ -179,35 +170,36 @@ function swapToHome() {
   ebi("pageTitle").innerText = "hi, ";
   ebi("decoratedTitle").innerText = username;
 }
+function updateActivePageLink() {
+  let links = document.getElementsByClassName("barLink");
+  Array.from(links).forEach((link) => {
+    link.classList.remove("active");
+  });
+
+  links[currentPage].classList.add("active");
+}
 
 function toPage(page1, page2) {
   ebi(page1).classList.add("hidden");
   ebi(page2).classList.remove("hidden");
 }
 
-async function checkEmailAvailability(email) {
-  if (!navigator.onLine) {
-    return false;
-  }
-
-  try {
-    const response = await fetch(serverURL + "/checkAvailability", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    });
-
-    if (response.ok) {
-      await response.json();
-      return true;
-    }
-    return false;
-  } catch (error) {
-    return false;
-  }
+function disableAddButton() {
+  ebi("addButtonContainer").classList.add("hidden");
 }
+
+function showAddButton() {
+  ebi("addButtonContainer").classList.remove("hidden");
+}
+
+function hideAllPages() {
+  let pages = document.getElementsByClassName("section");
+  Array.from(pages).forEach((page) => {
+    page.classList.add("hidden");
+  });
+}
+
+
 
 async function proceedToTheme() {
   enableLoading();
@@ -251,6 +243,132 @@ function cleanLogin() {
   ebi("loginUsername").value = "";
   ebi("loginPassword").value = "";
   ebi("loginError").innerText = "";
+}
+
+function displayError(elementId, message) {
+  ebi(elementId).innerText = message;
+}
+
+function setTheme(theme = 1) {
+  const themeColors = {
+    1: "yellow",
+    2: "blue",
+    3: "green",
+    4: "purple"
+  };
+
+  Object.values(themeColors).forEach(color => {
+    ebi(color).classList.remove("border");
+  });
+
+  currentTheme = theme;
+
+  if (themeColors[theme]) {
+    const element = ebi(themeColors[theme]);
+    const colorVar = `--primary-${themeColors[theme]}`;
+    const colorValue = getComputedStyle(document.documentElement).getPropertyValue(colorVar);
+    document.documentElement.style.setProperty("--currentBorderColor", colorValue);
+    element.classList.add("border");
+  }
+}
+
+/*
+  navigation functions
+
+  -> toSettings: hides all pages and shows the settings page
+  -> toHome: hides all pages and shows the home page
+*/
+
+function toSettings() {
+  disableAddButton();
+  hideAllPages();
+  ebi("settings").classList.remove("hidden");
+  ebi("pageTitle").innerText = "Settings";
+  ebi("decoratedTitle").innerText = "";
+  currentPage = 0;
+  updateActivePageLink();
+  closeSidebar();
+}
+
+function toHome() {
+  setPopupPage(0);
+  showAddButton();
+  hideAllPages();
+  ebi("homepage").classList.remove("hidden");
+  ebi("pageTitle").innerText = "hi, ";
+  ebi("decoratedTitle").innerText = username;
+  loadNotes();
+  currentPage = 2;
+  updateActivePageLink();
+  closeSidebar();
+}
+
+async function loadNotes() {
+  const url = serverURL + "/getTodayNotes";
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      const response = JSON.parse(xhr.responseText);
+      if (response.success) {
+        const notes = response.data.notes;
+        console.log("Today's notes:", notes);
+        // Process and display notes as needed
+      } else {
+        console.error("Error fetching notes:", response.message);
+      }
+    } else {
+      console.error("Failed to fetch notes. Status:", xhr.status);
+    }
+  };
+
+  xhr.onerror = function () {
+    console.error("Network error while fetching notes.");
+  };
+
+  const data = {
+    key: key,
+    email: email
+  };
+
+  xhr.send(JSON.stringify(data));
+}
+
+
+/*
+  auth functions
+ 
+  -> register: sends a POST request to the server to register a new user
+  -> login: sends a POST request to the server to login a user
+ 
+*/
+
+async function checkEmailAvailability(email) {
+  if (!navigator.onLine) {
+    return false;
+  }
+
+  return new Promise((resolve) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", serverURL + "/checkAvailability", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onload = function () {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    };
+
+    xhr.onerror = function () {
+      resolve(false);
+    };
+
+    xhr.send(JSON.stringify({ email }));
+  });
 }
 
 function register() {
@@ -359,29 +477,27 @@ async function login() {
   xhr.send(JSON.stringify({ email, password }));
 }
 
-function displayError(elementId, message) {
-  ebi(elementId).innerText = message;
+function logout() {
+  email = "";
+  password = "";
+  username = "";
+  saveCredentials();
+  toPage("page", "autenticazione");
+  ebi("addButtonContainer").classList.add("hidden");
 }
 
-function setTheme(theme = 1) {
-  const themeColors = {
-    1: "yellow",
-    2: "blue",
-    3: "green",
-    4: "purple"
+//used for autologin
+function autologin() {
+  loadCredentials();
+
+  if (email && password && username) {
+    if (navigator.onLine) {
+      if (login() && typeof key !== undefined) {
+        swapToHome();
+      }
+    } else {
+      swapToHome();
+    }
+    applyTheme();
   };
-
-  Object.values(themeColors).forEach(color => {
-    ebi(color).classList.remove("border");
-  });
-
-  currentTheme = theme;
-
-  if (themeColors[theme]) {
-    const element = ebi(themeColors[theme]);
-    const colorVar = `--primary-${themeColors[theme]}`;
-    const colorValue = getComputedStyle(document.documentElement).getPropertyValue(colorVar);
-    document.documentElement.style.setProperty("--currentBorderColor", colorValue);
-    element.classList.add("border");
-  }
 }

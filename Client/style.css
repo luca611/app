@@ -794,25 +794,25 @@ h1.selezioneTema {
   }
 }
 
-div.impostazioni{
+div.impostazioni {
   overflow: hidden;
   max-height: 100%;
   overflow-y: auto;
 }
 
-h3.navBarTitle{
+h3.navBarTitle {
   color: white;
   margin-top: 3vh;
 }
 
-hr.navSeparator{
+hr.navSeparator {
   width: 90%;
   border: solid white .1rem;
-  margin: 0;
+  margin: 1vh;
   border-radius: var(--minor-border-radius);
 }
 
-button.barLink{
+button.barLink {
   width: 90%;
   text-align: left;
   background: transparent;
@@ -822,11 +822,15 @@ button.barLink{
   color: white;
 }
 
-button.barlink:hover{
+button.barLink.active {
+  background-color: var(--secondary-color);
+}
+
+button.barlink:hover {
   filter: brightness(0.9);
 }
 
-button.barlink.img{
+button.barlink.img {
   background-color: var(--secondary-color);
 }
 
@@ -998,7 +1002,7 @@ div.UsernamePage hr {
   font-size: 0.8rem;
 }
 
-.containerSettings {
+div.containerSettings {
   height: 100vh;
   background-color: var(--minor-color);
   border-radius: var(--general-border-radius);
@@ -1012,7 +1016,7 @@ div.containerSettings {
   height: fit-content;
   display: flex;
   flex-direction: row;
-  margin-bottom: 2vh;
+  margin-bottom: .8rem;
   width: 100%;
   background-color: #F6F6F6;
   border-radius: var(--general-border-radius);
