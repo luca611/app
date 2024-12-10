@@ -60,8 +60,6 @@ function loadCredentials() {
   }
 }
 
-
-
 function ebi(id) {
   return document.getElementById(id);
 }
@@ -158,7 +156,6 @@ function swapToRegister() {
 function swapToHome() {
   applyTheme();
   setPopupPage(0);
-  loadNotes();
   updateActivePageLink();
 
   ebi("addButtonContainer").classList.remove("hidden");
@@ -167,7 +164,10 @@ function swapToHome() {
 
   ebi("pageTitle").innerText = "hi, ";
   ebi("decoratedTitle").innerText = username;
+
+  loadNotes();
 }
+
 function updateActivePageLink() {
   let links = document.getElementsByClassName("barLink");
   Array.from(links).forEach((link) => {
@@ -289,6 +289,7 @@ function toSettings() {
 }
 
 function toHome() {
+  loadNotes();
   setPopupPage(0);
   showAddButton();
   hideAllPages();
@@ -296,13 +297,12 @@ function toHome() {
   ebi("pageTitle").innerText = "hi, ";
   ebi("decoratedTitle").innerText = username;
   currentPage = 2;
-  loadNotes();
   updateActivePageLink();
   closeSidebar();
 }
 
 function loadNotes() {
-  const url = "https://pocketdiary-server.onrender.com/getTodayNotes"; // Ensure this URL is correct
+  const url = serverURL + "/getTodayNotes";
 
   if (!email || !privKey) {
     console.error("Email or key is missing:", { email, privKey });
@@ -340,9 +340,6 @@ function loadNotes() {
   xhr.onerror = function () {
     throw new Error(xhr.statusText);
   };
-
-  // Log the request body for debugging
-  console.log("Sending request:", { url, body });
   xhr.send(body);
 }
 
@@ -356,47 +353,49 @@ function showNotes(notes) {
   ebi("eventsList").classList.remove("hidden");
   ebi("eventPlaceholder").classList.add("hidden");
   ebi("eventPlaceholder").classList.remove("visible");
-  console.log("Notes:", notes);
   let list = ebi("eventsList");
   list.innerHTML = "";
 
-  notes.forEach((note) => {
-    let event = document.createElement("div");
-    event.classList.add("upcomingEvent");
+  notes.forEach((note, index) => {
+    setTimeout(() => {
+      let event = document.createElement("div");
+      event.classList.add("upcomingEvent");
+      event.id = note.id;
 
-    let buttonContainer = document.createElement("div");
-    buttonContainer.classList.add("eventButtonContainer");
+      let buttonContainer = document.createElement("div");
+      buttonContainer.classList.add("eventButtonContainer");
 
-    let button = document.createElement("button");
-    button.classList.add("eventButton");
-    button.onclick = () => openEvent(note);
+      let button = document.createElement("button");
+      button.classList.add("eventButton");
+      button.onclick = () => openEvent(note);
 
-    let icon = document.createElement("img");
-    icon.classList.add("eventIcon");
-    icon.src = "resources/icons/edit.svg";
-    icon.alt = "edit";
+      let icon = document.createElement("img");
+      icon.classList.add("eventIcon");
+      icon.src = "resources/icons/edit.svg";
+      icon.alt = "edit";
 
-    button.appendChild(icon);
-    buttonContainer.appendChild(button);
+      button.appendChild(icon);
+      buttonContainer.appendChild(button);
 
-    let infoContainer = document.createElement("div");
-    infoContainer.classList.add("eventInfoContainer");
+      let infoContainer = document.createElement("div");
+      infoContainer.classList.add("eventInfoContainer");
 
-    let title = document.createElement("h3");
-    title.classList.add("eventTitle");
-    title.innerText = note.title;
+      let title = document.createElement("h3");
+      title.classList.add("eventTitle");
+      title.innerText = note.title;
 
-    let info = document.createElement("p");
-    info.classList.add("eventInfo");
-    info.innerText = note.description;
+      let info = document.createElement("p");
+      info.classList.add("eventInfo");
+      info.innerText = note.description;
 
-    infoContainer.appendChild(title);
-    infoContainer.appendChild(info);
+      infoContainer.appendChild(title);
+      infoContainer.appendChild(info);
 
-    event.appendChild(buttonContainer);
-    event.appendChild(infoContainer);
+      event.appendChild(buttonContainer);
+      event.appendChild(infoContainer);
 
-    list.appendChild(event);
+      list.appendChild(event);
+    }, index * 50);
   });
 }
 
@@ -530,11 +529,8 @@ async function login() {
       username = name;
       cleanLogin();
       swapToHome();
-
-      console.log("Key:", key);
-      console.log("Name:", name);
-      console.log("Theme:", currentTheme);
       saveCredentials();
+
       return true;
     } else {
       const errorData = JSON.parse(xhr.responseText);
@@ -551,7 +547,6 @@ async function login() {
   xhr.send(JSON.stringify({ email, password }));
 }
 
-//used for autologin
 function autologin() {
   loadCredentials();
 
