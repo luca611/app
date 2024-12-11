@@ -360,6 +360,7 @@ function showNotes(notes) {
     let event = document.createElement("div");
     event.classList.add("upcomingEvent");
     event.id = note.id;
+    event.onclick = () => showDeleteButton(note.id);
 
     let buttonContainer = document.createElement("div");
     buttonContainer.classList.add("eventButtonContainer");
@@ -395,6 +396,33 @@ function showNotes(notes) {
 
     list.appendChild(event);
   });
+}
+
+//-----------------------------------------------------------------
+
+function showDeleteButton(id) {
+  if (!ebi(id).querySelector(".deleteNoteButton")) {
+    let deleteButton = document.createElement("button");
+    deleteButton.classList.add("deleteNoteButton");
+
+    let deleteIcon = document.createElement("img");
+    deleteIcon.src = "resources/icons/delete.svg";
+    deleteIcon.classList.add("eventIcon");
+
+    deleteButton.appendChild(deleteIcon);
+    ebi(id).appendChild(deleteButton);
+
+    deleteButton.onclick = (e) => {
+      e.stopPropagation();
+      deleteEvent(id);
+    };
+
+    document.addEventListener("click", (e) => {
+      if (!ebi(id).contains(e.target)) {
+        deleteButton.remove();
+      }
+    });
+  }
 }
 
 

@@ -376,6 +376,7 @@ div.eventsList {
 }
 
 div.upcomingEvent {
+  position: relative;
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
@@ -394,12 +395,10 @@ div.upcomingEvent {
 @keyframes popUp {
   0% {
     transform: scale(0.5);
-    opacity: 0.5;
   }
 
   100% {
     transform: scale(1);
-    opacity: 1;
   }
 }
 
@@ -1054,6 +1053,19 @@ div.containerSettings img {
   padding: 0.3rem;
   height: 3rem;
   width: auto;
+}
+
+button.deleteNoteButton {
+  position: absolute;
+  top: 1.2rem;
+  height: 3.6rem;
+  width: 3.6rem;
+  right: 1rem;
+  border: none;
+  border-radius: var(--button-border-radius);
+  background: var(--primary-red);
+  box-shadow: var(--shadow);
+  animation: popUp 0.3s;
 }
 
 #cPass {
