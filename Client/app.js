@@ -27,9 +27,9 @@ xhr.onerror = function () {
 xhr.open("GET", "pwaversion.txt?t=" + Date.now());
 xhr.send();
 
-
-
+//-----------------------------------------------------------------
 //app code
+
 const serverURL = "https://pocketdiary-server.onrender.com";
 
 var sidebar, overlayBar;
@@ -50,6 +50,8 @@ function saveCredentials() {
   localStorage.setItem("credentials", JSON.stringify(credentials));
 }
 
+//-----------------------------------------------------------------
+
 function loadCredentials() {
   const credentials = JSON.parse(localStorage.getItem("credentials"));
   if (credentials) {
@@ -60,9 +62,13 @@ function loadCredentials() {
   }
 }
 
+//-----------------------------------------------------------------
+
 function ebi(id) {
   return document.getElementById(id);
 }
+
+//-----------------------------------------------------------------
 
 function applyTheme() {
   const themeColors = {
@@ -93,10 +99,14 @@ function openSideBar() {
   ebi("overlaySidebar").classList.add("visible");
 }
 
+//-----------------------------------------------------------------
+
 function closeSidebar() {
   ebi("sidebar").classList.remove("open");
   ebi("overlaySidebar").classList.remove("visible");
 }
+
+//-----------------------------------------------------------------
 
 //popup functions
 function openPopup() {
@@ -104,11 +114,15 @@ function openPopup() {
   ebi("overlayPopUp").classList.add("visible");
 }
 
+//-----------------------------------------------------------------
+
 function closePopup() {
   ebi("popup").classList.remove("open");
   ebi("overlayPopUp").classList.remove("visible");
   //clearForm();
 }
+
+//-----------------------------------------------------------------
 
 function setPopupPage(page = 0) {
 
@@ -121,6 +135,11 @@ function setPopupPage(page = 0) {
   });
 
   pages[page].classList.remove("hidden");
+
+  if (page === 0) {
+    ebi("popupConfrimButton").onclick = createEvent;
+  }
+
 }
 
 function clearForm() {
@@ -137,6 +156,8 @@ function enableLoading() {
   ebi("loadingScreen").classList.remove("hidden");
 }
 
+//-----------------------------------------------------------------
+
 function swapToLogin() {
   cleanRegister();
   cleanLogin();
@@ -145,6 +166,8 @@ function swapToLogin() {
   ebi("register").classList.add("hidden");
 }
 
+//-----------------------------------------------------------------
+
 function swapToRegister() {
   cleanLogin();
   cleanRegister();
@@ -152,6 +175,8 @@ function swapToRegister() {
   ebi("login").classList.add("hidden");
   ebi("register").classList.remove("hidden");
 }
+
+//-----------------------------------------------------------------
 
 function swapToHome() {
   applyTheme();
@@ -167,6 +192,8 @@ function swapToHome() {
 
   loadNotes();
 }
+
+//-----------------------------------------------------------------
 
 function updateActivePageLink() {
   let links = document.getElementsByClassName("barLink");
@@ -197,7 +224,7 @@ function hideAllPages() {
   });
 }
 
-
+//-----------------------------------------------------------------
 
 async function proceedToTheme() {
   enableLoading();
@@ -230,6 +257,8 @@ async function proceedToTheme() {
   }
 }
 
+//-----------------------------------------------------------------
+
 function cleanRegister() {
   ebi("registerUsername").value = "";
   ebi("registerPassword").value = "";
@@ -237,15 +266,21 @@ function cleanRegister() {
   ebi("registerError").innerText = "";
 }
 
+//-----------------------------------------------------------------
+
 function cleanLogin() {
   ebi("loginUsername").value = "";
   ebi("loginPassword").value = "";
   ebi("loginError").innerText = "";
 }
 
+//-----------------------------------------------------------------
+
 function displayError(elementId, message) {
   ebi(elementId).innerText = message;
 }
+
+//-----------------------------------------------------------------
 
 function setTheme(theme = 1) {
   const themeColors = {
@@ -288,6 +323,8 @@ function toSettings() {
   closeSidebar();
 }
 
+//-----------------------------------------------------------------
+
 function toHome() {
   loadNotes();
   setPopupPage(0);
@@ -301,53 +338,16 @@ function toHome() {
   closeSidebar();
 }
 
-function loadNotes() {
-  const url = serverURL + "/getTodayNotes";
-
-  if (!email || !privKey) {
-    console.error("Email or key is missing:", { email, privKey });
-    return;
-  }
-
-  const body = JSON.stringify({ key: privKey, email });
-
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-Type", "application/json");
-
-  xhr.onload = function () {
-    if (xhr.status >= 200 && xhr.status < 300) {
-      try {
-        const data = JSON.parse(xhr.responseText);
-        if (Array.isArray(JSON.parse(xhr.responseText).notes)) {
-          if (data.notes.length > 0) {
-            showNotes(data.notes);
-          } else {
-            showPlaceholder();
-            return;
-          }
-        } else {
-          throw new Error("Unexpected response format");
-        }
-      } catch (e) {
-        throw new Error("Error parsing response" + e);
-      }
-    } else {
-      throw new Error(xhr.responseText);
-    }
-  };
-
-  xhr.onerror = function () {
-    throw new Error(xhr.statusText);
-  };
-  xhr.send(body);
-}
+//-----------------------------------------------------------------
 
 function showPlaceholder() {
   ebi("eventsList").classList.add("hidden");
   ebi("eventPlaceholder").classList.remove("hidden");
   ebi("eventPlaceholder").classList.add("visible");
 }
+
+//-----------------------------------------------------------------
+
 
 function showNotes(notes) {
   ebi("eventsList").classList.remove("hidden");
@@ -357,45 +357,43 @@ function showNotes(notes) {
   list.innerHTML = "";
 
   notes.forEach((note, index) => {
-    setTimeout(() => {
-      let event = document.createElement("div");
-      event.classList.add("upcomingEvent");
-      event.id = note.id;
+    let event = document.createElement("div");
+    event.classList.add("upcomingEvent");
+    event.id = note.id;
 
-      let buttonContainer = document.createElement("div");
-      buttonContainer.classList.add("eventButtonContainer");
+    let buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("eventButtonContainer");
 
-      let button = document.createElement("button");
-      button.classList.add("eventButton");
-      button.onclick = () => openEvent(note);
+    let button = document.createElement("button");
+    button.classList.add("eventButton");
+    button.onclick = () => openEvent(note);
 
-      let icon = document.createElement("img");
-      icon.classList.add("eventIcon");
-      icon.src = "resources/icons/edit.svg";
-      icon.alt = "edit";
+    let icon = document.createElement("img");
+    icon.classList.add("eventIcon");
+    icon.src = "resources/icons/edit.svg";
+    icon.alt = "edit";
 
-      button.appendChild(icon);
-      buttonContainer.appendChild(button);
+    button.appendChild(icon);
+    buttonContainer.appendChild(button);
 
-      let infoContainer = document.createElement("div");
-      infoContainer.classList.add("eventInfoContainer");
+    let infoContainer = document.createElement("div");
+    infoContainer.classList.add("eventInfoContainer");
 
-      let title = document.createElement("h3");
-      title.classList.add("eventTitle");
-      title.innerText = note.title;
+    let title = document.createElement("h3");
+    title.classList.add("eventTitle");
+    title.innerText = note.title;
 
-      let info = document.createElement("p");
-      info.classList.add("eventInfo");
-      info.innerText = note.description;
+    let info = document.createElement("p");
+    info.classList.add("eventInfo");
+    info.innerText = note.description;
 
-      infoContainer.appendChild(title);
-      infoContainer.appendChild(info);
+    infoContainer.appendChild(title);
+    infoContainer.appendChild(info);
 
-      event.appendChild(buttonContainer);
-      event.appendChild(infoContainer);
+    event.appendChild(buttonContainer);
+    event.appendChild(infoContainer);
 
-      list.appendChild(event);
-    }, index * 50);
+    list.appendChild(event);
   });
 }
 
@@ -433,6 +431,9 @@ async function checkEmailAvailability(email) {
     xhr.send(JSON.stringify({ email }));
   });
 }
+
+//-----------------------------------------------------------------
+
 
 function register() {
   displayError("registerError", "");
@@ -483,6 +484,9 @@ function register() {
   xhr.send(JSON.stringify(data));
 }
 
+//-----------------------------------------------------------------
+
+
 async function logout() {
   email = "";
   password = "";
@@ -491,6 +495,8 @@ async function logout() {
   toPage("page", "autenticazione");
   ebi("addButtonContainer").classList.add("hidden");
 }
+
+//-----------------------------------------------------------------
 
 async function login() {
   displayError("loginError", "");
@@ -503,7 +509,10 @@ async function login() {
 
   const url = serverURL + "/login";
 
-  // If email and password are not already initialized, get them from the input fields
+  /*
+    had to double check if the email and password are not empty
+    to see before if they were saved and ,if not, get them from the input fields 
+  */
   if (!email || !password) {
     email = ebi("loginUsername").value;
     password = ebi("loginPassword").value;
@@ -547,6 +556,8 @@ async function login() {
   xhr.send(JSON.stringify({ email, password }));
 }
 
+//-----------------------------------------------------------------
+
 function autologin() {
   loadCredentials();
 
@@ -560,4 +571,94 @@ function autologin() {
     }
     applyTheme();
   };
+}
+
+/*
+  db manitulation functions
+
+  -> createEvent: sends a POST request to the server to create a new event
+
+*/
+
+async function createEvent() {
+  const title = ebi("eventName").value;
+  const description = ebi("eventDescription").value;
+  const date = ebi("eventDate").value;
+
+
+
+  if (!title || !description || !date) {
+    displayError("eventError", "Please fill in all fields");
+    return;
+  }
+
+  const url = serverURL + "/addNote";
+  const data = { key: privKey, title, description, date, email };
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      displayError("eventError", "");
+      title.value = "";
+      description.value = "";
+      date.value = "";
+      closePopup();
+      loadNotes();
+    } else {
+      const errorData = JSON.parse(xhr.responseText);
+      displayError("eventError", "Failed to create event: " + (errorData.error || "Unknown error"));
+    }
+  };
+
+  xhr.onerror = function () {
+    displayError("eventError", "Network error. Please try again.");
+  };
+
+  xhr.send(JSON.stringify(data));
+}
+
+//-----------------------------------------------------------------
+function loadNotes() {
+  const url = serverURL + "/getTodayNotes";
+
+  if (!email || !privKey) {
+    console.error("Email or key is missing:", { email, privKey });
+    return;
+  }
+
+  const body = JSON.stringify({ key: privKey, email });
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      try {
+        const data = JSON.parse(xhr.responseText);
+        if (Array.isArray(JSON.parse(xhr.responseText).notes)) {
+          if (data.notes.length > 0) {
+            showNotes(data.notes);
+          } else {
+            showPlaceholder();
+            return;
+          }
+        } else {
+          throw new Error("Unexpected response format");
+        }
+      } catch (e) {
+        throw new Error("Error parsing response" + e);
+      }
+    } else {
+      throw new Error(xhr.responseText);
+    }
+  };
+
+  xhr.onerror = function () {
+    throw new Error(xhr.statusText);
+  };
+  xhr.send(body);
 }
