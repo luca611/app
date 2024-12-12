@@ -394,6 +394,11 @@ function showNotes(notes) {
     event.appendChild(buttonContainer);
     event.appendChild(infoContainer);
 
+    let fakeEmpty = document.createElement("div");
+    fakeEmpty.classList.add("fakeEmpty");
+
+    event.appendChild(fakeEmpty);
+
     list.appendChild(event);
   });
 }
@@ -417,13 +422,23 @@ function showDeleteButton(id) {
       deleteEvent(id);
     };
 
+    let fakeScroll = document.createElement("div");
+    fakeScroll.classList.add("fakeEmpty", "fakeScroll");
+    ebi(id).appendChild(fakeScroll);
+
     const handleClickOutside = (e) => {
       try {
         if (!ebi(id).contains(e.target)) {
-          deleteButton.remove();
+          fakeScroll.classList.add("hide");
+          setTimeout(function () {
+            fakeScroll.classList.remove("fakeScroll");
+            fakeScroll.classList.remove("hide");
+            deleteButton.remove();
+          }, 210);
           document.removeEventListener("click", handleClickOutside);
         }
       } catch (e) {
+        console.error(e);
       }
     };
 
