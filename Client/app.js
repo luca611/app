@@ -425,6 +425,32 @@ function showDeleteButton(id) {
   }
 }
 
+//-----------------------------------------------------------------
+
+function deleteEvent(id) {
+  const url = serverURL + "/deleteNote";
+  const data = { key: privKey, id };
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      loadNotes();
+      //add a success message
+    } else {
+      const errorData = JSON.parse(xhr.responseText);
+      console.error("Failed to delete event:", errorData.error);
+    }
+  };
+
+  xhr.onerror = function () {
+    console.error("Network error:", xhr);
+  };
+
+  xhr.send(JSON.stringify(data));
+}
 
 /*
   auth functions
