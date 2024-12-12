@@ -389,7 +389,6 @@ div.upcomingEvent {
   overflow: hidden;
   box-shadow: var(--shadow);
   flex-shrink: 0;
-  animation: popUp 0.3s;
 }
 
 @keyframes popUp {

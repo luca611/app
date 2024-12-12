@@ -417,11 +417,17 @@ function showDeleteButton(id) {
       deleteEvent(id);
     };
 
-    document.addEventListener("click", (e) => {
-      if (!ebi(id).contains(e.target)) {
-        deleteButton.remove();
+    const handleClickOutside = (e) => {
+      try {
+        if (!ebi(id).contains(e.target)) {
+          deleteButton.remove();
+          document.removeEventListener("click", handleClickOutside);
+        }
+      } catch (e) {
       }
-    });
+    };
+
+    document.addEventListener("click", handleClickOutside);
   }
 }
 
@@ -429,7 +435,7 @@ function showDeleteButton(id) {
 
 function deleteEvent(id) {
   const url = serverURL + "/deleteNote";
-  const data = { key: privKey, id };
+  const data = { key: privKey, noteId: id };
 
   const xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
