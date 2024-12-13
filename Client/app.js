@@ -438,7 +438,6 @@ function showDeleteButton(id) {
           document.removeEventListener("click", handleClickOutside);
         }
       } catch (e) {
-        console.error(e);
       }
     };
 
@@ -462,7 +461,7 @@ function deleteEvent(id) {
       //add a success message
     } else {
       const errorData = JSON.parse(xhr.responseText);
-      console.error("Failed to delete event:", errorData.error);
+      loadNotes();
     }
   };
 
@@ -647,12 +646,10 @@ async function autologin() {
 
 */
 
-async function createEvent() {
+function createEvent() {
   const title = ebi("eventName").value;
   const description = ebi("eventDescription").value;
   const date = ebi("eventDate").value;
-
-
 
   if (!title || !description || !date) {
     displayError("eventError", "Please fill in all fields");
@@ -666,14 +663,21 @@ async function createEvent() {
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
+  const confirmButton = ebi("popupConfrimButton");
+  confirmButton.disabled = true;
+
   xhr.onload = function () {
     if (xhr.status >= 200 && xhr.status < 300) {
       displayError("eventError", "");
-      title.value = "";
-      description.value = "";
-      date.value = "";
+      ebi("eventName").value = "";
+      ebi("eventDescription").value = "";
+      ebi("eventDate").value = "";
       closePopup();
       loadNotes();
+
+      setInterval(() => {
+        confirmButton.disabled = false;
+      }, 1000);
     } else {
       const errorData = JSON.parse(xhr.responseText);
       displayError("eventError", "Failed to create event: " + (errorData.error || "Unknown error"));
@@ -681,6 +685,7 @@ async function createEvent() {
   };
 
   xhr.onerror = function () {
+    confirmButton.disabled = false;
     displayError("eventError", "Network error. Please try again.");
   };
 
