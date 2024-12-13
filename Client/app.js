@@ -499,7 +499,6 @@ function showDeleteButton(id) {
             fakeScroll.classList.remove("hide");
             deleteButton.remove();
             fakeScroll.remove();
-            showFeedback(0, "Event deleted");
           }, 210);
           document.removeEventListener("click", handleClickOutside);
         }
@@ -524,7 +523,7 @@ function deleteEvent(id) {
   xhr.onload = function () {
     if (xhr.status >= 200 && xhr.status < 300) {
       loadNotes();
-      //add a success message
+      showFeedback(0, "Event deleted");
     } else {
       const errorData = JSON.parse(xhr.responseText);
       loadNotes();
