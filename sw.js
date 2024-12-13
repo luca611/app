@@ -27,7 +27,7 @@ self.addEventListener('install', (e) => {
 self.addEventListener('fetch', (e) => {
   e.respondWith(
     (async () => {
-      if (e.request.url.includes("pwaversion.txt")) {
+      if (e.request.url.contains("pwaversion.txt")) {
         console.log(`[Service Worker] Fetching version info: ${e.request.url}`);
         const response = await fetch(e.request);
         return response;
@@ -48,6 +48,6 @@ self.addEventListener('fetch', (e) => {
 });
 
 // Called when the service worker is started
-self.addEventListener('activate', () => {
+self.addEventListener('activate', (e) => {
   console.log("[Service Worker] Activated");
 });
