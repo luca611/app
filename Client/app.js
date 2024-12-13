@@ -732,3 +732,17 @@ function loadNotes() {
   };
   xhr.send(body);
 }
+
+function changeNameSettings(){
+  
+}
+function changeThemeSettings(){
+
+}
+function changePassSettings(){
+
+}
+
+function viewInfo(){
+
+}
