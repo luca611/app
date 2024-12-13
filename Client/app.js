@@ -567,8 +567,7 @@ async function logout() {
   password = "";
   username = "";
   saveCredentials();
-  toPage("page", "autenticazione");
-  ebi("addButtonContainer").classList.add("hidden");
+  location.reload();
 }
 
 //-----------------------------------------------------------------
@@ -584,14 +583,8 @@ async function login() {
 
   const url = serverURL + "/login";
 
-  /*
-    had to double check if the email and password are not empty
-    to see before if they were saved and ,if not, get them from the input fields 
-  */
-  if (!email || !password) {
-    email = ebi("loginUsername").value;
-    password = ebi("loginPassword").value;
-  }
+  email = ebi("loginUsername").value;
+  password = ebi("loginPassword").value;
 
   if (!email || !password) {
     disableLoading();
@@ -619,6 +612,8 @@ async function login() {
     } else {
       const errorData = JSON.parse(xhr.responseText);
       displayError("loginError", "Login failed: " + (errorData.error || "Unknown error"));
+
+      return false;
     }
   };
 
