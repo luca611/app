@@ -620,7 +620,6 @@ async function login(logEmail = ebi("loginUsername").value, logPassword = ebi("l
     displayError("loginError", "Network error. Please try again.");
     return false;
   };
-
   xhr.send(JSON.stringify({ email: logEmail, password: logPassword }));
 }
 
@@ -731,16 +730,16 @@ function loadNotes() {
   xhr.send(body);
 }
 
-function changeNameSettings(){
-  
-}
-function changeThemeSettings(){
+function changeNameSettings() {
 
 }
-function changePassSettings(){
+function changeThemeSettings() {
+
+}
+function changePassSettings() {
 
 }
 
-function viewInfo(){
+function viewInfo() {
 
 }
