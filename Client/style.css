@@ -325,6 +325,7 @@ div.eventContainer {
   height: calc(100% - 2.5rem);
   background-color: var(--minor-color);
   border-radius: var(--general-border-radius);
+  padding-bottom: 4rem;
 }
 
 
@@ -470,6 +471,7 @@ div.addButtonContainer {
   gap: 0.5rem;
   padding: 0.5rem;
   margin-right: 0;
+  z-index: 2;
 }
 
 button.addButton {
