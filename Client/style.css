@@ -1093,6 +1093,64 @@ button.deleteNoteButton:hover {
   transition: all 0.3s;
 }
 
+div.feedBack {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+  width: 80%;
+  position: absolute;
+  top: 1.5rem;
+  left: 10%;
+  background-color: white;
+  border-radius: var(--general-border-radius);
+  box-shadow: var(--shadow);
+  animation: in-out 4s ease-in-out;
+  transition: all 0.3s;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes in-out {
+  0% {
+    transform: translateY(-10rem);
+  }
+
+  15% {
+    transform: translateY(0);
+  }
+
+  85% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-10rem);
+  }
+}
+
+p.error {
+  color: var(--primary-red);
+  margin: 0;
+  font-weight: bold;
+}
+
+p.success {
+  color: var(--primary-green);
+  margin: 0;
+  font-weight: bold;
+}
+
+p.warning {
+  color: var(--primary-yellow);
+  margin: 0;
+  font-weight: bold;
+}
+
+
 @keyframes slideIn {
   0% {
     width: 3.8rem;

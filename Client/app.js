@@ -39,6 +39,8 @@ var eventCreation, gradeCreation, hourCreation, nameChange, passwordChange;
 var currentTheme = 1;
 var currentPage = 2;
 
+var currentPopupPage = 0;
+
 var email, password, username, privKey;
 function saveCredentials() {
   const credentials = {
@@ -67,6 +69,18 @@ function loadCredentials() {
 function ebi(id) {
   return document.getElementById(id);
 }
+
+//-----------------------------------------------------------------
+
+window.addEventListener('online', () => {
+  showFeedback(0, "You are back online");
+  autologin();
+});
+
+window.addEventListener('offline', () => {
+  showFeedback(2, "You are offline");
+});
+
 
 //-----------------------------------------------------------------
 
@@ -119,8 +133,50 @@ function openPopup() {
 function closePopup() {
   ebi("popup").classList.remove("open");
   ebi("overlayPopUp").classList.remove("visible");
-  //clearForm();
+  clearForm();
 }
+
+//-----------------------------------------------------------------
+
+function showFeedback(type = 0, message = "success") {
+  let feedbackContainer = ebi("feedbackContainer");
+  feedbackContainer.innerHTML = "";
+
+  let feedbackDiv = document.createElement("div");
+  feedbackDiv.classList.add("feedBack");
+
+  let icon = document.createElement("img");
+  icon.classList.add("icon");
+
+  let messageParagraph = document.createElement("p");
+
+  if (type === 0) {
+    icon.src = "resources/icons/succes.svg";
+    messageParagraph.classList.add("success");
+  } else if (type === 1) {
+    icon.src = "resources/icons/inform.svg";
+    messageParagraph.classList.add("warning");
+  } else if (type === 2) {
+    icon.src = "resources/icons/error.svg";
+    messageParagraph.classList.add("error");
+  }
+
+  icon.alt = "";
+  messageParagraph.innerText = message;
+
+  feedbackDiv.appendChild(icon);
+  feedbackDiv.appendChild(messageParagraph);
+  feedbackContainer.appendChild(feedbackDiv);
+
+  feedbackDiv.onclick = function () {
+    feedbackContainer.innerHTML = "";
+  };
+
+  setTimeout(() => {
+    feedbackContainer.innerHTML = "";
+  }, 4000);
+}
+
 
 //-----------------------------------------------------------------
 
@@ -140,12 +196,20 @@ function setPopupPage(page = 0) {
     ebi("popupConfrimButton").onclick = createEvent;
   }
 
+  currentPopupPage = page;
+
 }
 
 function clearForm() {
-  ebi("eventName").value = "";
-  ebi("eventDescription").value = "";
-  ebi("eventDate").value = "";
+  switch (currentPopupPage) {
+    case 0: {
+      ebi("eventName").value = "";
+      ebi("eventDescription").value = "";
+      ebi("eventDate").value = "";
+      displayError("eventError", "");
+      break;
+    }
+  }
 }
 
 function disableLoading() {
@@ -434,6 +498,8 @@ function showDeleteButton(id) {
             fakeScroll.classList.remove("fakeScroll");
             fakeScroll.classList.remove("hide");
             deleteButton.remove();
+            fakeScroll.remove();
+            showFeedback(0, "Event deleted");
           }, 210);
           document.removeEventListener("click", handleClickOutside);
         }
@@ -634,6 +700,7 @@ async function autologin() {
       }
     } else {
       swapToHome();
+      showFeedback(1, "No connection.");
     }
     applyTheme();
   };
@@ -678,6 +745,7 @@ function createEvent() {
       setInterval(() => {
         confirmButton.disabled = false;
       }, 1000);
+      showFeedback(0, "Event created");
     } else {
       const errorData = JSON.parse(xhr.responseText);
       displayError("eventError", "Failed to create event: " + (errorData.error || "Unknown error"));
