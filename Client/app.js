@@ -572,7 +572,7 @@ async function logout() {
 
 //-----------------------------------------------------------------
 
-async function login() {
+async function login(logEmail = ebi("loginUsername").value, logPassword = ebi("loginPassword").value) {
   displayError("loginError", "");
   enableLoading();
   if (!navigator.onLine) {
@@ -583,10 +583,7 @@ async function login() {
 
   const url = serverURL + "/login";
 
-  email = ebi("loginUsername").value;
-  password = ebi("loginPassword").value;
-
-  if (!email || !password) {
+  if (!logEmail || !logPassword) {
     disableLoading();
     displayError("loginError", "Please fill in all fields");
     return false;
@@ -600,7 +597,8 @@ async function login() {
     disableLoading();
     if (xhr.status >= 200 && xhr.status < 300) {
       const { key, name, theme } = JSON.parse(xhr.responseText);
-
+      email = logEmail;
+      password = logPassword;
       privKey = key;
       currentTheme = theme;
       username = name;
@@ -623,17 +621,17 @@ async function login() {
     return false;
   };
 
-  xhr.send(JSON.stringify({ email, password }));
+  xhr.send(JSON.stringify({ email: logEmail, password: logPassword }));
 }
 
 //-----------------------------------------------------------------
 
-function autologin() {
+async function autologin() {
   loadCredentials();
 
   if (email && password && username) {
     if (navigator.onLine) {
-      if (login() && typeof key !== undefined) {
+      if (await login(email, password) && typeof key !== undefined) {
         swapToHome();
       }
     } else {
