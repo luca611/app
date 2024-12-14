@@ -7,7 +7,8 @@ const appFiles = [
   'pwaicon.png',
   'style.css',
   'sw.js',
-  './resources/icons/inform.svg'
+  './resources/icons/inform.svg',
+  './resources/icons/error.svg'
   // add all PWA files here (except pwaversion.txt)
 ];
 
