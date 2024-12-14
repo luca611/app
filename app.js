@@ -30,7 +30,7 @@ xhr.send();
 //-----------------------------------------------------------------
 //app code
 
-const serverURL = "https://pocketdb-pocketdb.h.aivencloud.com";
+const serverURL = "https://pocketdiary-server.onrender.com";
 
 let sidebar, overlayBar;
 let overlayPopUp, popUp;
