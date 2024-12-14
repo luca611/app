@@ -32,16 +32,17 @@ xhr.send();
 
 const serverURL = "https://pocketdb-pocketdb.h.aivencloud.com";
 
-var sidebar, overlayBar;
-var overlayPopUp, popUp;
-var eventCreation, gradeCreation, hourCreation, nameChange, passwordChange;
+let sidebar, overlayBar;
+let overlayPopUp, popUp;
+let eventCreation, gradeCreation, hourCreation, nameChange, passwordChange;
 
-var currentTheme = 1;
-var currentPage = 2;
+let currentTheme = 1;
+let currentPage = 2;
 
-var currentPopupPage = 0;
+let currentPopupPage = 0;
 
-var email, password, username, privKey;
+let email, password, username, privKey;
+
 function saveCredentials() {
   const credentials = {
     email: email,
@@ -578,7 +579,7 @@ function register() {
   displayError("registerError", "");
   enableLoading();
   username = ebi("registerName").value;
-  ntema = currentTheme;
+  let ntema = currentTheme;
 
   console.log("register data: " + JSON.stringify({ email, password, ntema, username }));
 
