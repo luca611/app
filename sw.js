@@ -12,6 +12,7 @@ const appFiles = [
 
 // Caches all the PWA shell files (appFiles array) when the app is launched
 self.addEventListener('install', (e) => {
+  // skipcq: JS-0002
   console.log('[Service Worker] Install');
   const filesUpdate = cache => {
     const stack = [];
@@ -28,17 +29,20 @@ self.addEventListener('fetch', (e) => {
   e.respondWith(
     (async () => {
       if (e.request.url.contains("pwaversion.txt")) {
+        // skipcq: JS-0002
         console.log(`[Service Worker] Fetching version info: ${e.request.url}`);
         const response = await fetch(e.request);
         return response;
       } else {
-        const r = await caches.match(e.request);
+        const cachedResponse = await caches.match(e.request);
+        // skipcq: JS-0002
         console.log(`[Service Worker] Fetching resource: ${e.request.url}`);
-        if (r) {
-          return r;
+        if (cachedResponse) {
+          return cachedResponse;
         }
         const response = await fetch(e.request);
         const cache = await caches.open(cacheName);
+        // skipcq: JS-0002
         console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
         cache.put(e.request, response.clone());
         return response;
@@ -48,6 +52,7 @@ self.addEventListener('fetch', (e) => {
 });
 
 // Called when the service worker is started
-self.addEventListener('activate', (e) => {
+self.addEventListener('activate', (_) => {
+  // skipcq: JS-0002
   console.log("[Service Worker] Activated");
 });
