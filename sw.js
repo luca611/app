@@ -6,7 +6,8 @@ const appFiles = [
   'manifest.json',
   'pwaicon.png',
   'style.css',
-  'sw.js'
+  'sw.js',
+  './resources/icons/inform.svg'
   // add all PWA files here (except pwaversion.txt)
 ];
 
