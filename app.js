@@ -787,18 +787,23 @@ function loadNotes() {
             return;
           }
         } else {
+          showPlaceholder();
           throw new Error("Unexpected response format");
         }
       } catch (e) {
+        showPlaceholder();
         throw new Error("Error parsing response" + e);
       }
     } else {
+      showPlaceholder();
       throw new Error(xhr.responseText);
     }
   };
 
   xhr.onerror = function () {
+    showPlaceholder();
     throw new Error(xhr.statusText);
+
   };
   xhr.send(body);
 }
