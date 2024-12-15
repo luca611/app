@@ -258,12 +258,13 @@ div.sidebar {
   z-index: 3;
   position: fixed;
   top: 0;
-  left: -20rem;
+  left: -100vw;
   background: var(--primary-color);
   box-shadow: var(--shadow);
   height: 100vh;
   width: 50vw;
   min-width: 15rem;
+  max-width: 20rem;
   border-top-right-radius: var(--sidebar-border-radius);
   border-bottom-right-radius: var(--sidebar-border-radius);
   transition: all 0.3s;

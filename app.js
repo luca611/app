@@ -4,7 +4,7 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js");
 }
 //Redirect HTTP to HTTPS
-if (location.protocol == "http:") {
+if (location.protocol === "http:") {
   location.href = "https" + location.href.substring(4);
 }
 //Check for updates
@@ -45,10 +45,10 @@ let email, password, username, privKey;
 
 function saveCredentials() {
   const credentials = {
-    email: email,
-    password: password,
-    username: username,
-    currentTheme: currentTheme
+    email,
+    password,
+    username,
+    currentTheme
   };
   localStorage.setItem("credentials", JSON.stringify(credentials));
 }
@@ -140,16 +140,16 @@ function closePopup() {
 //-----------------------------------------------------------------
 
 function showFeedback(type = 0, message = "success") {
-  let feedbackContainer = ebi("feedbackContainer");
+  const feedbackContainer = ebi("feedbackContainer");
   feedbackContainer.innerHTML = "";
 
-  let feedbackDiv = document.createElement("div");
+  const feedbackDiv = document.createElement("div");
   feedbackDiv.classList.add("feedBack");
 
-  let icon = document.createElement("img");
+  const icon = document.createElement("img");
   icon.classList.add("icon");
 
-  let messageParagraph = document.createElement("p");
+  const messageParagraph = document.createElement("p");
 
   if (type === 0) {
     icon.src = "resources/icons/succes.svg";
@@ -182,8 +182,7 @@ function showFeedback(type = 0, message = "success") {
 //-----------------------------------------------------------------
 
 function setPopupPage(page = 0) {
-
-  let pages = document.getElementsByClassName("bodyContainer");
+  const pages = document.getElementsByClassName("bodyContainer");
   if (page > pages.length - 1) {
     page = 0;
   }
@@ -198,7 +197,6 @@ function setPopupPage(page = 0) {
   }
 
   currentPopupPage = page;
-
 }
 
 function clearForm() {
@@ -208,6 +206,9 @@ function clearForm() {
       ebi("eventDescription").value = "";
       ebi("eventDate").value = "";
       displayError("eventError", "");
+      break;
+    }
+    default: {
       break;
     }
   }
@@ -422,19 +423,19 @@ function showNotes(notes) {
   list.innerHTML = "";
 
   notes.forEach((note, index) => {
-    let event = document.createElement("div");
+    const event = document.createElement("div");
     event.classList.add("upcomingEvent");
     event.id = note.id;
     event.onclick = () => showDeleteButton(note.id);
 
-    let buttonContainer = document.createElement("div");
+    const buttonContainer = document.createElement("div");
     buttonContainer.classList.add("eventButtonContainer");
 
-    let button = document.createElement("button");
+    const button = document.createElement("button");
     button.classList.add("eventButton");
     button.onclick = () => openEvent(note);
 
-    let icon = document.createElement("img");
+    const icon = document.createElement("img");
     icon.classList.add("eventIcon");
     icon.src = "resources/icons/edit.svg";
     icon.alt = "edit";
@@ -442,14 +443,14 @@ function showNotes(notes) {
     button.appendChild(icon);
     buttonContainer.appendChild(button);
 
-    let infoContainer = document.createElement("div");
+    const infoContainer = document.createElement("div");
     infoContainer.classList.add("eventInfoContainer");
 
-    let title = document.createElement("h3");
+    const title = document.createElement("h3");
     title.classList.add("eventTitle");
     title.innerText = note.title;
 
-    let info = document.createElement("p");
+    const info = document.createElement("p");
     info.classList.add("eventInfo");
     info.innerText = note.description;
 
@@ -459,7 +460,7 @@ function showNotes(notes) {
     event.appendChild(buttonContainer);
     event.appendChild(infoContainer);
 
-    let fakeEmpty = document.createElement("div");
+    const fakeEmpty = document.createElement("div");
     fakeEmpty.classList.add("fakeEmpty");
 
     event.appendChild(fakeEmpty);
@@ -495,7 +496,7 @@ function showDeleteButton(id) {
       try {
         if (!ebi(id).contains(e.target)) {
           fakeScroll.classList.add("hide");
-          setTimeout(function () {
+          setTimeout(() => {
             fakeScroll.classList.remove("fakeScroll");
             fakeScroll.classList.remove("hide");
             deleteButton.remove();
@@ -515,7 +516,7 @@ function showDeleteButton(id) {
 
 function deleteEvent(id) {
   const url = serverURL + "/deleteNote";
-  const data = { key: privKey, noteId: id };
+  const data = { key: privKey, email, id };
 
   const xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
@@ -546,7 +547,7 @@ function deleteEvent(id) {
  
 */
 
-async function checkEmailAvailability(email) {
+function checkEmailAvailability(email) {
   if (!navigator.onLine) {
     return false;
   }
@@ -627,7 +628,7 @@ function register() {
 //-----------------------------------------------------------------
 
 
-async function logout() {
+function logout() {
   email = "";
   password = "";
   username = "";
@@ -637,7 +638,7 @@ async function logout() {
 
 //-----------------------------------------------------------------
 
-async function login(logEmail = ebi("loginUsername").value, logPassword = ebi("loginPassword").value) {
+function login(logEmail = ebi("loginUsername").value, logPassword = ebi("loginPassword").value) {
   displayError("loginError", "");
   enableLoading();
   if (!navigator.onLine) {
