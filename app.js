@@ -1,12 +1,10 @@
-const { auto } = require("groq-sdk/_shims/registry.mjs");
-
 const cacheName = "pwaname"; //PWA id here
 //Register PWA service worker
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js");
 }
 //Redirect HTTP to HTTPS
-if (location.protocol === "http:") {
+if (location.protocol == "http:") {
   location.href = "https" + location.href.substring(4);
 }
 //Check for updates
@@ -611,8 +609,8 @@ function register() {
     disableLoading();
     if (xhr.status >= 200 && xhr.status < 300) {
       saveCredentials();
-      autologin();
       swapToHome();
+      location.reload();
     } else {
       const errorData = JSON.parse(xhr.responseText);
       displayError("nameError", "Registration failed: " + errorData.error);
@@ -631,7 +629,7 @@ function register() {
 //-----------------------------------------------------------------
 
 
-function logout() {
+async function logout() {
   email = "";
   password = "";
   username = "";
