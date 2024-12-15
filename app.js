@@ -1,3 +1,5 @@
+const { auto } = require("groq-sdk/_shims/registry.mjs");
+
 const cacheName = "pwaname"; //PWA id here
 //Register PWA service worker
 if ("serviceWorker" in navigator) {
@@ -609,6 +611,7 @@ function register() {
     disableLoading();
     if (xhr.status >= 200 && xhr.status < 300) {
       saveCredentials();
+      autologin();
       swapToHome();
     } else {
       const errorData = JSON.parse(xhr.responseText);
