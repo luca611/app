@@ -483,6 +483,7 @@ button.addButton {
   border: none;
   border-radius: var(--button-border-radius);
   transition: all 0.3s;
+  display: flex;
   box-shadow: var(--shadow);
 }
 
@@ -498,6 +499,11 @@ div.bodyContainer {
   padding: 1rem;
   width: 100%;
   height: 100%;
+}
+
+img.addIcon {
+  width: 1rem;
+  margin: auto;
 }
 
 div.fillContainer {
