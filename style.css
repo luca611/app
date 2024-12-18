@@ -317,7 +317,6 @@ div.overlay.visible {
 h2.subtitle {
   font-size: 1.4rem;
   font-family: 'Inter';
-  font-weight: bold;
 }
 
 div.eventContainer {
@@ -408,7 +407,6 @@ div.upcomingEvent {
 
 h3.eventTitle {
   font-size: calc(var(--body-size) + 0.2rem);
-  font-weight: bold;
   font-family: 'Inter';
   text-transform: capitalize;
   margin: 0;
@@ -704,7 +702,6 @@ div.campiCont input {
   border: 2px solid var(--secondary-brown);
   font-size: var(--body-size);
   font-family: "Inter";
-  font-weight: bold;
 }
 
 p.campi {
@@ -746,7 +743,6 @@ p.error {
   color: var(--primary-red);
   font-size: var(--body-size);
   font-family: "Inter";
-  font-weight: bold;
   margin: 0;
 }
 
