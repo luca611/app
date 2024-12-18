@@ -72,6 +72,7 @@
 
 html {
   min-width: -webkit-fill-available;
+  color: #222222;
 }
 
 .body {
@@ -259,7 +260,7 @@ div.sidebar {
   z-index: 3;
   position: fixed;
   top: 0;
-  left: -100vw;
+  left: -20rem;
   background: var(--primary-color);
   box-shadow: var(--shadow);
   height: 100vh;
@@ -819,6 +820,9 @@ div.impostazioni {
 h3.navBarTitle {
   color: white;
   margin-top: 3vh;
+  font-weight: bold;
+  text-align: left;
+  width: 90%;
 }
 
 hr.navSeparator {
