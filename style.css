@@ -336,7 +336,6 @@ div.eventContainer {
   height: calc(100% - 2.5rem);
   background-color: var(--minor-color);
   border-radius: var(--general-border-radius);
-  padding-bottom: 4rem;
 }
 
 
@@ -386,6 +385,10 @@ div.eventsList {
   overflow: hidden;
   overflow-y: auto;
   padding-right: .2rem;
+}
+
+div.eventsList> :last-child {
+  margin-bottom: 5rem;
 }
 
 div.upcomingEvent {
