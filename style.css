@@ -105,7 +105,6 @@ div.sideBarButtonContainer {
 }
 
 div.topBar {
-  margin-top: 1rem;
   width: 100%;
   height: 10rem;
   display: grid;
@@ -244,7 +243,7 @@ img.icon {
 
 div.body {
   width: 100%;
-  height: calc(100vh - 11rem);
+  height: calc(100vh - 10rem);
   /*background-color: var(--primary-blue);*/
 }
 
