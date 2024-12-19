@@ -533,7 +533,7 @@ div.fillContainer {
 
 div.inputContainer {
   width: 100%;
-  height: calc(var(--body-size) + 6rem);
+  height: calc(var(--body-size) + 1.35rem);
 }
 
 input.inputField,
@@ -559,11 +559,11 @@ div.buttonContainer {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  height: 6rem;
+  height: 3.5rem;
   width: 100%;
   padding-left: 1rem;
   padding-right: 1rem;
-  padding-bottom: 3rem;
+  padding-bottom: 0.5rem;
   margin-top: 0.3rem;
 }
 
@@ -589,7 +589,7 @@ button.popupButton:hover {
 
 div.popUpBody {
   width: 100%;
-  height: calc(60vh - 6.5rem);
+  height: calc(60vh - 4.5rem);
   overflow: hidden;
   overflow-y: auto;
 }
@@ -1232,7 +1232,7 @@ p.warning {
   }
 
   div.popUpBody {
-    height: calc(70vh - 6.5rem);
+    height: calc(70vh - 4rem);
   }
 
 }
