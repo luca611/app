@@ -294,9 +294,9 @@ function hideAllPages() {
 
 async function proceedToTheme() {
   enableLoading();
-  email = ebi("registerUsername").value;
-  password = ebi("registerPassword").value;
-  const confirmPassword = ebi("confirmPassword").value;
+  email = ebi("registerUsername").value.trim().toLowerCase();
+  password = ebi("registerPassword").value.trim();
+  const confirmPassword = ebi("confirmPassword").value.trim();
 
   if (!email || !password || !confirmPassword) {
     displayError("registerError", "Please fill in all fields");
@@ -639,7 +639,7 @@ async function logout() {
 
 //-----------------------------------------------------------------
 
-function login(logEmail = ebi("loginUsername").value, logPassword = ebi("loginPassword").value) {
+function login(logEmail = ebi("loginUsername").value.trim().toLowerCase(), logPassword = ebi("loginPassword").value.trim()) {
   displayError("loginError", "");
   enableLoading();
   if (!navigator.onLine) {
@@ -716,9 +716,9 @@ async function autologin() {
 */
 
 function createEvent() {
-  const title = ebi("eventName").value;
-  const description = ebi("eventDescription").value;
-  const date = ebi("eventDate").value;
+  const title = ebi("eventName").value.trim();
+  const description = ebi("eventDescription").value.trim();
+  const date = ebi("eventDate").value.trim();
 
   if (!title || !description || !date) {
     displayError("eventError", "Please fill in all fields");
