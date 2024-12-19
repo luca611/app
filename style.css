@@ -128,10 +128,11 @@ div.lowerPart {
 }
 
 div.buttonScroll {
-  /*background-color: var(--primary-red);*/
-  width: 100%;
   height: 4rem;
-  padding: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -444,8 +445,9 @@ button.eventButton {
   transition: all 0.3s;
 }
 
-.iconAdjustment{
-  margin-left: -.2rem !important; ; 
+.iconAdjustment {
+  margin-left: -.2rem !important;
+  ;
 }
 
 button.eventButton:hover {
@@ -531,7 +533,7 @@ div.fillContainer {
 
 div.inputContainer {
   width: 100%;
-  height: calc(var(--body-size) + 1.35rem);
+  height: calc(var(--body-size) + 6rem);
 }
 
 input.inputField,
@@ -557,11 +559,11 @@ div.buttonContainer {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  height: 3.5rem;
+  height: 6rem;
   width: 100%;
   padding-left: 1rem;
   padding-right: 1rem;
-  padding-bottom: 0.5rem;
+  padding-bottom: 3rem;
   margin-top: 0.3rem;
 }
 
@@ -587,7 +589,7 @@ button.popupButton:hover {
 
 div.popUpBody {
   width: 100%;
-  height: calc(60vh - 4.5rem);
+  height: calc(60vh - 6.5rem);
   overflow: hidden;
   overflow-y: auto;
 }
@@ -822,7 +824,7 @@ h1.selezioneTema {
   }
 }
 
-div.logout{
+div.logout {
   background: #fde8e8 !important;
 }
 
@@ -1230,7 +1232,7 @@ p.warning {
   }
 
   div.popUpBody {
-    height: calc(70vh - 4rem);
+    height: calc(70vh - 6.5rem);
   }
 
 }
