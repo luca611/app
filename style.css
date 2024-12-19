@@ -1055,6 +1055,11 @@ div.containerSettings {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  transition: all 0.3s;
+}
+
+div.containerSettings:hover {
+  transform: filter brightness(0.9);
 }
 
 div.containerSettings {
