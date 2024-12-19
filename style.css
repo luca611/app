@@ -338,17 +338,17 @@ div.eventContainer {
 }
 
 
-div.eventsList::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 0.5rem;
   box-shadow: var(--shadow);
 }
 
-div.eventsList::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background-color: lightgray;
   border-radius: 100rem;
 }
 
-div.eventsList::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   background: rgba(211, 211, 211, 0.192);
 }
 
