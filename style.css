@@ -219,10 +219,14 @@ button.quickButton {
   border: none;
   height: 100%;
   width: 8rem;
-  min-width: fit-content;
+  min-width: --webkit-fill-available;
   border-radius: var(--button-border-radius);
   transition: all 0.3s;
   box-shadow: var(--shadow);
+  display: flex;
+  align-content: center;
+  align-items: center;
+  padding: 0.5rem;
 }
 
 button.quickButton:hover {
@@ -232,6 +236,7 @@ button.quickButton:hover {
 
 img.icon {
   margin-right: 0.5rem;
+  width: 1rem;
 }
 
 div.body {
@@ -430,13 +435,17 @@ p.eventInfo {
 }
 
 button.eventButton {
-  height: 70%;
+  height: 80%;
   aspect-ratio: 1/1;
   background-color: var(--primary-color);
   background: var(--primary-color);
   border-radius: var(--button-border-radius);
   border: none;
   transition: all 0.3s;
+}
+
+.iconAdjustment{
+  margin-left: -.2rem !important; ; 
 }
 
 button.eventButton:hover {
@@ -541,7 +550,7 @@ textarea.inputField {
 }
 
 div.largeInputContainer {
-  height: 35%;
+  height: inherit;
 }
 
 div.buttonContainer {
@@ -813,10 +822,19 @@ h1.selezioneTema {
   }
 }
 
+div.logout{
+  background: #fde8e8 !important;
+}
+
 div.impostazioni {
   overflow: hidden;
+  overflow-y: hidden;
   max-height: 100%;
   overflow-y: auto;
+  padding: 1rem;
+  background: var(--minor-color);
+  min-height: 100%;
+  border-radius: var(--general-border-radius);
 }
 
 h3.navBarTitle {
