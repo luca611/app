@@ -871,6 +871,7 @@ button.barLink {
   border-radius: var(--button-border-radius);
   color: white;
   display: flex;
+  align-items: center;
 }
 
 button.barLink.active {
