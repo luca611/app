@@ -533,7 +533,8 @@ div.fillContainer {
 
 div.inputContainer {
   width: 100%;
-  height: calc(var(--body-size) + 1.35rem);
+  flex-shrink: 0;
+  height: calc(var(--body-size) + 2.35rem);
 }
 
 input.inputField,
@@ -553,7 +554,7 @@ textarea.inputField {
 }
 
 div.largeInputContainer {
-  height: inherit;
+  height: 100%;
 }
 
 div.buttonContainer {
