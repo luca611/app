@@ -57,7 +57,7 @@ function saveCredentials() {
 
 function loadCredentials() {
   const credentials = JSON.parse(localStorage.getItem("credentials"));
-  if (credentials) {
+  if (typeof credentials !== "undefined" && credentials !== null) {
     email = credentials.email;
     password = credentials.password;
     username = credentials.username;
@@ -630,10 +630,7 @@ function register() {
 
 
 async function logout() {
-  email = "";
-  password = "";
-  username = "";
-  saveCredentials();
+  delete (localStorage.credentials);
   location.reload();
 }
 
