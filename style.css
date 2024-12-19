@@ -539,7 +539,7 @@ div.inputContainer {
 input.inputField,
 textarea.inputField {
   width: 100%;
-  min-width: --wevkit-fill-available;
+  min-width: -webkit-fill-available;
   height: 100%;
   border: solid 0.19rem var(--primary-color);
   border-radius: var(--minor-border-radius);
