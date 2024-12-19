@@ -91,7 +91,7 @@ div.sideBarButtonContainer {
   border: solid 0.2rem white;
   width: 4.5rem;
   border-radius: 100%;
-  aspect-ratio: 1/1;
+  height: 4.5rem;
   padding: 1rem 1rem;
   margin: 0.3rem;
   cursor: pointer;
@@ -490,7 +490,7 @@ div.addButtonContainer {
 button.addButton {
   background-color: var(--primary-color);
   width: 3rem;
-  aspect-ratio: 1/1;
+  height: 3rem;
   border: none;
   border-radius: var(--button-border-radius);
   transition: all 0.3s;
