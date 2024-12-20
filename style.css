@@ -514,6 +514,7 @@ div.bodyContainer {
   flex-direction: column;
   gap: 0.5rem;
   padding: 2rem;
+  padding-bottom: 0rem;
   width: 100%;
   height: 100%;
 }
@@ -1232,7 +1233,7 @@ p.warning {
   background-color: var(--primary-red);
 }
 
-@media screen and (max-height: 800px) {
+@media screen and (max-height: 50rem) {
   div.popup {
     height: 70vh;
     max-height: 70vh;
@@ -1251,7 +1252,7 @@ p.warning {
 
 }
 
-@media screen and (max-width:796px) {
+@media screen and (max-width: 49.75rem) {
   h1.titleWelcome {
     font-size: 2rem;
   }
@@ -1277,16 +1278,26 @@ p.warning {
   h1.registerTitle {
     font-size: 4rem;
   }
+
+  div.bodyContainer {
+    padding: 1rem;
+    padding-bottom: 0rem;
+  }
+
+  div.buttonContainer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
-@media screen and (min-width: 1048px) {
+@media screen and (min-width: 65.5rem) {
   div.popup {
     max-width: 50%;
     left: 25%;
   }
 }
 
-@media screen and (max-height:650px) {
+@media screen and (max-height: 40.625rem) {
   img.logo {
     display: none;
   }
