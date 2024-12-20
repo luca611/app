@@ -125,6 +125,7 @@ function closeSidebar() {
 
 //popup functions
 function openPopup() {
+  ebi("popupConfrimButton").innerText = "Create";
   ebi("popup").classList.add("open");
   ebi("overlayPopUp").classList.add("visible");
 }
@@ -807,16 +808,66 @@ function loadNotes() {
   xhr.send(body);
 }
 
-function changeNameSettings() {
+//-----------------------------------------------------------------
 
+function openEvent(note) {
+  openPopup();
+  ebi("popupConfrimButton").innerText = "Save";
+  ebi("popupConfrimButton").onclick = () => saveEvent(note);
+  console.log(note);
+  ebi("eventName").value = note.title;
+  ebi("eventDescription").value = note.description;
+  let data = note.dataora.split('T')[0];
+  ebi("eventDate").value = data;
 }
-function changeThemeSettings() {
 
-}
-function changePassSettings() {
+function saveEvent(note) {
+  if (typeof note === "undefined") {
+    return;
+  }
+  const title = ebi("eventName").value.trim();
+  const description = ebi("eventDescription").value.trim();
+  const date = ebi("eventDate").value.trim();
 
-}
+  if (!title || !description || !date) {
+    displayError("eventError", "Please fill in all fields");
+    return;
+  }
 
-function viewInfo() {
+  const url = serverURL + "/updateNote";
 
+  const data = { key: privKey, title, description, date, email, id: note.id };
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  const confirmButton = ebi("popupConfrimButton");
+  confirmButton.disabled = true;
+
+  xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      displayError("eventError", "");
+      ebi("eventName").value = "";
+      ebi("eventDescription").value = "";
+      ebi("eventDate").value = "";
+      closePopup();
+      loadNotes();
+
+      setInterval(() => {
+        confirmButton.disabled = false;
+      }, 1000);
+      showFeedback(0, "Event updated");
+    } else {
+      const errorData = JSON.parse(xhr.responseText);
+      displayError("eventError", "Failed to update event: " + (errorData.error || "Unknown error"));
+    }
+  };
+
+  xhr.onerror = function () {
+    confirmButton.disabled = false;
+    displayError("eventError", "Network error. Please try again.");
+  };
+
+  xhr.send(JSON.stringify(data));
 }
