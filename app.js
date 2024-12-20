@@ -126,6 +126,7 @@ function closeSidebar() {
 //popup functions
 function openPopup() {
   ebi("popupConfrimButton").innerText = "Create";
+  ebi("popupConfrimButton").onclick = createEvent;
   ebi("popup").classList.add("open");
   ebi("overlayPopUp").classList.add("visible");
 }
