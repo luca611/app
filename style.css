@@ -45,6 +45,7 @@
   --primary-brown: #CEB99C;
   --secondary-brown: #9D917C;
 
+  --placeholder-color: #c4c2c0;
 
   --shadow: 0 0.2rem 0.5rem rgba(41, 39, 39, 0.1);
 }
@@ -73,6 +74,15 @@
 html {
   min-width: -webkit-fill-available;
   color: #222222;
+}
+
+::placeholder {
+  color: var(--placeholder-color);
+  opacity: 1;
+}
+
+::-ms-input-placeholder {
+  color: var(--placeholder-color);
 }
 
 .body {
@@ -396,11 +406,13 @@ div.upcomingEvent {
   flex-direction: row;
   gap: 0.5rem;
   padding: 0.5rem;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: white;
   border-radius: var(--general-border-radius);
   transition: all 0.3s;
   width: 100%;
-  height: 6rem;
+  height: 5rem;
   overflow: hidden;
   box-shadow: var(--shadow);
   flex-shrink: 0;
@@ -421,7 +433,6 @@ h3.eventTitle {
   font-family: 'Inter';
   text-transform: capitalize;
   margin: 0;
-  margin-top: .3rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1074,13 +1085,13 @@ div.containerSettings {
   height: fit-content;
   display: flex;
   flex-direction: row;
-  margin-bottom: .8rem;
+  margin-bottom: .5rem;
   width: 100%;
   background-color: #F6F6F6;
   border-radius: var(--general-border-radius);
   box-shadow: var(--shadow);
   padding: 1rem;
-  gap: 10%;
+  gap: 2rem;
   transition: all 0.3s;
   width: 100%;
 }
