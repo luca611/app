@@ -937,11 +937,11 @@ function deleteEvent(id) {
 //-----------------------------------------------------------------
 
 function changeName() {
-  ebi("nameError").innerText = "eseguendo";
+  ebi("popupNameError").innerText = "";
   const newName = ebi("newName").value.trim();
 
   if (!newName) {
-    displayError("nameError", "Please fill in all fields");
+    displayError("popupNameError", "Please fill in all fields");
     return;
   }
 
@@ -958,7 +958,7 @@ function changeName() {
 
   xhr.onload = function () {
     if (xhr.status >= 200 && xhr.status < 300) {
-      displayError("nameError", "");
+      displayError("popupNameError", "");
       username = newName;
       saveCredentials();
       ebi("newName").value = "";
@@ -970,13 +970,13 @@ function changeName() {
       showFeedback(0, "Name changed");
     } else {
       const errorData = JSON.parse(xhr.responseText);
-      displayError("nameError", "Failed to change name: " + (errorData.error || "Unknown error"));
+      displayError("popupNameError", "Failed to change name: " + (errorData.error || "Unknown error"));
     }
   };
 
   xhr.onerror = function () {
     confirmButton.disabled = false;
-    displayError("nameError", "Network error. Please try again.");
+    displayError("popupNameError", "Network error. Please try again.");
   };
 
   xhr.send(JSON.stringify(data));
