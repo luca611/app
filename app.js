@@ -124,9 +124,11 @@ function closeSidebar() {
 //-----------------------------------------------------------------
 
 //popup functions
-function openPopup() {
-  ebi("popupConfrimButton").innerText = "Create";
-  ebi("popupConfrimButton").onclick = createEvent;
+function openPopup(page = 0) {
+  if (page === 0) {
+    ebi("popupConfrimButton").innerText = "Create";
+    ebi("popupConfrimButton").onclick = createEvent;
+  }
   ebi("popup").classList.add("open");
   ebi("overlayPopUp").classList.add("visible");
 }
@@ -183,6 +185,12 @@ function showFeedback(type = 0, message = "success") {
 
 //-----------------------------------------------------------------
 
+/**
+ * 0: event
+ * 1: grade
+ * 2: name
+ * 3: password
+ */
 function setPopupPage(page = 0) {
   const pages = document.getElementsByClassName("bodyContainer");
   if (page > pages.length - 1) {
@@ -194,8 +202,24 @@ function setPopupPage(page = 0) {
 
   pages[page].classList.remove("hidden");
 
-  if (page === 0) {
-    ebi("popupConfrimButton").onclick = createEvent;
+  switch (page) {
+    case 0:
+      ebi("popupConfrimButton").onclick = createEvent;
+      ebi("popupConfrimButton").innerText = "Create";
+      break;
+    case 1:
+      //ebi("popupConfrimButton").onclick = createGrade;
+      break;
+    case 2:
+      ebi("popupConfrimButton").onclick = changeName;
+      ebi("popupConfrimButton").innerText = "Change";
+      break;
+    case 3:
+      //ebi("popupConfrimButton").onclick = changePassword;
+      ebi("popupConfrimButton").innerText = "Change";
+      break;
+    default:
+      break;
   }
 
   currentPopupPage = page;
@@ -204,10 +228,26 @@ function setPopupPage(page = 0) {
 function clearForm() {
   switch (currentPopupPage) {
     case 0: {
+      //event creation
       ebi("eventName").value = "";
       ebi("eventDescription").value = "";
       ebi("eventDate").value = "";
       displayError("eventError", "");
+
+      break;
+    }
+    case 1: {
+      //grade creation
+      break;
+    }
+    case 2: {
+      //name change
+      ebi("newName").value = "";
+      displayError("nameError", "");
+      break;
+    }
+    case 3: {
+      //password change
       break;
     }
     default: {
@@ -260,6 +300,16 @@ function swapToHome() {
 
   loadNotes();
 }
+
+//-----------------------------------------------------------------
+
+function openNameChange() {
+  setPopupPage(2);
+  openPopup(1);
+}
+
+//-----------------------------------------------------------------
+
 
 //-----------------------------------------------------------------
 
@@ -406,7 +456,14 @@ function toHome() {
   closeSidebar();
 }
 
-//-----------------------------------------------------------------
+/*
+  event functions
+
+  -> showPlaceholder: hides the events list and shows the placeholder
+  -> showNotes: shows the events list and hides the placeholder
+  -> showDeleteButton: shows the delete button for an event
+  -> openEvent: opens the popup with the event data
+*/
 
 function showPlaceholder() {
   ebi("eventsList").classList.add("hidden");
@@ -515,30 +572,15 @@ function showDeleteButton(id) {
 }
 
 //-----------------------------------------------------------------
-
-function deleteEvent(id) {
-  const url = serverURL + "/deleteNote";
-  const data = { key: privKey, email, id };
-
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-Type", "application/json");
-
-  xhr.onload = function () {
-    if (xhr.status >= 200 && xhr.status < 300) {
-      loadNotes();
-      showFeedback(0, "Event deleted");
-    } else {
-      const errorData = JSON.parse(xhr.responseText);
-      loadNotes();
-    }
-  };
-
-  xhr.onerror = function () {
-    console.error("Network error:", xhr);
-  };
-
-  xhr.send(JSON.stringify(data));
+function openEvent(note) {
+  openPopup();
+  ebi("popupConfrimButton").innerText = "Save";
+  ebi("popupConfrimButton").onclick = () => saveEvent(note);
+  console.log(note);
+  ebi("eventName").value = note.title;
+  ebi("eventDescription").value = note.description;
+  let data = note.dataora.split('T')[0];
+  ebi("eventDate").value = data;
 }
 
 /*
@@ -708,9 +750,12 @@ async function autologin() {
 }
 
 /*
-  db manitulation functions
+  db manipulation functions
 
   -> createEvent: sends a POST request to the server to create a new event
+  -> loadNotes: sends a POST request to the server to get all the events
+  -> saveEvent: sends a POST request to the server to update an event
+  -> deleteEvent: sends a POST request to the server to delete an event
 
 */
 
@@ -811,17 +856,6 @@ function loadNotes() {
 
 //-----------------------------------------------------------------
 
-function openEvent(note) {
-  openPopup();
-  ebi("popupConfrimButton").innerText = "Save";
-  ebi("popupConfrimButton").onclick = () => saveEvent(note);
-  console.log(note);
-  ebi("eventName").value = note.title;
-  ebi("eventDescription").value = note.description;
-  let data = note.dataora.split('T')[0];
-  ebi("eventDate").value = data;
-}
-
 function saveEvent(note) {
   if (typeof note === "undefined") {
     return;
@@ -868,6 +902,81 @@ function saveEvent(note) {
   xhr.onerror = function () {
     confirmButton.disabled = false;
     displayError("eventError", "Network error. Please try again.");
+  };
+
+  xhr.send(JSON.stringify(data));
+}
+
+//-----------------------------------------------------------------
+
+function deleteEvent(id) {
+  const url = serverURL + "/deleteNote";
+  const data = { key: privKey, email, id };
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      loadNotes();
+      showFeedback(0, "Event deleted");
+    } else {
+      const errorData = JSON.parse(xhr.responseText);
+      loadNotes();
+    }
+  };
+
+  xhr.onerror = function () {
+    console.error("Network error:", xhr);
+  };
+
+  xhr.send(JSON.stringify(data));
+}
+
+//-----------------------------------------------------------------
+
+function changeName() {
+  ebi("nameError").innerText = "eseguendo";
+  const newName = ebi("newName").value.trim();
+
+  if (!newName) {
+    displayError("nameError", "Please fill in all fields");
+    return;
+  }
+
+  const url = serverURL + "/changeName";
+
+  const data = { key: privKey, email, password, name: newName };
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  const confirmButton = ebi("popupConfrimButton");
+  confirmButton.disabled = true;
+
+  xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      displayError("nameError", "");
+      username = newName;
+      saveCredentials();
+      ebi("newName").value = "";
+      closePopup();
+
+      setInterval(() => {
+        confirmButton.disabled = false;
+      }, 1000);
+      showFeedback(0, "Name changed");
+    } else {
+      const errorData = JSON.parse(xhr.responseText);
+      displayError("nameError", "Failed to change name: " + (errorData.error || "Unknown error"));
+    }
+  };
+
+  xhr.onerror = function () {
+    confirmButton.disabled = false;
+    displayError("nameError", "Network error. Please try again.");
   };
 
   xhr.send(JSON.stringify(data));

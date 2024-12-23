@@ -192,7 +192,7 @@
 
             <div id="settings" class="section hidden">
                 <div class="impostazioni">
-                    <div class="containerSettings" onclick="changeNameSettings()">
+                    <div class="containerSettings" onclick="openNameChange()">
                         <img src="resources/icons/changeName.svg" alt="" >
                         <p style="color: var( --primary-color);" >CHANGE NAME</p>
                     </div>
@@ -337,6 +337,7 @@
                     <div class="inputContainer">
                         <input class="inputField" type="text" id="newName" placeholder="Mario Rossi">
                     </div>
+                    <p class="error" id="nameError" ></p>
                 </div>
 
                 <!-- password -->

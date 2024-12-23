@@ -1078,7 +1078,7 @@ div.containerSettings {
 }
 
 div.containerSettings:hover {
-  transform: filter brightness(0.9);
+  filter: brightness(0.95);
 }
 
 div.containerSettings {
@@ -1169,6 +1169,8 @@ div.feedBack {
   align-items: center;
   justify-content: center;
 }
+
+
 
 @keyframes in-out {
   0% {
