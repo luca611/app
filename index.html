@@ -204,10 +204,11 @@
                         <img src="resources/icons/preferences.svg" alt="">
                         <p style="color: var( --primary-color);">PREFERENCES</p>
                     </div>
-                    <div class="containerSettings" onclick="changePassSettings()">
+                    <div class="containerSettings" onclick="openPasswordChange()">
                         <img src="resources/icons/changePass.svg" alt="" id="cPass">
                         <p style="color: var(--primary-red);">CHANGE PASSWORD</p>
                     </div>
+                    <br>
                     <div class="containerSettings" onclick="viewInfo()">
                         <img src="resources/icons/info.svg" alt="" id="info">
                         <p  style="color: var(--primary-blue);">APP INFO</p>
@@ -346,20 +347,21 @@
                         CURRENT PASSWORD
                     </div>
                     <div class="inputContainer">
-                        <input class="inputField" type="text" id="currentPassword" placeholder="old Password">
+                        <input class="inputField" type="password" id="currentPassword" placeholder="old Password">
                     </div>
                     <div class="fillContainer">
                         NEW PASSWORD
                     </div>
                     <div class="inputContainer">
-                        <input class="inputField" type="text" id="newPassword" placeholder="new Password">
+                        <input class="inputField" type="password" id="newPassword" placeholder="new Password">
                     </div>
                     <div class="fillContainer">
                         CONFIRM PASSWORD
                     </div>
                     <div class="inputContainer">
-                        <input class="inputField" type="text" id="newConfirmPassword" placeholder="new Password">
+                        <input class="inputField" type="password" id="newConfirmPassword" placeholder="new Password">
                     </div>
+                    <p class="error" id="popupPasswordError" ></p>
 
                 </div>
             </div>

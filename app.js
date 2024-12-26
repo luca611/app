@@ -215,7 +215,7 @@ function setPopupPage(page = 0) {
       ebi("popupConfrimButton").innerText = "Change";
       break;
     case 3:
-      //ebi("popupConfrimButton").onclick = changePassword;
+      ebi("popupConfrimButton").onclick = changePassword;
       ebi("popupConfrimButton").innerText = "Change";
       break;
     default:
@@ -248,6 +248,10 @@ function clearForm() {
     }
     case 3: {
       //password change
+      ebi("newPassword").value = "";
+      ebi("newConfirmPassword").value = "";
+      ebi("currentPassword").value = "";
+      displayError("popupPasswordError", "");
       break;
     }
     default: {
@@ -307,6 +311,14 @@ function openNameChange() {
   setPopupPage(2);
   openPopup(1);
 }
+
+//-----------------------------------------------------------------
+
+function openPasswordChange() {
+  setPopupPage(3);
+  openPopup(1);
+}
+
 
 //-----------------------------------------------------------------
 
@@ -981,3 +993,75 @@ function changeName() {
 
   xhr.send(JSON.stringify(data));
 }
+
+//-----------------------------------------------------------------
+
+function changePassword() {
+
+  ebi("popupPasswordError").innerText = "";
+  const newPassword = ebi("newPassword").value.trim();
+  const confirmPassword = ebi("newConfirmPassword").value.trim();
+  const oldPassword = ebi("currentPassword").value.trim();
+
+  if (!newPassword || !confirmPassword || !oldPassword) {
+    displayError("popupPasswordError", "Please fill in all fields");
+    return;
+  }
+
+  if (newPassword !== confirmPassword) {
+    displayError("popupPasswordError", "Passwords do not match");
+    return;
+  }
+
+  if (newPassword === oldPassword) {
+    displayError("popupPasswordError", "New password must be different from the old one");
+    return;
+  }
+
+  if (newPassword.length < 8) {
+    displayError("popupPasswordError", "Password must be at least 8 characters long");
+    return;
+  }
+
+  const url = serverURL + "/changePassword";
+
+  const data = { key: privKey, email, password: oldPassword, newPassword };
+  console.log(data);
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  const confirmButton = ebi("popupConfrimButton");
+  confirmButton.disabled = true;
+
+  xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      displayError("popupPasswordError", "");
+      ebi("newPassword").value = "";
+      ebi("newConfirmPassword").value = "";
+      ebi("currentPassword").value = "";
+
+      password = newPassword;
+      saveCredentials();
+
+      closePopup();
+
+      setInterval(() => {
+        confirmButton.disabled = false;
+      }, 1000);
+      showFeedback(0, "Password changed");
+    } else {
+      const errorData = JSON.parse(xhr.responseText);
+      displayError("popupPasswordError", "Failed to change password: " + (errorData.error || "Unknown error"));
+    }
+  };
+
+  xhr.onerror = function () {
+    confirmButton.disabled = false;
+    displayError("popupPasswordError", "Network error. Please try again.");
+  };
+
+  xhr.send(JSON.stringify(data));
+}
+
