@@ -38,7 +38,7 @@
 
   --primary-purple: #B900B1;
   --secondary-purple: #D848D2;
-  --minor-purple: #DF7FDB;
+  --minor-purple: #e99fe5;
 
   --primary-red: #E95757;
   --secondary-red: #C14D4D;
@@ -47,7 +47,7 @@
   --secondary-brown: #9D917C;
 
   --placeholder-color: #c4c2c0;
-  --body-element-color: #fff;
+  --body-element-color: #f5f5f5;
 
   --shadow: 0 0.2rem 0.5rem rgba(41, 39, 39, 0.1);
 }
@@ -136,6 +136,135 @@ div.upperPart {
 div.lowerPart {
   overflow: hidden;
   width: 100%;
+}
+
+div.colorsContainer{
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  height: 4.3rem;
+  justify-content: space-between;
+  overflow: hidden;
+  overflow-x: auto;
+  padding-bottom: 0.2rem;
+}
+
+button.buttonColor,input.buttonColor{
+  width: 25%;
+  min-width: 4rem;
+  height: 4rem;
+  border-radius: var(--minor-border-radius);
+  border: none;
+  transition: all 0.3s;
+}
+
+.buttonColor:hover{
+  cursor: pointer;
+  filter: brightness(0.9);
+}
+
+input.buttonColor {
+  -webkit-appearance: none;
+  padding: 0;
+  border: none;
+  border-radius: var(--minor-border-radius);
+  position: relative;
+}
+
+input.buttonColor::before,
+input.buttonColor::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 35%;
+  max-width: 1.5rem;
+  height: 0.3rem;
+  border-radius: var(--minor-border-radius);
+  background-color: var(--sidebar-text-color);
+}
+
+input.buttonColor::before {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+input.buttonColor::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+input.buttonColor::-webkit-color-swatch {
+  border: none;
+  border-radius: var(--minor-border-radius);
+  padding: 0;
+}
+input.buttonColor::-webkit-color-swatch-wrapper {
+  border: none;
+  border-radius: var(--minor-border-radius);
+  padding: 0;
+}
+
+.primaryYellow{
+  background-color: var(--primary-yellow);
+}
+
+.primaryBlue{
+  background-color: var(--primary-blue);
+}
+
+.primaryGreen{
+  background-color: var(--primary-green);
+}
+
+.primaryPurple{
+  background-color: var(--primary-purple);
+}
+
+.secondaryYellow{
+  background-color: var(--secondary-yellow);
+}
+
+.secondaryBlue{
+  background-color: var(--secondary-blue);
+}
+
+.secondaryGreen{
+  background-color: var(--secondary-green);
+}
+
+.secondaryPurple{
+  background-color: var(--secondary-purple);
+}
+
+.tertiaryYellow{
+  background-color: var(--minor-yellow);
+}
+
+.tertiaryBlue{
+  background-color: var(--minor-blue);
+}
+
+.tertiaryGreen{
+  background-color: var(--minor-green);
+}
+
+.tertiaryPurple{
+  background-color: var(--minor-purple);
+}
+
+.currentPrimary{
+  background-color: var(--primary-color) !important;
+}
+
+.currentSecondary{
+  background-color: var(--secondary-color) !important;
+}
+
+.currentTertiary{
+  background-color: var(--minor-color) !important;
+}
+
+.blackText{
+  color: var(--body-text-color) !important;
 }
 
 div.buttonScroll {
@@ -1069,7 +1198,7 @@ div.UsernamePage hr {
 
 div.containerSettings {
   height: 100vh;
-  background-color: var(--minor-color);
+  background-color: var(--body-element-color);
   border-radius: var(--general-border-radius);
   width: 98%;
   display: flex;
@@ -1091,7 +1220,7 @@ div.containerSettings {
   flex-direction: row;
   margin-bottom: .5rem;
   width: 100%;
-  background-color: #F6F6F6;
+  background-color: var(--body-element-color);
   border-radius: var(--general-border-radius);
   box-shadow: var(--shadow);
   padding: 1rem;

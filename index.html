@@ -13,7 +13,7 @@
     <meta name="description" content="A digital diary to keep track of your school life featuring a calendar, a schedule, an ia and a grade tracker.">
 </head>
 
-<body class="body" onload="disableLoading(); autologin()">
+<body id="pageBody" class="body" onload="disableLoading(); autologin();">
 
     <div class="loadingScreen" id="loadingScreen">
         <img class="loadingIcon" src="resources/imgs/loading.webp" alt="">
@@ -301,10 +301,10 @@
 
     <div class="popupContainer">
         <div class="overlay" id="overlayPopUp" onclick="closePopup()"></div>
-        <div id="popup" class="popup">
+        <div id="popup" class="popup open">
             <div class="popUpBody">
                 <!-- event popUp -->
-                <div id="eventContainer" class="bodyContainer hidden">
+                <div id="eventContainerbody" class="bodyContainer hidden">
                     <div class="fillContainer">
                         event name
                     </div>
@@ -389,8 +389,80 @@
                     <p class="error" id="popupPasswordError" ></p>
 
                 </div>
-            </div>
+                
 
+                <!-- color theme popUP-->
+                <div id="themeContainer" class="bodyContainer">
+                    <div class="fillContainer">
+                        Primary color
+                    </div>
+                    <div class="colorsContainer">
+                        <button id="primaryYellowButton" class="buttonColor primaryYellow">
+
+                        </button>
+                        <button id="primaryBlueButton" class="buttonColor primaryBlue">
+
+                        </button>
+                        <button id="primaryGreenButton" class="buttonColor primaryGreen">
+
+                        </button>
+
+                        <button id="primaryPurpleButton" class="buttonColor primaryPurple">
+                            </button>
+
+                        <input type="color" id="primaryColorPicker" class="buttonColor" value="#ffcc00">
+
+                        </input>
+                    </div>
+
+                    <div class="fillContainer currentSecondary">
+                        Secondary color
+                    </div>
+
+                    <div class="colorsContainer">
+                        <button id="secondaryYellowButton" class="buttonColor secondaryYellow">
+
+                        </button>
+                        <button id="secondaryBlueButton" class="buttonColor secondaryBlue">
+
+                        </button>
+                        <button id="secondaryGreenButton" class="buttonColor secondaryGreen">
+
+                        </button>
+
+                        <button id="secondaryPurpleButton" class="buttonColor secondaryPurple">
+                        
+                        </button>
+
+                        <input type="color" id="secondaryColorPicker" class="buttonColor" value="#ffcc00">
+
+                        </input>
+                    </div>
+
+                    <div class="fillContainer currentTertiary blackText">
+                        tertiary color
+                    </div>
+
+                    <div class="colorsContainer">
+                        <button id="pinsYellowButton" class="buttonColor tertiaryYellow">
+
+                        </button>
+                        <button id="pinsBlueButton" class="buttonColor tertiaryBlue">
+
+                        </button>
+                        <button id="pinsGreenButton" class="buttonColor tertiaryGreen">
+
+                        </button>
+
+                        <button id="pinsPurpleButton" class="buttonColor tertiaryPurple">
+                        </button>
+
+                        <input type="color" id="pinsColorPicker" class="buttonColor" value="#ffcc00">
+
+                        </input>
+                    </div>
+                </div>
+            </div>
             <!-- lower part of the pop up same as always-->
             <div class="buttonContainer">
                 <button id="popupCalncelButton" class="popupButton danger" onclick="closePopup()">Cancel</button>
@@ -399,6 +471,20 @@
 
         </div>
     </div>
+    
+    <script>
+        a = document.createElement("button")
+        a.innerHTML = "show"
+        a.style.position = "absolute";
+        a.style.top = "0";
+        a.style.left = "0";
+        a.onclick = () => {
+                document.getElementById("themeContainer").classList.remove("hidden");
+                document.getElementById("eventContainerbody").classList.add("hidden");
+                console.log("ex")
+        }
+        document.getElementById("pageBody").appendChild(a)
+    </script>
 </body>
 
 </html>
