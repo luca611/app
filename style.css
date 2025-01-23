@@ -314,6 +314,7 @@ div.titleContainer {
   overflow-x: auto;
   text-overflow: ellipsis;
   height: 50%;
+  text-wrap: nowrap;
 }
 
 p.loadingText {
