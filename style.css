@@ -142,7 +142,7 @@ div.colorsContainer {
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
-  height: 4.3rem;
+  min-height: 4.3rem;
   justify-content: space-between;
   overflow: hidden;
   overflow-x: auto;
@@ -734,6 +734,7 @@ textarea.inputField {
 
 input.inputField {
   max-height: 4rem;
+  min-height: 3rem;
 }
 
 input.error {
