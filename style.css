@@ -1015,7 +1015,7 @@ div.logout {
   background: #fde8e8 !important;
 }
 
-div.impostazioni {
+div.impostazioni, div.voti {
   overflow: hidden;
   overflow-y: hidden;
   max-height: 100%;
@@ -1024,6 +1024,61 @@ div.impostazioni {
   background: var(--minor-color);
   min-height: 100%;
   border-radius: var(--general-border-radius);
+}
+div.voti{
+  margin-top: 0.5rem;
+  min-height: 90%;
+}
+div.containerVoti{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.numeroVoto{
+  width: 6rem;
+  height: 6rem;
+  border-radius: 100%;
+  border: 5px solid;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+div.descriptionGrades{
+  background-color: white;
+  width: 90%;
+  border-radius: var(--general-border-radius);
+  padding: 1rem;
+}
+div.voto{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#bottoneVoti{
+  flex-shrink: 0;
+  color: var(--sidebar-text-color);
+  background-color: var(--primary-color);
+  border: none;
+  height: 100%;
+  max-height: 3rem;
+  width: 8rem;
+  min-width: --webkit-fill-available;
+  border-radius: var(--button-border-radius);
+  transition: all 0.3s;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  min-width: fit-content;
+  font-weight: bold;
 }
 
 h3.navBarTitle {

@@ -225,6 +225,7 @@ function openPopup(page = 0) {
   ebi("overlayPopUp").classList.add("visible");
 }
 
+
 //-----------------------------------------------------------------
 
 function closePopup() {
@@ -655,6 +656,17 @@ function toSettings() {
   hideAllPages();
   ebi("settings").classList.remove("hidden");
   ebi("pageTitle").innerText = "Settings";
+  ebi("decoratedTitle").innerText = "";
+  currentPage = 0;
+  updateActivePageLink();
+  closeSidebar();
+}
+//-----------------------------------------------------------------
+function toGrades() {
+  disableAddButton();
+  hideAllPages();
+  ebi("grades").classList.remove("hidden");
+  ebi("pageTitle").innerText = "Grades";
   ebi("decoratedTitle").innerText = "";
   currentPage = 0;
   updateActivePageLink();
