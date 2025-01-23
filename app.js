@@ -30,6 +30,7 @@ xhr.send();
 //-----------------------------------------------------------------
 //app code
 
+const rootStyles = getComputedStyle(document.documentElement);
 const serverURL = "https://pocketdiary-server.onrender.com";
 
 let sidebar, overlayBar;
@@ -42,6 +43,10 @@ let currentPage = 2;
 let currentPopupPage = 0;
 
 let email, password, username, privKey;
+
+let primaryColor = rootStyles.getPropertyValue("--primary-color");
+let secondaryColor = rootStyles.getPropertyValue("--secondary-color");
+let tertiaryColor = rootStyles.getPropertyValue("--minor-color");
 
 function saveCredentials() {
   const credentials = {
@@ -123,6 +128,93 @@ function closeSidebar() {
 
 //-----------------------------------------------------------------
 
+function setColor(type, color) {
+  switch (type) {
+    case 'primary':
+      applyPrimaryColor(color);
+      break;
+    case 'secondary':
+      applySecondaryColor(color);
+      break;
+    case 'tertiary':
+      applyTertiaryColor(color);
+      break;
+  }
+}
+
+//-----------------------------------------------------------------
+
+function applyPrimaryColor(color) {
+  switch (color) {
+    case 'yellow':
+      document.documentElement.style.setProperty("--primary-color", rootStyles.getPropertyValue("--primary-yellow"));
+      break;
+    case 'blue':
+      document.documentElement.style.setProperty("--primary-color", rootStyles.getPropertyValue("--primary-blue"));
+      break;
+    case 'green':
+      document.documentElement.style.setProperty("--primary-color", rootStyles.getPropertyValue("--primary-green"));
+      break;
+    case 'purple':
+      document.documentElement.style.setProperty("--primary-color", rootStyles.getPropertyValue("--primary-purple"));
+      break;
+    case 'custom':
+      const colorPicker = document.getElementById("primaryColorPicker");
+      document.documentElement.style.setProperty("--primary-color", colorPicker.value);
+      break;
+  }
+}
+
+//-----------------------------------------------------------------
+
+function applySecondaryColor(color) {
+  let colorPicker;
+  switch (color) {
+    case 'yellow':
+      document.documentElement.style.setProperty("--secondary-color", rootStyles.getPropertyValue("--secondary-yellow"));
+      break;
+    case 'blue':
+      document.documentElement.style.setProperty("--secondary-color", rootStyles.getPropertyValue("--secondary-blue"));
+      break;
+    case 'green':
+      document.documentElement.style.setProperty("--secondary-color", rootStyles.getPropertyValue("--secondary-green"));
+      break;
+    case 'purple':
+      document.documentElement.style.setProperty("--secondary-color", rootStyles.getPropertyValue("--secondary-purple"));
+      break;
+    case 'custom':
+      colorPicker = document.getElementById("secondaryColorPicker");
+      document.documentElement.style.setProperty("--secondary-color", colorPicker.value);
+      break;
+  }
+}
+
+//-----------------------------------------------------------------
+
+function applyTertiaryColor(color) {
+  switch (color) {
+    case 'yellow':
+      document.documentElement.style.setProperty("--minor-color", rootStyles.getPropertyValue("--minor-yellow"));
+      break;
+    case 'blue':
+      document.documentElement.style.setProperty("--minor-color", rootStyles.getPropertyValue("--minor-blue"));
+      break;
+    case 'green':
+      document.documentElement.style.setProperty("--minor-color", rootStyles.getPropertyValue("--minor-green"));
+      break;
+    case 'purple':
+      document.documentElement.style.setProperty("--minor-color", rootStyles.getPropertyValue("--minor-purple"));
+      break;
+    case 'custom':
+      const colorPicker = document.getElementById("tertiaryColorPicker");
+      document.documentElement.style.setProperty("--minor-color", colorPicker.value);
+      break;
+  }
+}
+
+
+//-----------------------------------------------------------------
+
 //popup functions
 function openPopup(page = 0) {
   if (page === 0) {
@@ -201,6 +293,8 @@ function setPopupPage(page = 0) {
   });
 
   pages[page].classList.remove("hidden");
+  ebi("popupConfrimButton").onclick = null;
+  ebi("popupCancelButton").onclick = closePopup;
 
   switch (page) {
     case 0:
@@ -218,12 +312,127 @@ function setPopupPage(page = 0) {
       ebi("popupConfrimButton").onclick = changePassword;
       ebi("popupConfrimButton").innerText = "Change";
       break;
+    case 4:
+      ebi("popupConfrimButton").onclick = changeThemeSettings;
+      ebi("popupConfrimButton").innerText = "apply";
+      ebi("popupCancelButton").onclick = restoreColorsAndClose;
+      break;
     default:
       break;
   }
 
   currentPopupPage = page;
 }
+
+//-----------------------------------------------------------------
+
+function openThemeChange() {
+  setPopupPage(4);
+  openPopup(1);
+}
+
+//-----------------------------------------------------------------
+
+function restoreColorsAndClose() {
+  document.documentElement.style.setProperty("--primary-color", primaryColor);
+  document.documentElement.style.setProperty("--secondary-color", secondaryColor);
+  document.documentElement.style.setProperty("--minor-color", tertiaryColor);
+
+  closePopup();
+}
+
+function changeThemeSettings(){
+  primaryColor = rootStyles.getPropertyValue("--primary-color");
+  secondaryColor = rootStyles.getPropertyValue("--secondary-color");
+  tertiaryColor = rootStyles.getPropertyValue("--minor-color");
+  saveCustomTheme();
+  closePopup();
+}
+
+//-----------------------------------------------------------------
+
+function isValidHex(hex) {
+  if (hex.charAt(0) !== '#') {
+    hex = "#"+hex;
+  }
+  return /^#[0-9A-F]{6}$/i.test(hex);
+}
+
+//-----------------------------------------------------------------
+
+function setHexColor(type,hex){
+  switch(type){
+    case "primary": 
+      if(isValidHex(hex)){
+        ebi("primaryColorHex").classList.add("valid");
+        ebi("primaryColorHex").classList.remove("error");
+        applyPrimaryColor(hex)
+      }
+      else{
+        ebi("primaryColorHex").classList.add("error");
+        ebi("primaryColorHex").classList.remove("valid");
+      }
+      break;
+    case "secondary":
+      if(isValidHex(hex)){
+        ebi("secondaryColorHex").classList.add("valid");
+        ebi("secondaryColorHex").classList.remove("error");
+        applySecondaryColor(hex)
+      }
+      else{
+        ebi("secondaryColorHex").classList.add("error");
+        ebi("secondaryColorHex").classList.remove("valid");
+      }
+      break;
+    case "tertiary":
+      if(isValidHex(hex)){
+        ebi("tertiaryColorHex").classList.add("valid");
+        ebi("tertiaryColorHex").classList.remove("error");
+        applyTertiaryColor(hex)
+      }
+      else{
+        ebi("tertiaryColorHex").classList.add("error");
+        ebi("tertiaryColorHex").classList.remove("valid");
+      }
+      break;
+      default:
+        break;
+      }
+}
+
+//-----------------------------------------------------------------
+
+function saveCustomTheme() {
+  const customTheme = {
+    primaryColor,
+    secondaryColor,
+    tertiaryColor
+  };
+  localStorage.setItem("customTheme", JSON.stringify(customTheme));
+}
+
+//-----------------------------------------------------------------
+
+function loadCustomTheme() {
+  console.log("loading custom theme");
+  const customTheme = JSON.parse(localStorage.getItem("customTheme"));
+  if (typeof customTheme !== "undefined" && customTheme !== null) {
+    console.log("custom theme found");
+    console.log(customTheme);
+    primaryColor = customTheme.primaryColor.trim();
+    secondaryColor = customTheme.secondaryColor.trim();
+    tertiaryColor = customTheme.tertiaryColor.trim();
+    document.documentElement.style.setProperty("--primary-color", primaryColor);
+    document.documentElement.style.setProperty("--secondary-color", secondaryColor);
+    document.documentElement.style.setProperty("--minor-color", tertiaryColor);
+  }
+  else{
+    console.log("no custom theme found");
+  }
+}
+
+
+//-----------------------------------------------------------------
 
 function clearForm() {
   switch (currentPopupPage) {
@@ -291,7 +500,6 @@ function swapToRegister() {
 //-----------------------------------------------------------------
 
 function swapToHome() {
-  applyTheme();
   setPopupPage(0);
   updateActivePageLink();
 
@@ -684,10 +892,24 @@ function register() {
 
 //-----------------------------------------------------------------
 
-
 async function logout() {
   delete (localStorage.credentials);
+  delete (localStorage.customTheme);
   location.reload();
+}
+
+//-----------------------------------------------------------------
+
+function swapToHex() {
+  console.log("swap to hex");
+  ebi("hex").classList.remove("hidden");
+  ebi("rgb").classList.add("hidden");
+}
+
+function swapToRgb() {
+  console.log("swap to rgb");
+  ebi("hex").classList.add("hidden");
+  ebi("rgb").classList.remove("hidden");
 }
 
 //-----------------------------------------------------------------
@@ -758,8 +980,11 @@ async function autologin() {
       showFeedback(1, "No connection.");
     }
     applyTheme();
+    loadCustomTheme();
   };
 }
+
+loadCustomTheme();
 
 /*
   db manipulation functions

@@ -196,7 +196,7 @@
                         <img src="resources/icons/changeName.svg" alt="" >
                         <p style="color: var( --primary-color);" >CHANGE NAME</p>
                     </div>
-                    <div class="containerSettings" onclick="changeThemeSettings()">
+                    <div class="containerSettings" onclick="openThemeChange()">
                         <img src="resources/icons/changeTheme.svg" alt="">
                         <p style="color: var( --primary-color);">CHANGE THEME</p>
                     </div>
@@ -301,7 +301,7 @@
 
     <div class="popupContainer">
         <div class="overlay" id="overlayPopUp" onclick="closePopup()"></div>
-        <div id="popup" class="popup open">
+        <div id="popup" class="popup">
             <div class="popUpBody">
                 <!-- event popUp -->
                 <div id="eventContainerbody" class="bodyContainer hidden">
@@ -393,85 +393,113 @@
 
                 <!-- color theme popUP-->
                 <div id="themeContainer" class="bodyContainer">
-                    <div class="fillContainer">
-                        Primary color
-                    </div>
-                    <div class="colorsContainer">
-                        <button id="primaryYellowButton" class="buttonColor primaryYellow">
-
-                        </button>
-                        <button id="primaryBlueButton" class="buttonColor primaryBlue">
-
-                        </button>
-                        <button id="primaryGreenButton" class="buttonColor primaryGreen">
-
-                        </button>
-
-                        <button id="primaryPurpleButton" class="buttonColor primaryPurple">
+                    <div id="rgb" class="fullContainer">
+                        <div class="fillContainer">
+                            Primary color
+                        </div>
+                        <div class="colorsContainer">
+                            <button id="primaryYellowButton" class="buttonColor primaryYellow" onclick="setColor('primary', 'yellow')">
+    
                             </button>
+                            <button id="primaryBlueButton" class="buttonColor primaryBlue" onclick="setColor('primary', 'blue')">
+    
+                            </button>
+                            <button id="primaryGreenButton" class="buttonColor primaryGreen" onclick="setColor('primary', 'green')">
+    
+                            </button>
+    
+                            <button id="primaryPurpleButton" class="buttonColor primaryPurple" onclick="setColor('primary', 'purple')">
+                                </button>
+    
+                            <input type="color" id="primaryColorPicker" class="buttonColor" value="#ffcc00" onchange="setColor('primary', 'custom')">
+    
+                            </input>
+                        </div>
+    
+                        <div class="fillContainer currentSecondary">
+                            Secondary color
+                        </div>
+    
+                        <div class="colorsContainer">
+                            <button id="secondaryYellowButton" class="buttonColor secondaryYellow" onclick="setColor('secondary', 'yellow')">
+    
+                            </button>
+                            <button id="secondaryBlueButton" class="buttonColor secondaryBlue" onclick="setColor('secondary', 'blue')">
+    
+                            </button>
+                            <button id="secondaryGreenButton" class="buttonColor secondaryGreen" onclick="setColor('secondary', 'green')">
+    
+                            </button>
+    
+                            <button id="secondaryPurpleButton" class="buttonColor secondaryPurple" onclick="setColor('secondary', 'purple')">
+                            
+                            </button>
+    
+                            <input type="color" id="secondaryColorPicker" class="buttonColor" value="#ffcc00" onchange="setColor('secondary', 'custom')">
+    
+                            </input>
+                        </div>
+    
+                        <div class="fillContainer currentTertiary blackText">
+                            tertiary color
+                        </div>
+    
+                        <div class="colorsContainer">
+                            <button id="pinsYellowButton" class="buttonColor tertiaryYellow" onclick="setColor('tertiary', 'yellow')">
+    
+                            </button>
+                            <button id="pinsBlueButton" class="buttonColor tertiaryBlue"  onclick="setColor('tertiary', 'blue')">
+    
+                            </button>
+                            <button id="pinsGreenButton" class="buttonColor tertiaryGreen" onclick="setColor('tertiary', 'green')">
+    
+                            </button>
+    
+                            <button id="pinsPurpleButton" class="buttonColor tertiaryPurple" onclick="setColor('tertiary', 'purple')">
+                            </button>
+    
+                            <input type="color" id="tertiaryColorPicker" class="buttonColor" value="#ffcc00" onchange="setColor('tertiary', 'custom')">
+    
+                            </input>
+                        </div>
 
-                        <input type="color" id="primaryColorPicker" class="buttonColor" value="#ffcc00">
-
-                        </input>
+                        <button id="swapToEx" class="swapButton" onclick="swapToHex()">
+                            Swap to HEX colors
+                        </button>
                     </div>
 
-                    <div class="fillContainer currentSecondary">
-                        Secondary color
-                    </div>
-
-                    <div class="colorsContainer">
-                        <button id="secondaryYellowButton" class="buttonColor secondaryYellow">
-
+                    <div id="hex" class="fullContainer hidden">
+                        <div class="fillContainer">
+                            Primary color
+                        </div>
+                        <input type="text" class="inputField" id="primaryColorHex" placeholder="ffff" onupdate="setHexColor('primary')">
+                        <div class="fillContainer">
+                            Secondary color
+                        </div> 
+                        <input type="text" class="inputField" id="secondaryColorHex" placeholder="ffff">
+                        <div class="fillContainer">
+                            Tertiary color
+                        </div>
+                        <input type="text" class="inputField" id="tertiaryColorHex" placeholder="ffff">
+                        <button id="swapToColor" class="swapButton" onclick="swapToRgb()">
+                            Swap to color picker
                         </button>
-                        <button id="secondaryBlueButton" class="buttonColor secondaryBlue">
-
-                        </button>
-                        <button id="secondaryGreenButton" class="buttonColor secondaryGreen">
-
-                        </button>
-
-                        <button id="secondaryPurpleButton" class="buttonColor secondaryPurple">
-                        
-                        </button>
-
-                        <input type="color" id="secondaryColorPicker" class="buttonColor" value="#ffcc00">
-
-                        </input>
-                    </div>
-
-                    <div class="fillContainer currentTertiary blackText">
-                        tertiary color
-                    </div>
-
-                    <div class="colorsContainer">
-                        <button id="pinsYellowButton" class="buttonColor tertiaryYellow">
-
-                        </button>
-                        <button id="pinsBlueButton" class="buttonColor tertiaryBlue">
-
-                        </button>
-                        <button id="pinsGreenButton" class="buttonColor tertiaryGreen">
-
-                        </button>
-
-                        <button id="pinsPurpleButton" class="buttonColor tertiaryPurple">
-                        </button>
-
-                        <input type="color" id="pinsColorPicker" class="buttonColor" value="#ffcc00">
-
-                        </input>
                     </div>
                 </div>
+
+                
+
             </div>
             <!-- lower part of the pop up same as always-->
             <div class="buttonContainer">
-                <button id="popupCalncelButton" class="popupButton danger" onclick="closePopup()">Cancel</button>
+                <button id="popupCancelButton" class="popupButton danger" onclick="closePopup()">Cancel</button>
                 <button id="popupConfrimButton" class="popupButton">Create</button>
             </div>
 
         </div>
     </div>
     
+    <!--
     <script>
         a = document.createElement("button")
         a.innerHTML = "show"
@@ -485,6 +513,7 @@
         }
         document.getElementById("pageBody").appendChild(a)
     </script>
+    -->
 </body>
 
 </html>
