@@ -138,7 +138,7 @@ div.lowerPart {
   width: 100%;
 }
 
-div.colorsContainer{
+div.colorsContainer {
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
@@ -149,7 +149,8 @@ div.colorsContainer{
   padding-bottom: 0.2rem;
 }
 
-button.buttonColor,input.buttonColor{
+button.buttonColor,
+input.buttonColor {
   width: 25%;
   min-width: 4rem;
   height: 4rem;
@@ -158,7 +159,7 @@ button.buttonColor,input.buttonColor{
   transition: all 0.3s;
 }
 
-.buttonColor:hover{
+.buttonColor:hover {
   cursor: pointer;
   filter: brightness(0.9);
 }
@@ -197,73 +198,74 @@ input.buttonColor::-webkit-color-swatch {
   border-radius: var(--minor-border-radius);
   padding: 0;
 }
+
 input.buttonColor::-webkit-color-swatch-wrapper {
   border: none;
   border-radius: var(--minor-border-radius);
   padding: 0;
 }
 
-.primaryYellow{
+.primaryYellow {
   background-color: var(--primary-yellow);
 }
 
-.primaryBlue{
+.primaryBlue {
   background-color: var(--primary-blue);
 }
 
-.primaryGreen{
+.primaryGreen {
   background-color: var(--primary-green);
 }
 
-.primaryPurple{
+.primaryPurple {
   background-color: var(--primary-purple);
 }
 
-.secondaryYellow{
+.secondaryYellow {
   background-color: var(--secondary-yellow);
 }
 
-.secondaryBlue{
+.secondaryBlue {
   background-color: var(--secondary-blue);
 }
 
-.secondaryGreen{
+.secondaryGreen {
   background-color: var(--secondary-green);
 }
 
-.secondaryPurple{
+.secondaryPurple {
   background-color: var(--secondary-purple);
 }
 
-.tertiaryYellow{
+.tertiaryYellow {
   background-color: var(--minor-yellow);
 }
 
-.tertiaryBlue{
+.tertiaryBlue {
   background-color: var(--minor-blue);
 }
 
-.tertiaryGreen{
+.tertiaryGreen {
   background-color: var(--minor-green);
 }
 
-.tertiaryPurple{
+.tertiaryPurple {
   background-color: var(--minor-purple);
 }
 
-.currentPrimary{
+.currentPrimary {
   background-color: var(--primary-color) !important;
 }
 
-.currentSecondary{
+.currentSecondary {
   background-color: var(--secondary-color) !important;
 }
 
-.currentTertiary{
+.currentTertiary {
   background-color: var(--minor-color) !important;
 }
 
-.blackText{
+.blackText {
   color: var(--body-text-color) !important;
 }
 
@@ -325,6 +327,8 @@ p.loadingText::after {
 }
 
 button.swapButton {
+  text-transform: uppercase;
+  align-self: flex-end;
   background: var(--primary-color);
   color: var(--sidebar-text-color);
   border: none;
@@ -334,6 +338,7 @@ button.swapButton {
   box-shadow: var(--shadow);
   width: 100%;
   font-weight: bold;
+  margin-top: auto;
 }
 
 button.swapButton:hover {
@@ -341,7 +346,7 @@ button.swapButton:hover {
   transition: all 0.3s;
 }
 
-div.fullContainer{
+div.fullContainer {
   width: 100%;
   height: 100%;
   display: flex;
@@ -726,16 +731,16 @@ textarea.inputField {
   resize: none;
 }
 
-input.inputField{
+input.inputField {
   max-height: 4rem;
 }
 
-input.inputField .error{
-  border: solid 0.19rem var(--primary-red);
+input.error {
+  border: solid 0.19rem var(--primary-red) !important;
 }
 
-input.inputField .valid{
-  border: solid 0.19rem var(--primary-green);
+input.valid {
+  border: solid 0.19rem var(--primary-green) !important;
 }
 
 div.largeInputContainer {
@@ -1015,7 +1020,8 @@ div.logout {
   background: #fde8e8 !important;
 }
 
-div.impostazioni, div.voti {
+div.impostazioni,
+div.voti {
   overflow: hidden;
   overflow-y: hidden;
   max-height: 100%;
@@ -1025,16 +1031,19 @@ div.impostazioni, div.voti {
   min-height: 100%;
   border-radius: var(--general-border-radius);
 }
-div.voti{
+
+div.voti {
   margin-top: 0.5rem;
   min-height: 90%;
 }
-div.containerVoti{
+
+div.containerVoti {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-.numeroVoto{
+
+.numeroVoto {
   width: 6rem;
   height: 6rem;
   border-radius: 100%;
@@ -1047,13 +1056,14 @@ div.containerVoti{
   font-weight: bold;
 }
 
-div.descriptionGrades{
+div.descriptionGrades {
   background-color: white;
   width: 90%;
   border-radius: var(--general-border-radius);
   padding: 1rem;
 }
-div.voto{
+
+div.voto {
   display: flex;
   flex-direction: row;
   gap: 1rem;
@@ -1061,7 +1071,7 @@ div.voto{
   justify-content: space-between;
 }
 
-#bottoneVoti{
+#bottoneVoti {
   flex-shrink: 0;
   color: var(--sidebar-text-color);
   background-color: var(--primary-color);

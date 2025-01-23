@@ -164,7 +164,7 @@
                     </button>
                     <button class="quickButton">
                         <img class="icon" src="resources/icons/grade.svg" alt="">
-                        <b clas="buttonText">Grades</b>
+                        <b clas="buttonText">Marks</b>
                     </button>
                     <button class="quickButton">
                         <img class="icon" src="resources/icons/clock.svg" alt="">
@@ -329,7 +329,7 @@
 
             <button id="gradeButton" class="barLink" onclick="toGrades()">
                 <img class="icon iconAdjustment" src="resources/icons/grade.svg" alt="">
-                <b class="buttonText>">Grade</b>
+                <b class="buttonText>">Marks</b>
             </button>
 
             <button id="calendarButton" class="barLink">
@@ -498,12 +498,14 @@
     
                             <button id="pinsPurpleButton" class="buttonColor tertiaryPurple" onclick="setColor('tertiary', 'purple')">
                             </button>
-    
+                            
                             <input type="color" id="tertiaryColorPicker" class="buttonColor" value="#ffcc00" onchange="setColor('tertiary', 'custom')">
-    
+                            
                             </input>
                         </div>
-
+                        <p class="infoText">
+                            You can preview the color by tapping outside this form, the color will be applied to the theme but not saved yet, remember to press the confirm button to save the changes!
+                        </p>
                         <button id="swapToEx" class="swapButton" onclick="swapToHex()">
                             Swap to HEX colors
                         </button>
@@ -513,15 +515,18 @@
                         <div class="fillContainer">
                             Primary color
                         </div>
-                        <input type="text" class="inputField" id="primaryColorHex" placeholder="ffff" onupdate="setHexColor('primary')">
-                        <div class="fillContainer">
+                        <input type="text" class="inputField" id="primaryColorHex" placeholder="ffff" onchange="setHexColor('primary')">
+                        <div class="fillContainer currentSecondary">
                             Secondary color
                         </div> 
-                        <input type="text" class="inputField" id="secondaryColorHex" placeholder="ffff">
-                        <div class="fillContainer">
+                        <input type="text" class="inputField" id="secondaryColorHex" placeholder="ffff" onchange="setHexColor('secondary')">
+                        <div class="fillContainer currentTertiary blackText">
                             Tertiary color
                         </div>
-                        <input type="text" class="inputField" id="tertiaryColorHex" placeholder="ffff">
+                        <input type="text" class="inputField" id="tertiaryColorHex" placeholder="ffff" onchange="setHexColor('tertiary')">
+                        <p class="infoText">
+                            You can preview the color by tapping outside this form, the color will be applied to the theme but not saved yet, remember to press the confirm button to save the changes!
+                        </p>
                         <button id="swapToColor" class="swapButton" onclick="swapToRgb()">
                             Swap to color picker
                         </button>

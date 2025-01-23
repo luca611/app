@@ -315,7 +315,7 @@ function setPopupPage(page = 0) {
       break;
     case 4:
       ebi("popupConfrimButton").onclick = changeThemeSettings;
-      ebi("popupConfrimButton").innerText = "apply";
+      ebi("popupConfrimButton").innerText = "Change";
       ebi("popupCancelButton").onclick = restoreColorsAndClose;
       break;
     default:
@@ -342,7 +342,7 @@ function restoreColorsAndClose() {
   closePopup();
 }
 
-function changeThemeSettings(){
+function changeThemeSettings() {
   primaryColor = rootStyles.getPropertyValue("--primary-color");
   secondaryColor = rootStyles.getPropertyValue("--secondary-color");
   tertiaryColor = rootStyles.getPropertyValue("--minor-color");
@@ -353,52 +353,64 @@ function changeThemeSettings(){
 //-----------------------------------------------------------------
 
 function isValidHex(hex) {
-  if (hex.charAt(0) !== '#') {
-    hex = "#"+hex;
+  if (hex.charAt(0) !== "#") {
+    hex = "#" + hex;
   }
   return /^#[0-9A-F]{6}$/i.test(hex);
 }
 
 //-----------------------------------------------------------------
 
-function setHexColor(type,hex){
-  switch(type){
-    case "primary": 
-      if(isValidHex(hex)){
+function setHexColor(type) {
+  switch (type) {
+    case "primary":
+      if (isValidHex(ebi("primaryColorHex").value.trim())) {
         ebi("primaryColorHex").classList.add("valid");
         ebi("primaryColorHex").classList.remove("error");
-        applyPrimaryColor(hex)
+        let hex = ebi("primaryColorHex").value.trim();
+        if (hex.charAt(0) !== "#") {
+          hex = "#" + hex;
+        }
+        document.documentElement.style.setProperty("--primary-color", hex);
       }
-      else{
+      else {
         ebi("primaryColorHex").classList.add("error");
         ebi("primaryColorHex").classList.remove("valid");
       }
       break;
     case "secondary":
-      if(isValidHex(hex)){
+      if (isValidHex(ebi("secondaryColorHex").value.trim())) {
         ebi("secondaryColorHex").classList.add("valid");
         ebi("secondaryColorHex").classList.remove("error");
-        applySecondaryColor(hex)
+        let hex = ebi("secondaryColorHex").value.trim();
+        if (hex.charAt(0) !== "#") {
+          hex = "#" + hex;
+        }
+        document.documentElement.style.setProperty("--secondary-color", hex);
       }
-      else{
+      else {
         ebi("secondaryColorHex").classList.add("error");
         ebi("secondaryColorHex").classList.remove("valid");
       }
       break;
     case "tertiary":
-      if(isValidHex(hex)){
+      if (isValidHex(ebi("tertiaryColorHex").value.trim())) {
         ebi("tertiaryColorHex").classList.add("valid");
         ebi("tertiaryColorHex").classList.remove("error");
-        applyTertiaryColor(hex)
+        let hex = ebi("tertiaryColorHex").value.trim();
+        if (hex.charAt(0) !== "#") {
+          hex = "#" + hex;
+        }
+        document.documentElement.style.setProperty("--minor-color", hex);
       }
-      else{
+      else {
         ebi("tertiaryColorHex").classList.add("error");
         ebi("tertiaryColorHex").classList.remove("valid");
       }
       break;
-      default:
-        break;
-      }
+    default:
+      break;
+  }
 }
 
 //-----------------------------------------------------------------
@@ -418,17 +430,12 @@ function loadCustomTheme() {
   console.log("loading custom theme");
   const customTheme = JSON.parse(localStorage.getItem("customTheme"));
   if (typeof customTheme !== "undefined" && customTheme !== null) {
-    console.log("custom theme found");
-    console.log(customTheme);
     primaryColor = customTheme.primaryColor.trim();
     secondaryColor = customTheme.secondaryColor.trim();
     tertiaryColor = customTheme.tertiaryColor.trim();
     document.documentElement.style.setProperty("--primary-color", primaryColor);
     document.documentElement.style.setProperty("--secondary-color", secondaryColor);
     document.documentElement.style.setProperty("--minor-color", tertiaryColor);
-  }
-  else{
-    console.log("no custom theme found");
   }
 }
 
@@ -808,7 +815,6 @@ function openEvent(note) {
   openPopup();
   ebi("popupConfrimButton").innerText = "Save";
   ebi("popupConfrimButton").onclick = () => saveEvent(note);
-  console.log(note);
   ebi("eventName").value = note.title;
   ebi("eventDescription").value = note.description;
   let data = note.dataora.split('T')[0];
@@ -857,8 +863,6 @@ function register() {
   enableLoading();
   username = ebi("registerName").value;
   let ntema = currentTheme;
-
-  console.log("register data: " + JSON.stringify({ email, password, ntema, username }));
 
   const url = serverURL + "/register";
 
@@ -913,13 +917,11 @@ async function logout() {
 //-----------------------------------------------------------------
 
 function swapToHex() {
-  console.log("swap to hex");
   ebi("hex").classList.remove("hidden");
   ebi("rgb").classList.add("hidden");
 }
 
 function swapToRgb() {
-  console.log("swap to rgb");
   ebi("hex").classList.add("hidden");
   ebi("rgb").classList.remove("hidden");
 }
@@ -1263,7 +1265,6 @@ function changePassword() {
   const url = serverURL + "/changePassword";
 
   const data = { key: privKey, email, password: oldPassword, newPassword };
-  console.log(data);
 
   const xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
