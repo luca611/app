@@ -10,7 +10,8 @@
     <link rel="icon" type="image/png" href="favicon.png" />
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <meta name="description" content="A digital diary to keep track of your school life featuring a calendar, a schedule, an ia and a grade tracker.">
+    <meta name="description"
+        content="A digital diary to keep track of your school life featuring a calendar, a schedule, an ia and a grade tracker.">
 </head>
 
 <body id="pageBody" class="body" onload="disableLoading(); autologin();">
@@ -61,7 +62,7 @@
                     <input type="password" class="inputField" id="loginPassword" placeholder="password">
                     <p id="loginError" class="error"></p>
                 </div>
-                <button class="bottoneLogin confirm" id="confermaLogin"  onclick="login()" >Login</button>
+                <button class="bottoneLogin confirm" id="confermaLogin" onclick="login()">Login</button>
                 <button class="bottoneSignUp" onclick="swapToRegister()">Don’t have an account yet?</button>
             </div>
         </div>
@@ -70,7 +71,7 @@
         <div id="register" class="registerPage hidden">
             <div>
                 <h1 class="registerTitle">Register</h1>
-                <hr class="authHr"> 
+                <hr class="authHr">
                 <div class="campiCont">
                     <p class="campi">email</p>
                     <input type="username" class="inputField" id="registerUsername" placeholder="myEmail@example.test">
@@ -80,14 +81,16 @@
                     <input type="password" class="inputField" id="confirmPassword" placeholder="password">
                     <p id="registerError" class="error"></p>
                 </div>
-                <button class="bottoneLogin confirm" id="confermaRegistrazione" onclick="proceedToTheme()">Continue</button>
-                <button class="bottoneSignUp" onclick="swapToLogin()" >Have an account already?</button>
+                <button class="bottoneLogin confirm" id="confermaRegistrazione"
+                    onclick="proceedToTheme()">Continue</button>
+                <button class="bottoneSignUp" onclick="swapToLogin()">Have an account already?</button>
             </div>
         </div>
-        
+
         <div class="temi hidden" id="theme">
             <div class="themeContainer">
-                <h1 class="selezioneTema">Choose a <b class="style1">th</b><b class="style2">e</b><b class="style3">me</b></h1>
+                <h1 class="selezioneTema">Choose a <b class="style1">th</b><b class="style2">e</b><b
+                        class="style3">me</b></h1>
                 <hr class="authHr">
                 <div class="themeScroll">
                     <div id="yellow" class="tuttiTemi border" onclick="setTheme(1)">
@@ -123,14 +126,15 @@
                         </div>
                     </div>
                 </div>
-                <button class="bottoneLogin confirm" id="ContinueToName" onclick="toPage('theme','name')">Continue</button>
+                <button class="bottoneLogin confirm" id="ContinueToName"
+                    onclick="toPage('theme','name')">Continue</button>
             </div>
         </div>
 
         <div class="UsernamePage hidden" id="name">
             <div>
                 <img src="resources/imgs/pocketDiaryLogo.svg" alt="">
-                <hr class="authHr" id="linea"> 
+                <hr class="authHr" id="linea">
                 <div class="campiCont">
                     <p class="campi">Select an username</p>
                     <input type="username" class="inputField" id="registerName" placeholder="my Cool Name">
@@ -152,7 +156,8 @@
                     <button class="sideBarButton" onclick="openSideBar()">☰</button>
                 </div>
                 <div class="titleContainer">
-                    <h1 id="pageTitle">title </h1> <h1> <b class="decoratedTitle" id="decoratedTitle">here</b></h1>
+                    <h1 id="pageTitle">title </h1>
+                    <h1> <b class="decoratedTitle" id="decoratedTitle">here</b></h1>
                 </div>
             </div>
             <!--Here's the lower part of the top part top bar: quick buttons-->
@@ -185,7 +190,7 @@
                         <p class="infoText">Seems like you have nothing left to do today,<br>enjoy a break!</p>
                     </div>
                     <div id="eventsList" class="eventsList">
-                        
+
                     </div>
                 </div>
             </div>
@@ -193,8 +198,8 @@
             <div id="settings" class="section hidden">
                 <div class="impostazioni">
                     <div class="containerSettings" onclick="openNameChange()">
-                        <img src="resources/icons/changeName.svg" alt="" >
-                        <p style="color: var( --primary-color);" >CHANGE NAME</p>
+                        <img src="resources/icons/changeName.svg" alt="">
+                        <p style="color: var( --primary-color);">CHANGE NAME</p>
                     </div>
                     <div class="containerSettings" onclick="openThemeChange()">
                         <img src="resources/icons/changeTheme.svg" alt="">
@@ -211,7 +216,7 @@
                     <br>
                     <div class="containerSettings" onclick="viewInfo()">
                         <img src="resources/icons/info.svg" alt="" id="info">
-                        <p  style="color: var(--primary-blue);">APP INFO</p>
+                        <p style="color: var(--primary-blue);">APP INFO</p>
                     </div>
                     <div class="containerSettings logout" onclick="logout()">
                         <img src="resources/icons/logOut.svg" alt="" id="logOut">
@@ -221,29 +226,32 @@
             </div>
 
             <div id="calendar" class="section hidden">
-                <!--SPOLDI FAMMI SAPERE SE è GIUSTO-->
-                <div class="calendarContainer">
-                    <div class="calendarHeader">
-                        <button class="calendarButton" onclick="changeMonth(-1)">
-                            <img class="icon" src="resources/icons/arrowLeft.svg" alt="">
-                        </button>
-                        <h2 class="calendarTitle">Month</h2>
-                        <button class="calendarButton" onclick="changeMonth(1)">
-                            <img class="icon" src="resources/icons/arrowRight.svg" alt="">
-                        </button>
+                <div class="calendario">
+                    <div id="calendarContainer">
+                        <div id="calendarHeader">
+                            <h2 id="monthYear"></h2>
+                            <button onclick="prevMonth()">&#9664;</button>
+                            <button onclick="nextMonth()">&#9654;</button>
+                        </div>
+                        <div id="calendarBody">
+                            <div class="dayNames">
+                                <div>Sun</div>
+                                <div>Mon</div>
+                                <div>Tue</div>
+                                <div>Wed</div>
+                                <div>Thu</div>
+                                <div>Fri</div>
+                                <div>Sat</div>
+                            </div>
+                            <div id="daysContainer"></div>
+                        </div>
                     </div>
-                    <div class="calendarBody">
-                        <div class="calendarWeek">
-                            <div class="calendarDay">Mon</div>
-                            <div class="calendarDay">Tue</div>
-                            <div class="calendarDay">Wed</div>
-                            <div class="calendarDay">Thu</div>
-                            <div class="calendarDay">Fri</div>
-                            <div class="calendarDay">Sat</div>
-                            <div class="calendarDay">Sun</div>
-                        </div>
-                        <div id="calendarDays" class="calendarDays">
-                        </div>
+                </div>
+                <div class="evento">
+                    <div class="addButtonContainer" id="addButtonContainer">
+                        <button class="addButton" onclick="openPopup()">
+                            <img class="addIcon" src="resources/icons/add.svg" alt="add">
+                        </button>
                     </div>
                 </div>
             </div>
@@ -260,12 +268,12 @@
                     <div class="containerVoti">
                         <div class="voto">
                             <div class="numeroVoto">5</div>
-                                <div class="descriptionGrades">
-                                    <h4>VOTE NAME</h4>
-                                    <p class="descrizioneVoto">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    </p>
-                                </div>
+                            <div class="descriptionGrades">
+                                <h4>VOTE NAME</h4>
+                                <p class="descrizioneVoto">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                </p>
+                            </div>
                         </div>
                         <div class="voto">
                             <div class="numeroVoto">8</div>
@@ -309,7 +317,7 @@
                 Navigation
             </h3>
             <hr class="navSeparator">
-            
+
             <button id="homeButton" class="barLink" onclick="toSettings()">
                 <img class="icon" src="resources/icons/settings.svg" alt="">
                 <b class="buttonText>">Settings</b>
@@ -321,7 +329,7 @@
             </button>
 
             <hr class="navSeparator">
-            
+
             <button id="homeButton" class="barLink" onclick="toHome()">
                 <img class="icon" src="resources/icons/home.svg" alt="">
                 <b class="buttonText>">Home</b>
@@ -332,7 +340,7 @@
                 <b class="buttonText>">Marks</b>
             </button>
 
-            <button id="calendarButton" class="barLink">
+            <button id="calendarButton" class="barLink" onclick="toCalendar()">
                 <img class="icon" src="resources/icons/calendar.svg" alt="">
                 <b class="buttonText>">Calendar</b>
             </button>
@@ -404,7 +412,7 @@
                     <div class="inputContainer">
                         <input class="inputField" type="text" id="newName" placeholder="Mario Rossi">
                     </div>
-                    <p class="error" id="popupNameError" ></p>
+                    <p class="error" id="popupNameError"></p>
                 </div>
 
                 <!-- password -->
@@ -427,10 +435,10 @@
                     <div class="inputContainer">
                         <input class="inputField" type="password" id="newConfirmPassword" placeholder="new Password">
                     </div>
-                    <p class="error" id="popupPasswordError" ></p>
+                    <p class="error" id="popupPasswordError"></p>
 
                 </div>
-                
+
 
                 <!-- color theme popUP-->
                 <div id="themeContainer" class="bodyContainer">
@@ -439,72 +447,88 @@
                             Primary color
                         </div>
                         <div class="colorsContainer">
-                            <button id="primaryYellowButton" class="buttonColor primaryYellow" onclick="setColor('primary', 'yellow')">
-    
+                            <button id="primaryYellowButton" class="buttonColor primaryYellow"
+                                onclick="setColor('primary', 'yellow')">
+
                             </button>
-                            <button id="primaryBlueButton" class="buttonColor primaryBlue" onclick="setColor('primary', 'blue')">
-    
+                            <button id="primaryBlueButton" class="buttonColor primaryBlue"
+                                onclick="setColor('primary', 'blue')">
+
                             </button>
-                            <button id="primaryGreenButton" class="buttonColor primaryGreen" onclick="setColor('primary', 'green')">
-    
+                            <button id="primaryGreenButton" class="buttonColor primaryGreen"
+                                onclick="setColor('primary', 'green')">
+
                             </button>
-    
-                            <button id="primaryPurpleButton" class="buttonColor primaryPurple" onclick="setColor('primary', 'purple')">
-                                </button>
-    
-                            <input type="color" id="primaryColorPicker" class="buttonColor" value="#ffcc00" onchange="setColor('primary', 'custom')">
-    
+
+                            <button id="primaryPurpleButton" class="buttonColor primaryPurple"
+                                onclick="setColor('primary', 'purple')">
+                            </button>
+
+                            <input type="color" id="primaryColorPicker" class="buttonColor" value="#ffcc00"
+                                onchange="setColor('primary', 'custom')">
+
                             </input>
                         </div>
-    
+
                         <div class="fillContainer currentSecondary">
                             Secondary color
                         </div>
-    
+
                         <div class="colorsContainer">
-                            <button id="secondaryYellowButton" class="buttonColor secondaryYellow" onclick="setColor('secondary', 'yellow')">
-    
+                            <button id="secondaryYellowButton" class="buttonColor secondaryYellow"
+                                onclick="setColor('secondary', 'yellow')">
+
                             </button>
-                            <button id="secondaryBlueButton" class="buttonColor secondaryBlue" onclick="setColor('secondary', 'blue')">
-    
+                            <button id="secondaryBlueButton" class="buttonColor secondaryBlue"
+                                onclick="setColor('secondary', 'blue')">
+
                             </button>
-                            <button id="secondaryGreenButton" class="buttonColor secondaryGreen" onclick="setColor('secondary', 'green')">
-    
+                            <button id="secondaryGreenButton" class="buttonColor secondaryGreen"
+                                onclick="setColor('secondary', 'green')">
+
                             </button>
-    
-                            <button id="secondaryPurpleButton" class="buttonColor secondaryPurple" onclick="setColor('secondary', 'purple')">
-                            
+
+                            <button id="secondaryPurpleButton" class="buttonColor secondaryPurple"
+                                onclick="setColor('secondary', 'purple')">
+
                             </button>
-    
-                            <input type="color" id="secondaryColorPicker" class="buttonColor" value="#ffcc00" onchange="setColor('secondary', 'custom')">
-    
+
+                            <input type="color" id="secondaryColorPicker" class="buttonColor" value="#ffcc00"
+                                onchange="setColor('secondary', 'custom')">
+
                             </input>
                         </div>
-    
+
                         <div class="fillContainer currentTertiary blackText">
                             tertiary color
                         </div>
-    
+
                         <div class="colorsContainer">
-                            <button id="pinsYellowButton" class="buttonColor tertiaryYellow" onclick="setColor('tertiary', 'yellow')">
-    
+                            <button id="pinsYellowButton" class="buttonColor tertiaryYellow"
+                                onclick="setColor('tertiary', 'yellow')">
+
                             </button>
-                            <button id="pinsBlueButton" class="buttonColor tertiaryBlue"  onclick="setColor('tertiary', 'blue')">
-    
+                            <button id="pinsBlueButton" class="buttonColor tertiaryBlue"
+                                onclick="setColor('tertiary', 'blue')">
+
                             </button>
-                            <button id="pinsGreenButton" class="buttonColor tertiaryGreen" onclick="setColor('tertiary', 'green')">
-    
+                            <button id="pinsGreenButton" class="buttonColor tertiaryGreen"
+                                onclick="setColor('tertiary', 'green')">
+
                             </button>
-    
-                            <button id="pinsPurpleButton" class="buttonColor tertiaryPurple" onclick="setColor('tertiary', 'purple')">
+
+                            <button id="pinsPurpleButton" class="buttonColor tertiaryPurple"
+                                onclick="setColor('tertiary', 'purple')">
                             </button>
-                            
-                            <input type="color" id="tertiaryColorPicker" class="buttonColor" value="#ffcc00" onchange="setColor('tertiary', 'custom')">
-                            
+
+                            <input type="color" id="tertiaryColorPicker" class="buttonColor" value="#ffcc00"
+                                onchange="setColor('tertiary', 'custom')">
+
                             </input>
                         </div>
                         <p class="infoText">
-                            You can preview the color by tapping outside this form, the color will be applied to the theme but not saved yet, remember to press the confirm button to save the changes!
+                            You can preview the color by tapping outside this form, the color will be applied to the
+                            theme but not saved yet, remember to press the confirm button to save the changes!
                         </p>
                         <button id="swapToEx" class="swapButton" onclick="swapToHex()">
                             Swap to HEX colors
@@ -515,17 +539,21 @@
                         <div class="fillContainer">
                             Primary color
                         </div>
-                        <input type="text" class="inputField" id="primaryColorHex" placeholder="ffff" onchange="setHexColor('primary')">
+                        <input type="text" class="inputField" id="primaryColorHex" placeholder="ffff"
+                            onchange="setHexColor('primary')">
                         <div class="fillContainer currentSecondary">
                             Secondary color
-                        </div> 
-                        <input type="text" class="inputField" id="secondaryColorHex" placeholder="ffff" onchange="setHexColor('secondary')">
+                        </div>
+                        <input type="text" class="inputField" id="secondaryColorHex" placeholder="ffff"
+                            onchange="setHexColor('secondary')">
                         <div class="fillContainer currentTertiary blackText">
                             Tertiary color
                         </div>
-                        <input type="text" class="inputField" id="tertiaryColorHex" placeholder="ffff" onchange="setHexColor('tertiary')">
+                        <input type="text" class="inputField" id="tertiaryColorHex" placeholder="ffff"
+                            onchange="setHexColor('tertiary')">
                         <p class="infoText">
-                            You can preview the color by tapping outside this form, the color will be applied to the theme but not saved yet, remember to press the confirm button to save the changes!
+                            You can preview the color by tapping outside this form, the color will be applied to the
+                            theme but not saved yet, remember to press the confirm button to save the changes!
                         </p>
                         <button id="swapToColor" class="swapButton" onclick="swapToRgb()">
                             Swap to color picker
@@ -533,7 +561,7 @@
                     </div>
                 </div>
 
-                
+
 
             </div>
             <!-- lower part of the pop up same as always-->
@@ -544,41 +572,76 @@
 
         </div>
     </div>
-    
-    
+
+
     <script>
 
-/*
-        a = document.createElement("button")
-        a.innerHTML = "show"
-        a.style.position = "absolute";
-        a.style.top = "0";
-        a.style.left = "0";
-        a.onclick = () => {
-                document.getElementById("themeContainer").classList.remove("hidden");
-                document.getElementById("eventContainerbody").classList.add("hidden");
-                console.log("ex")
-        }
-        document.getElementById("pageBody").appendChild(a)
-   */
+        /*
+                a = document.createElement("button")
+                a.innerHTML = "show"
+                a.style.position = "absolute";
+                a.style.top = "0";
+                a.style.left = "0";
+                a.onclick = () => {
+                        document.getElementById("themeContainer").classList.remove("hidden");
+                        document.getElementById("eventContainerbody").classList.add("hidden");
+                        console.log("ex")
+                }
+                document.getElementById("pageBody").appendChild(a)
+           */
 
         const numeriVoto = document.querySelectorAll('.numeroVoto');
 
-    numeriVoto.forEach(numeroVotoElement => {
-      // Estrai il numero contenuto (e assicurati che sia un numero valido)
-      const numeroVoto = parseInt(numeroVotoElement.textContent);
+        numeriVoto.forEach(numeroVotoElement => {
+            // Estrai il numero contenuto (e assicurati che sia un numero valido)
+            const numeroVoto = parseInt(numeroVotoElement.textContent);
 
-      // Cambia il colore del testo in base al numero
-    if (numeroVoto >= 8) {
-      numeroVotoElement.style.borderColor = 'green'; // Verde per voti >= 8
-    } else if (numeroVoto >= 5) {
-      numeroVotoElement.style.borderColor = 'orange'; // Arancione per voti >= 5
-    } else {
-      numeroVotoElement.style.borderColor = 'red'; // Rosso per voti < 5
-    }
-    });
+            // Cambia il colore del testo in base al numero
+            if (numeroVoto >= 8) {
+                numeroVotoElement.style.borderColor = 'green'; // Verde per voti >= 8
+            } else if (numeroVoto >= 5) {
+                numeroVotoElement.style.borderColor = 'orange'; // Arancione per voti >= 5
+            } else {
+                numeroVotoElement.style.borderColor = 'red'; // Rosso per voti < 5
+            }
+        });
+
+
+//CALENDARIO
+        const monthYear = document.getElementById('monthYear');
+        const daysContainer = document.getElementById('daysContainer');
+        let currentDate = new Date();
+
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+
+            monthYear.textContent = currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+            daysContainer.innerHTML = '';
+            for (let i = 0; i < firstDay; i++) {
+                daysContainer.innerHTML += '<div class="empty"></div>';
+            }
+            for (let i = 1; i <= lastDate; i++) {
+                daysContainer.innerHTML += `<div class="day">${i}</div>`;
+            }
+        }
+
+        function prevMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        }
+
+        function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        }
+
+        renderCalendar();
     </script>
-  
+
 </body>
 
 </html>

@@ -682,6 +682,18 @@ function toGrades() {
 
 //-----------------------------------------------------------------
 
+function toCalendar() {
+  disableAddButton();
+  hideAllPages();
+  ebi("calendar").classList.remove("hidden");
+  ebi("pageTitle").innerText = "Calendar";
+  ebi("decoratedTitle").innerText = "";
+  currentPage = 4;
+  updateActivePageLink();
+  closeSidebar();
+}
+
+//-----------------------------------------------------------------
 function toHome() {
   loadNotes();
   setPopupPage(0);
