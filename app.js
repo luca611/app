@@ -675,7 +675,7 @@ function toGrades() {
   ebi("grades").classList.remove("hidden");
   ebi("pageTitle").innerText = "Grades";
   ebi("decoratedTitle").innerText = "";
-  currentPage = 0;
+  currentPage = 3;
   updateActivePageLink();
   closeSidebar();
 }
