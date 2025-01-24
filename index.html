@@ -162,7 +162,7 @@
                         <img class="icon" src="resources/icons/calendar.svg" alt="">
                         <b clas="buttonText">Calendar</b>
                     </button>
-                    <button class="quickButton">
+                    <button class="quickButton" onclick="toGrades()">
                         <img class="icon" src="resources/icons/grade.svg" alt="">
                         <b clas="buttonText">Marks</b>
                     </button>
@@ -221,9 +221,7 @@
             </div>
 
             <div id="calendar" class="section hidden">
-                <!--SPOLDI FAMMI SAPERE SE è GIUSTO-->
-                <div class="calendarContainer">
-                    <div class="calendarHeader">
+                <!--SPOLDI FAMMI SAPERE SE è GIUSTO--><div class="calendarHeader">
                         <button class="calendarButton" onclick="changeMonth(-1)">
                             <img class="icon" src="resources/icons/arrowLeft.svg" alt="">
                         </button>
@@ -232,15 +230,17 @@
                             <img class="icon" src="resources/icons/arrowRight.svg" alt="">
                         </button>
                     </div>
+                <div class="calendarContainer">
+                    
                     <div class="calendarBody">
                         <div class="calendarWeek">
-                            <div class="calendarDay">Mon</div>
-                            <div class="calendarDay">Tue</div>
-                            <div class="calendarDay">Wed</div>
-                            <div class="calendarDay">Thu</div>
-                            <div class="calendarDay">Fri</div>
-                            <div class="calendarDay">Sat</div>
-                            <div class="calendarDay">Sun</div>
+                            <div class="calendarDay">Monday</div>
+                            <div class="calendarDay">Tuesday</div>
+                            <div class="calendarDay">Wednesday</div>
+                            <div class="calendarDay">Thursday</div>
+                            <div class="calendarDay">Friday</div>
+                            <div class="calendarDay">Saturday</div>
+                            <div class="calendarDay">Sunday</div>
                         </div>
                         <div id="calendarDays" class="calendarDays">
                         </div>

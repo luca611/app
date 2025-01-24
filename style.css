@@ -1065,7 +1065,7 @@ div.containerVoti {
 
 div.descriptionGrades {
   background-color: white;
-  width: 90%;
+  width: 100%;
   border-radius: var(--general-border-radius);
   padding: 1rem;
 }
@@ -1111,6 +1111,14 @@ button.barLink {
 
 button.barLink.active {
   background-color: var(--secondary-color);
+}
+
+div.calendarDay {
+  text-transform: capitalize;
+  width: 3ch;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: hidden;
 }
 
 button.barlink:hover {
