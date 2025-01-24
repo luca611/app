@@ -1035,17 +1035,17 @@ div.calendario {
   border-radius: var(--general-border-radius);
 }
 
-div.calendario{
+div.calendario {
   min-height: auto;
   height: 60%;
 }
 
-div.evento{
+div.evento {
   overflow: hidden;
   overflow-y: hidden;
   overflow-y: auto;
   padding: 1rem;
-  margin-top:0.5rem;
+  margin-top: 0.5rem;
   background: var(--minor-color);
   border-radius: var(--general-border-radius);
   height: 38%;
@@ -1105,16 +1105,19 @@ div.dayNames div {
 
 #daysContainer {
   display: grid;
-  grid-template-columns: repeat(7, 1fr); /* 7 colonne uguali */
-  grid-auto-rows: 1fr; /* Altezza uniforme per le righe */
+  grid-template-columns: repeat(7, 1fr);
+  /* 7 colonne uguali */
+  grid-auto-rows: 1fr;
+  /* Altezza uniforme per le righe */
   width: 100%;
   height: 100%;
 
 }
+
 #daysContainer div {
   display: flex;
-  align-items: right; 
-  justify-content: right; 
+  align-items: right;
+  justify-content: right;
   border: 1px solid var(--minor-color);
   box-sizing: border-box;
   background-color: var(--primary-color);
@@ -1161,11 +1164,11 @@ div.descriptionGrades {
   padding: 1rem;
 }
 
-div.descriptionGrades h4{
+div.descriptionGrades h4 {
   font-weight: bold;
 }
 
-p.descrizioneVoto{
+p.descrizioneVoto {
   font-size: var(--desctiprion-size);
   font-family: 'Itim';
   color: var(--note-text-color);
