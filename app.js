@@ -675,13 +675,25 @@ function toGrades() {
   ebi("grades").classList.remove("hidden");
   ebi("pageTitle").innerText = "Grades";
   ebi("decoratedTitle").innerText = "";
-  currentPage = 0;
+  currentPage = 3;
   updateActivePageLink();
   closeSidebar();
 }
 
 //-----------------------------------------------------------------
 
+function toCalendar() {
+  disableAddButton();
+  hideAllPages();
+  ebi("calendar").classList.remove("hidden");
+  ebi("pageTitle").innerText = "Calendar";
+  ebi("decoratedTitle").innerText = "";
+  currentPage = 4;
+  updateActivePageLink();
+  closeSidebar();
+}
+
+//-----------------------------------------------------------------
 function toHome() {
   loadNotes();
   setPopupPage(0);
