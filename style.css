@@ -1084,9 +1084,22 @@ div#calendarHeader h2 {
   font-size: 1.5rem;
   font-family: 'Inter';
 }
-.note{
-  background: red !important;
+
+.note {
+  background-image: url('resources/icons/pin.svg') !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
 }
+
+.note:hover {
+  background-image: url('resources/icons/pin.svg') !important;
+  background-size: +15% !important;
+}
+
+.note:active {
+  background-color: var(--secondary-color) !important; 
+}
+
 
 div#calendarBody {
   display: flex;
