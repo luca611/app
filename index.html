@@ -163,7 +163,7 @@
             <!--Here's the lower part of the top part top bar: quick buttons-->
             <div class="lowerPart">
                 <div class="buttonScroll">
-                    <button class="quickButton">
+                    <button class="quickButton" onclick="toCalendar()">
                         <img class="icon" src="resources/icons/calendar.svg" alt="">
                         <b clas="buttonText">Calendar</b>
                     </button>
@@ -226,13 +226,16 @@
             </div>
 
             <div id="calendar" class="section hidden">
-                <div class="calendario">
+                <div id="calendarHeader">
+                    <h2 id="monthYear"></h2>
+                    <div class="switchMonth">
+                        <button onclick="prevMonth()"><img src="resources/icons/prev.svg" alt=""></button>
+                        <button onclick="nextMonth()"><img src="resources/icons/next.svg" alt=""></button>
+                    </div>
+                    
+                </div>
+                <div class="calendario"> 
                     <div id="calendarContainer">
-                        <div id="calendarHeader">
-                            <h2 id="monthYear"></h2>
-                            <button onclick="prevMonth()">&#9664;</button>
-                            <button onclick="nextMonth()">&#9654;</button>
-                        </div>
                         <div id="calendarBody">
                             <div class="dayNames">
                                 <div class="monthName">Sun</div>
@@ -605,41 +608,6 @@
                 numeroVotoElement.style.borderColor = 'red'; // Rosso per voti < 5
             }
         });
-
-
-//CALENDARIO
-        const monthYear = document.getElementById('monthYear');
-        const daysContainer = document.getElementById('daysContainer');
-        let currentDate = new Date();
-
-        function renderCalendar() {
-            const year = currentDate.getFullYear();
-            const month = currentDate.getMonth();
-            const firstDay = new Date(year, month, 1).getDay();
-            const lastDate = new Date(year, month + 1, 0).getDate();
-
-            monthYear.textContent = currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-
-            daysContainer.innerHTML = '';
-            for (let i = 0; i < firstDay; i++) {
-                daysContainer.innerHTML += '<div class="empty"></div>';
-            }
-            for (let i = 1; i <= lastDate; i++) {
-                daysContainer.innerHTML += `<div class="day">${i}</div>`;
-            }
-        }
-
-        function prevMonth() {
-            currentDate.setMonth(currentDate.getMonth() - 1);
-            renderCalendar();
-        }
-
-        function nextMonth() {
-            currentDate.setMonth(currentDate.getMonth() + 1);
-            renderCalendar();
-        }
-
-        renderCalendar();
     </script>
 
 </body>

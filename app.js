@@ -691,6 +691,7 @@ function toCalendar() {
   currentPage = 4;
   updateActivePageLink();
   closeSidebar();
+  renderCalendar();
 }
 
 //-----------------------------------------------------------------
@@ -1117,6 +1118,150 @@ function loadNotes() {
   xhr.send(body);
 }
 
+function formatDate(date) {
+  const [year, month, day] = date.split("-");
+  return `${month}/${day}/${year}`;
+}
+
+function showCalendarNotes(notes) {
+  /*"title": "prova",
+  "description": "ababab",
+  "dataora": "2025-01-26T00:00:00.000Z"
+  */
+}
+function checkNotes(data,id) {
+  const url = serverURL + "/getNotes";
+
+  if (!email || !privKey) {
+    console.error("Email or key is missing:", { email, privKey });
+    return false;
+  }
+  const body = JSON.stringify({ key: privKey, email, date: data });
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      try {
+        const data = JSON.parse(xhr.responseText);
+        if (Array.isArray(data.notes)) {
+          if (data.notes.length > 0){
+            ebi(id).classList.add('note');
+            console.log("true");  
+          }
+        } else {
+          console.error("Unexpected response format");
+          return false;
+        }
+      } catch (e) {
+        console.error("Error parsing response: " + e);
+        return false;
+      }
+    } else {
+      console.error(xhr.responseText);
+      return false;
+    }
+  };
+
+  xhr.onerror = function () {
+    console.error(xhr.statusText);
+    return false;
+  };
+
+  xhr.send(body);
+}
+function loadNotesByDate(date) {
+  const url = serverURL + "/getNotes";
+
+  if (!email || !privKey) {
+    console.error("Email or key is missing:", { email, privKey });
+    return;
+  }
+  console.log(privKey+" "+email+" "+date);
+  const body = JSON.stringify({ key: privKey, email, date });
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      try {
+        const data = JSON.parse(xhr.responseText);
+        if (Array.isArray(JSON.parse(xhr.responseText).notes)) {
+          if (data.notes.length > 0) {
+            showCalendarNotes(data.notes);
+          } else {
+            return;
+          }
+        } else {
+          throw new Error("Unexpected response format");
+        }
+      } catch (e) {
+        throw new Error("Error parsing response" + e);
+      }
+    } else {
+      throw new Error(xhr.responseText);
+    }
+  };
+
+  xhr.onerror = function () {
+    throw new Error(xhr.statusText);
+
+  };
+  xhr.send(body);
+}
+
+
+
+let currentDate = new Date();
+function renderCalendar() {
+  //CALENDARIO
+  const monthYear = document.getElementById('monthYear');
+  const daysContainer = document.getElementById('daysContainer');
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const firstDay = new Date(year, month, 1).getDay();
+  const lastDate = new Date(year, month + 1, 0).getDate();
+
+  monthYear.textContent = currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+  daysContainer.innerHTML = '';
+  for (let i = 0; i < firstDay; i++) {
+    const emptyDiv = document.createElement('div');
+    emptyDiv.classList.add('empty');
+    daysContainer.appendChild(emptyDiv);
+  }
+  for (let i = 1; i <= lastDate; i++) {
+    const dayDiv = document.createElement('div');
+    dayDiv.classList.add('day');
+    dayDiv.textContent = i;
+    dayDiv.id = i;
+    console.log(month);
+    console.log(i);
+    console.log(year);
+    let data = (month+1) + '/' + i + '/' + year;
+    if (checkNotes(data,i)) {
+
+      dayDiv.classList.add('note');
+    }
+    daysContainer.appendChild(dayDiv);
+  }
+}
+
+function prevMonth() {
+  currentDate.setMonth(currentDate.getMonth() - 1);
+  renderCalendar();
+}
+
+function nextMonth() {
+  currentDate.setMonth(currentDate.getMonth() + 1);
+  renderCalendar();
+}
+
+renderCalendar();
 //-----------------------------------------------------------------
 
 function saveEvent(note) {
@@ -1314,4 +1459,6 @@ function changePassword() {
 
   xhr.send(JSON.stringify(data));
 }
+
+
 
