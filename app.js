@@ -1149,6 +1149,9 @@ function checkNotes(data,id) {
         if (Array.isArray(data.notes)) {
           if (data.notes.length > 0){
             ebi(id).classList.add('note');
+            let div=document.createElement('div');
+            div.classList.add('dailyPin');
+            ebi(id).appendChild(div);
             console.log("true");  
           }
         } else {
@@ -1247,6 +1250,7 @@ function renderCalendar() {
 
       dayDiv.classList.add('note');
     }
+    dayDiv.classList.add('calendarDays');
     daysContainer.appendChild(dayDiv);
   }
 }

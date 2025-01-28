@@ -1086,19 +1086,32 @@ div#calendarHeader h2 {
 }
 
 .note {
-  background-image: url('resources/icons/pin.svg') !important;
+  /*background-image: url('resources/icons/pin.svg') !important;*/
   background-repeat: no-repeat !important;
   background-position: center !important;
+  border-radius: 50%;
 }
 
-.note:hover {
-  background-image: url('resources/icons/pin.svg') !important;
-  background-size: +15% !important;
-}
+
 
 .note:active {
   background-color: var(--secondary-color) !important; 
 }
+
+div.dailyPin{
+  background: url('resources/icons/pin.svg') var(--secondary-color);
+  margin:auto;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 20%;
+  height: 90%;
+  border-radius: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+
 
 
 div#calendarBody {
@@ -1162,7 +1175,8 @@ div.dayNames div {
 
 }
 
-#daysContainer div {
+.calendarDays {
+  position: relative;
   display: flex;
   align-items: right;
   justify-content: right;
