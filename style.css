@@ -1086,22 +1086,19 @@ div#calendarHeader h2 {
 }
 
 .note {
-  /*background-image: url('resources/icons/pin.svg') !important;*/
   background-repeat: no-repeat !important;
   background-position: center !important;
   border-radius: 50%;
-}
-
-
-
-.note:active {
-  background-color: var(--secondary-color) !important; 
+  background-size: contain !important;
 }
 
 div.dailyPin{
   background: url('resources/icons/pin.svg') var(--secondary-color);
   margin:auto;
-  position: relative;
+  position: absolute;
+  right:40%;
+  padding:0.8rem;
+  top: 5%;;
   background-repeat: no-repeat;
   background-position: center;
   width: 20%;
@@ -1110,9 +1107,6 @@ div.dailyPin{
   align-items: center;
   justify-content: center;
 }
-
-
-
 
 div#calendarBody {
   display: flex;
