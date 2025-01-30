@@ -1469,6 +1469,10 @@ function changePassword() {
   xhr.send(JSON.stringify(data));
 }
 
+function openReport(){
+  ebi("report").classList.remove("hidden");
+}
+
 
 
 
