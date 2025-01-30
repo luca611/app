@@ -301,6 +301,7 @@ function setPopupPage(page = 0) {
     case 0:
       ebi("popupConfrimButton").onclick = createEvent;
       ebi("popupConfrimButton").innerText = "Create";
+      
       break;
     case 1:
       //ebi("popupConfrimButton").onclick = createGrade;
@@ -1129,7 +1130,7 @@ function showCalendarNotes(notes) {
   "dataora": "2025-01-26T00:00:00.000Z"
   */
 }
-function checkNotes(data,id) {
+function checkNotes(data,id) { 
   const url = serverURL + "/getNotes";
 
   if (!email || !privKey) {
@@ -1175,7 +1176,7 @@ function checkNotes(data,id) {
 
   xhr.send(body);
 }
-function loadNotesByDate(date) {
+function loadNotesByDate(date) { 
   const url = serverURL + "/getNotes";
 
   if (!email || !privKey) {
@@ -1216,6 +1217,10 @@ function loadNotesByDate(date) {
   };
   xhr.send(body);
 }
+
+
+
+
 
 
 

@@ -1101,12 +1101,14 @@ div.dailyPin{
   top: 5%;;
   background-repeat: no-repeat;
   background-position: center;
-  width: 20%;
-  height: 90%;
   border-radius: 100%;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  margin-top: 0.1rem;
 }
+
+
 
 div#calendarBody {
   display: flex;
