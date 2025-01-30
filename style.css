@@ -1098,14 +1098,13 @@ div.dailyPin{
   position: absolute;
   right:40%;
   padding:0.8rem;
-  top: 5%;;
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 100%;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  margin-top: 0.1rem;
+  
 }
 
 
