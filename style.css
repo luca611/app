@@ -1037,7 +1037,7 @@ div.calendario {
 
 div.calendario {
   min-height: auto;
-  height: 50%;
+  height: 100%;
 }
 
 div.evento {
@@ -1051,9 +1051,11 @@ div.evento {
   height: 100%;
   position: relative;
 }
-.containerCalendario{
+
+div.containerCalendario{
   display: flex;
   flex-direction: column;
+  height: calc(100% - 3rem);
 }
 
 div#calendarContainer {
@@ -1097,19 +1099,32 @@ div#calendarHeader h2 {
   background-size: contain !important;
 }
 
-div.dailyPin{
+div.dailyPin {
   background: url('resources/icons/pin.svg') var(--secondary-color);
-  margin:auto;
+  background-position: center;
+  margin: auto;
   position: absolute;
-  right:40%;
-  padding:0.8rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.8rem;
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 100%;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  
+  animation: fade-in 0.3s;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 
