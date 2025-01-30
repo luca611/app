@@ -1048,7 +1048,12 @@ div.evento {
   margin-top: 0.5rem;
   background: var(--minor-color);
   border-radius: var(--general-border-radius);
-  height: 38%;
+  height: 100%;
+  position: relative;
+}
+.containerCalendario{
+  display: flex;
+  flex-direction: column;
 }
 
 div#calendarContainer {

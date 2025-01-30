@@ -233,28 +233,30 @@
                         <button onclick="nextMonth()"><img src="resources/icons/next.svg" alt=""></button>
                     </div>
                 </div>
-                <div class="calendario">
-                    <div id="calendarContainer">
-                        <div id="calendarBody">
-                            <div class="dayNames">
-                                <div class="monthName">Sun</div>
-                                <div class="monthName">Mon</div>
-                                <div class="monthName">Tue</div>
-                                <div class="monthName">Wed</div>
-                                <div class="monthName">Thu</div>
-                                <div class="monthName">Fri</div>
-                                <div class="monthName">Sat</div>
+                <div class="containerCalendario">
+                    <div class="calendario">
+                        <div id="calendarContainer">
+                            <div id="calendarBody">
+                                <div class="dayNames">
+                                    <div class="monthName">Sun</div>
+                                    <div class="monthName">Mon</div>
+                                    <div class="monthName">Tue</div>
+                                    <div class="monthName">Wed</div>
+                                    <div class="monthName">Thu</div>
+                                    <div class="monthName">Fri</div>
+                                    <div class="monthName">Sat</div>
+                                </div>
+                                <div id="daysContainer"></div>
                             </div>
-                            <div id="daysContainer"></div>
                         </div>
                     </div>
-                </div>
-                <div id="eventDetails" class="hidden"></div> <!-- Div per le informazioni dell'evento -->
-                <div class="evento">
-                    <div class="addButtonContainer" id="addButtonContainer">
-                        <button class="addButton" onclick="openPopup()">
-                            <img class="addIcon" src="resources/icons/add.svg" alt="add">
-                        </button>
+                    <div id="eventDetails" class="hidden"></div>
+                    <div class="evento">
+                        <div class="addButtonContainer" id="addButtonContainer">
+                            <button class="addButton" onclick="openPopup()">
+                                <img class="addIcon" src="resources/icons/add.svg" alt="add">
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
