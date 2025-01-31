@@ -879,6 +879,7 @@ function register() {
   const xhr = new XMLHttpRequest();
 
   xhr.open("POST", url, true);
+  xhr.withCredentials = true;
   xhr.setRequestHeader("Content-Type", "application/json");
 
   xhr.onload = function () {
@@ -908,6 +909,7 @@ async function logout() {
   let url = serverURL + "/logout";
 
   let xhr = new XMLHttpRequest();
+  xhr.withCredentials = true;
   xhr.open("DELETE", url);
   xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -956,6 +958,7 @@ function login(logEmail = ebi("loginUsername").value.trim().toLowerCase(), logPa
 
   const xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
+  xhr.withCredentials = true;
   xhr.setRequestHeader("Content-Type", "application/json");
 
   xhr.onload = function () {
@@ -985,7 +988,7 @@ function login(logEmail = ebi("loginUsername").value.trim().toLowerCase(), logPa
 
 function isLoggedTest() {
   const url = serverURL + "/isLogged";
-
+  xhr.withCredentials = true;
   const xhr = new XMLHttpRequest();
   xhr.open("GET", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
@@ -1011,6 +1014,7 @@ async function autologin() {
   const url = serverURL + "/isLogged";
 
   const xhr = new XMLHttpRequest();
+  xhr.withCredentials = true;
   xhr.open("GET", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -1053,6 +1057,7 @@ function createEvent() {
 
   const xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
+  xhr.withCredentials = true;
   xhr.setRequestHeader("Content-Type", "application/json");
 
   const confirmButton = ebi("popupConfrimButton");
@@ -1091,6 +1096,7 @@ function loadNotes() {
 
   const xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
+  xhr.withCredentials = true;
   xhr.setRequestHeader("Content-Type", "application/json");
 
   xhr.onload = function () {
@@ -1145,6 +1151,7 @@ function checkNotes(data, id) {
   const body = JSON.stringify({ date: data });
 
   const xhr = new XMLHttpRequest();
+  xhr.withCredentials = true;
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -1188,6 +1195,7 @@ function loadNotesByDate(date) {
   const body = JSON.stringify({ date });
 
   const xhr = new XMLHttpRequest();
+  xhr.withCredentials = true;
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -1293,6 +1301,7 @@ function saveEvent(note) {
 
   const xhr = new XMLHttpRequest();
   xhr.open("PUT", url, true);
+  xhr.withCredentials = true;
   xhr.setRequestHeader("Content-Type", "application/json");
 
   const confirmButton = ebi("popupConfrimButton");
@@ -1331,6 +1340,7 @@ function deleteEvent(id) {
 
   const xhr = new XMLHttpRequest();
   xhr.open("DELETE", url, true);
+  xhr.withCredentials = true;
   xhr.setRequestHeader("Content-Type", "application/json");
 
   xhr.onload = function () {
@@ -1366,6 +1376,7 @@ function changeName() {
   const data = { name: newName };
 
   const xhr = new XMLHttpRequest();
+  xhr.withCredentials = true;
   xhr.open("PUT", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -1432,6 +1443,7 @@ function changePassword() {
   const data = { newPassword };
 
   const xhr = new XMLHttpRequest();
+  xhr.withCredentials = true;
   xhr.open("PUT", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
