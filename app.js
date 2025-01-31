@@ -956,7 +956,7 @@ function login(logEmail = ebi("loginUsername").value.trim().toLowerCase(), logPa
     return false;
   }
 
-  fetch('https://pocketserver.onrender.com/login', {
+  fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
