@@ -956,32 +956,26 @@ function login(logEmail = ebi("loginUsername").value.trim().toLowerCase(), logPa
     return false;
   }
 
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.withCredentials = true;
-  xhr.setRequestHeader("Content-Type", "application/json");
-
-  xhr.onload = function () {
-    disableLoading();
-    let response = JSON.parse(xhr.responseText);
-    if (response.error == 0) {
-      cleanLogin();
-      swapToHome();
-
-      return true;
-    } else {
-      displayError("loginError", response.message);
-      return false;
-    }
-  };
-
-  xhr.onerror = function () {
-    disableLoading();
-    displayError("loginError", "Network error. Please try again.");
-    return false;
-  };
-
-  xhr.send(JSON.stringify({ email: logEmail, password: logPassword }));
+  fetch('https://pocketserver.onrender.com/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email: logEmail, password: logPassword }),
+    credentials: 'include' // This is important for sending/receiving cookies
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error == 0) {
+        cleanLogin();
+        swapToHome();
+      } else {
+        displayError("loginError", data.message);
+      }
+    })
+    .catch(err => {
+      displayError("loginError", "Network error. Please try again.");
+    });
 }
 
 //-----------------------------------------------------------------
