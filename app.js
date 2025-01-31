@@ -31,8 +31,9 @@ xhr.send();
 //app code
 
 const rootStyles = getComputedStyle(document.documentElement);
-const serverURL = "https://pocketdiary-server.onrender.com";
+const serverURL = "https://pocketserver.onrender.com";
 
+let email, password, username;
 let sidebar, overlayBar;
 let overlayPopUp, popUp;
 let eventCreation, gradeCreation, hourCreation, nameChange, passwordChange;
@@ -42,33 +43,9 @@ let currentPage = 2;
 
 let currentPopupPage = 0;
 
-let email, password, username, privKey;
-
 let primaryColor = rootStyles.getPropertyValue("--primary-color");
 let secondaryColor = rootStyles.getPropertyValue("--secondary-color");
 let tertiaryColor = rootStyles.getPropertyValue("--minor-color");
-
-function saveCredentials() {
-  const credentials = {
-    email,
-    password,
-    username,
-    currentTheme
-  };
-  localStorage.setItem("credentials", JSON.stringify(credentials));
-}
-
-//-----------------------------------------------------------------
-
-function loadCredentials() {
-  const credentials = JSON.parse(localStorage.getItem("credentials"));
-  if (typeof credentials !== "undefined" && credentials !== null) {
-    email = credentials.email;
-    password = credentials.password;
-    username = credentials.username;
-    currentTheme = credentials.currentTheme;
-  }
-}
 
 //-----------------------------------------------------------------
 
@@ -301,7 +278,7 @@ function setPopupPage(page = 0) {
     case 0:
       ebi("popupConfrimButton").onclick = createEvent;
       ebi("popupConfrimButton").innerText = "Create";
-      
+
       break;
     case 1:
       //ebi("popupConfrimButton").onclick = createGrade;
@@ -423,6 +400,7 @@ function saveCustomTheme() {
     tertiaryColor
   };
   localStorage.setItem("customTheme", JSON.stringify(customTheme));
+  // @modify
 }
 
 //-----------------------------------------------------------------
@@ -437,6 +415,7 @@ function loadCustomTheme() {
     document.documentElement.style.setProperty("--primary-color", primaryColor);
     document.documentElement.style.setProperty("--secondary-color", secondaryColor);
     document.documentElement.style.setProperty("--minor-color", tertiaryColor);
+    //@modify
   }
 }
 
@@ -779,6 +758,8 @@ function showNotes(notes) {
 
     list.appendChild(event);
   });
+  const confirmButton = ebi("popupConfrimButton");
+  confirmButton.disabled = false;
 }
 
 //-----------------------------------------------------------------
@@ -844,6 +825,7 @@ function openEvent(note) {
 */
 
 function checkEmailAvailability(email) {
+  return true;
   if (!navigator.onLine) {
     return false;
   }
@@ -901,14 +883,14 @@ function register() {
 
   xhr.onload = function () {
     disableLoading();
-    if (xhr.status >= 200 && xhr.status < 300) {
-      saveCredentials();
-      swapToHome();
-      location.reload();
-    } else {
-      const errorData = JSON.parse(xhr.responseText);
-      displayError("nameError", "Registration failed: " + errorData.error);
+    let response = JSON.parse(xhr.responseText);
+    if (response.error == 1) {
+      displayError("nameError", "Registration failed: " + response.message);
+      return;
     }
+
+    swapToHome();
+    location.reload();
   };
 
   xhr.onerror = function () {
@@ -923,9 +905,22 @@ function register() {
 //-----------------------------------------------------------------
 
 async function logout() {
-  delete (localStorage.credentials);
-  delete (localStorage.customTheme);
-  location.reload();
+  let url = serverURL + "/logout";
+
+  let xhr = new XMLHttpRequest();
+  xhr.open("DELETE", url);
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  xhr.onload = function () {
+    let response = JSON.parse(xhr.responseText);
+    if (response.error == 1) {
+      console.error("Logout failed:", response.message);
+      return;
+    }
+    location.reload();
+  };
+
+  xhr.send();
 }
 
 //-----------------------------------------------------------------
@@ -965,22 +960,14 @@ function login(logEmail = ebi("loginUsername").value.trim().toLowerCase(), logPa
 
   xhr.onload = function () {
     disableLoading();
-    if (xhr.status >= 200 && xhr.status < 300) {
-      const { key, name, theme } = JSON.parse(xhr.responseText);
-      email = logEmail;
-      password = logPassword;
-      privKey = key;
-      currentTheme = theme;
-      username = name;
+    let response = JSON.parse(xhr.responseText);
+    if (response.error == 0) {
       cleanLogin();
       swapToHome();
-      saveCredentials();
 
       return true;
     } else {
-      const errorData = JSON.parse(xhr.responseText);
-      displayError("loginError", "Login failed: " + (errorData.error || "Unknown error"));
-
+      displayError("loginError", response.message);
       return false;
     }
   };
@@ -990,26 +977,53 @@ function login(logEmail = ebi("loginUsername").value.trim().toLowerCase(), logPa
     displayError("loginError", "Network error. Please try again.");
     return false;
   };
+
   xhr.send(JSON.stringify({ email: logEmail, password: logPassword }));
 }
 
 //-----------------------------------------------------------------
 
-async function autologin() {
-  loadCredentials();
+function isLoggedTest() {
+  const url = serverURL + "/isLogged";
 
-  if (email && password && username) {
-    if (navigator.onLine) {
-      if (await login(email, password) && typeof key !== undefined) {
-        swapToHome();
-      }
-    } else {
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  xhr.onload = function () {
+    let response = JSON.parse(xhr.responseText);
+    if (response.error == 0) {
       swapToHome();
-      showFeedback(1, "No connection.");
+    } else {
+      swapToLogin();
     }
-    applyTheme();
-    loadCustomTheme();
   };
+
+  xhr.send();
+}
+
+async function autologin() {
+  if (!navigator.onLine) {
+    showFeedback(2, "You are offline");
+    return;
+  }
+
+  const url = serverURL + "/isLogged";
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  xhr.onload = function () {
+    let response = JSON.parse(xhr.responseText);
+    if (response.error == 0) {
+      swapToHome();
+    } else {
+      swapToLogin();
+    }
+  };
+
+  xhr.send();
 }
 
 loadCustomTheme();
@@ -1035,7 +1049,7 @@ function createEvent() {
   }
 
   const url = serverURL + "/addNote";
-  const data = { key: privKey, title, description, date, email };
+  const data = { title, description, date };
 
   const xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
@@ -1045,21 +1059,18 @@ function createEvent() {
   confirmButton.disabled = true;
 
   xhr.onload = function () {
-    if (xhr.status >= 200 && xhr.status < 300) {
+    let response = JSON.parse(xhr.responseText);
+
+    if (response.error == 0) {
       displayError("eventError", "");
       ebi("eventName").value = "";
       ebi("eventDescription").value = "";
       ebi("eventDate").value = "";
       closePopup();
       loadNotes();
-
-      setInterval(() => {
-        confirmButton.disabled = false;
-      }, 1000);
       showFeedback(0, "Event created");
     } else {
-      const errorData = JSON.parse(xhr.responseText);
-      displayError("eventError", "Failed to create event: " + (errorData.error || "Unknown error"));
+      displayError("eventError", response.message);
     }
   };
 
@@ -1073,26 +1084,23 @@ function createEvent() {
 
 //-----------------------------------------------------------------
 function loadNotes() {
-  const url = serverURL + "/getTodayNotes";
+  const url = serverURL + "/getDayNotes";
 
-  if (!email || !privKey) {
-    console.error("Email or key is missing:", { email, privKey });
-    return;
-  }
-
-  const body = JSON.stringify({ key: privKey, email });
+  let date = new Date();
+  const body = JSON.stringify({ date });
 
   const xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
   xhr.onload = function () {
-    if (xhr.status >= 200 && xhr.status < 300) {
+    console.log(xhr.responseText);
+    let response = JSON.parse(xhr.responseText);
+    if (response.error == 0) {
       try {
-        const data = JSON.parse(xhr.responseText);
         if (Array.isArray(JSON.parse(xhr.responseText).notes)) {
-          if (data.notes.length > 0) {
-            showNotes(data.notes);
+          if (response.notes.length > 0) {
+            showNotes(response.notes);
           } else {
             showPlaceholder();
             return;
@@ -1119,6 +1127,7 @@ function loadNotes() {
   xhr.send(body);
 }
 
+
 function formatDate(date) {
   const [year, month, day] = date.split("-");
   return `${month}/${day}/${year}`;
@@ -1130,30 +1139,26 @@ function showCalendarNotes(notes) {
   "dataora": "2025-01-26T00:00:00.000Z"
   */
 }
-function checkNotes(data,id) { 
-  const url = serverURL + "/getNotes";
+function checkNotes(data, id) {
+  const url = serverURL + "/getDayNotes";
 
-  if (!email || !privKey) {
-    console.error("Email or key is missing:", { email, privKey });
-    return false;
-  }
-  const body = JSON.stringify({ key: privKey, email, date: data });
+  const body = JSON.stringify({ date: data });
 
   const xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
   xhr.onload = function () {
-    if (xhr.status >= 200 && xhr.status < 300) {
+    let response = JSON.parse(xhr.responseText);
+    if (response.error == 0) {
       try {
-        const data = JSON.parse(xhr.responseText);
-        if (Array.isArray(data.notes)) {
-          if (data.notes.length > 0){
+        if (Array.isArray(response.notes)) {
+          if (response.notes.length > 0) {
             ebi(id).classList.add('note');
-            let div=document.createElement('div');
+            let div = document.createElement('div');
             div.classList.add('dailyPin');
             ebi(id).appendChild(div);
-            console.log("true");  
+            console.log("true");
           }
         } else {
           console.error("Unexpected response format");
@@ -1176,26 +1181,22 @@ function checkNotes(data,id) {
 
   xhr.send(body);
 }
-function loadNotesByDate(date) { 
-  const url = serverURL + "/getNotes";
 
-  if (!email || !privKey) {
-    console.error("Email or key is missing:", { email, privKey });
-    return;
-  }
-  console.log(privKey+" "+email+" "+date);
-  const body = JSON.stringify({ key: privKey, email, date });
+function loadNotesByDate(date) {
+  const url = serverURL + "/getDayNotes";
+
+  const body = JSON.stringify({ date });
 
   const xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
   xhr.onload = function () {
-    if (xhr.status >= 200 && xhr.status < 300) {
+    let response = JSON.parse(xhr.responseText);
+    if (response.error == 0) {
       try {
-        const data = JSON.parse(xhr.responseText);
-        if (Array.isArray(JSON.parse(xhr.responseText).notes)) {
-          if (data.notes.length > 0) {
+        if (Array.isArray(response.notes)) {
+          if (response.notes.length > 0) {
             showCalendarNotes(data.notes);
           } else {
             return;
@@ -1250,8 +1251,8 @@ function renderCalendar() {
     console.log(month);
     console.log(i);
     console.log(year);
-    let data = (month+1) + '/' + i + '/' + year;
-    if (checkNotes(data,i)) {
+    let data = (month + 1) + '/' + i + '/' + year;
+    if (checkNotes(data, i)) {
 
       dayDiv.classList.add('note');
     }
@@ -1288,17 +1289,18 @@ function saveEvent(note) {
 
   const url = serverURL + "/updateNote";
 
-  const data = { key: privKey, title, description, date, email, id: note.id };
+  const data = { title, description, date, id: note.id };
 
   const xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
+  xhr.open("PUT", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
   const confirmButton = ebi("popupConfrimButton");
   confirmButton.disabled = true;
 
   xhr.onload = function () {
-    if (xhr.status >= 200 && xhr.status < 300) {
+    let response = JSON.parse(xhr.responseText);
+    if (response.error == 0) {
       displayError("eventError", "");
       ebi("eventName").value = "";
       ebi("eventDescription").value = "";
@@ -1306,13 +1308,9 @@ function saveEvent(note) {
       closePopup();
       loadNotes();
 
-      setInterval(() => {
-        confirmButton.disabled = false;
-      }, 1000);
       showFeedback(0, "Event updated");
     } else {
-      const errorData = JSON.parse(xhr.responseText);
-      displayError("eventError", "Failed to update event: " + (errorData.error || "Unknown error"));
+      displayError("eventError", response.message);
     }
   };
 
@@ -1328,18 +1326,19 @@ function saveEvent(note) {
 
 function deleteEvent(id) {
   const url = serverURL + "/deleteNote";
-  const data = { key: privKey, email, id };
+
+  url += `?id=` + id;
 
   const xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
+  xhr.open("DELETE", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
   xhr.onload = function () {
-    if (xhr.status >= 200 && xhr.status < 300) {
+    let response = JSON.parse(xhr.responseText);
+    if (response.error == 0) {
       loadNotes();
-      showFeedback(0, "Event deleted");
+      showFeedback(1, "Event deleted");
     } else {
-      const errorData = JSON.parse(xhr.responseText);
       loadNotes();
     }
   };
@@ -1348,7 +1347,7 @@ function deleteEvent(id) {
     console.error("Network error:", xhr);
   };
 
-  xhr.send(JSON.stringify(data));
+  xhr.send();
 }
 
 //-----------------------------------------------------------------
@@ -1362,19 +1361,20 @@ function changeName() {
     return;
   }
 
-  const url = serverURL + "/changeName";
+  const url = serverURL + "/updateName";
 
-  const data = { key: privKey, email, password, name: newName };
+  const data = { name: newName };
 
   const xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
+  xhr.open("PUT", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
   const confirmButton = ebi("popupConfrimButton");
   confirmButton.disabled = true;
 
   xhr.onload = function () {
-    if (xhr.status >= 200 && xhr.status < 300) {
+    let response = JSON.parse(xhr.responseText);
+    if (response.error == 0) {
       displayError("popupNameError", "");
       username = newName;
       saveCredentials();
@@ -1386,8 +1386,7 @@ function changeName() {
       }, 1000);
       showFeedback(0, "Name changed");
     } else {
-      const errorData = JSON.parse(xhr.responseText);
-      displayError("popupNameError", "Failed to change name: " + (errorData.error || "Unknown error"));
+      displayError("popupNameError", response.message);
     }
   };
 
@@ -1428,26 +1427,24 @@ function changePassword() {
     return;
   }
 
-  const url = serverURL + "/changePassword";
+  const url = serverURL + "/updatePassword";
 
-  const data = { key: privKey, email, password: oldPassword, newPassword };
+  const data = { newPassword };
 
   const xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
+  xhr.open("PUT", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
   const confirmButton = ebi("popupConfrimButton");
   confirmButton.disabled = true;
 
   xhr.onload = function () {
-    if (xhr.status >= 200 && xhr.status < 300) {
+    let response = JSON.parse(xhr.responseText);
+    if (response.error == 0) {
       displayError("popupPasswordError", "");
       ebi("newPassword").value = "";
       ebi("newConfirmPassword").value = "";
       ebi("currentPassword").value = "";
-
-      password = newPassword;
-      saveCredentials();
 
       closePopup();
 
@@ -1456,8 +1453,7 @@ function changePassword() {
       }, 1000);
       showFeedback(0, "Password changed");
     } else {
-      const errorData = JSON.parse(xhr.responseText);
-      displayError("popupPasswordError", "Failed to change password: " + (errorData.error || "Unknown error"));
+      displayError("popupPasswordError", response.message);
     }
   };
 
@@ -1469,7 +1465,7 @@ function changePassword() {
   xhr.send(JSON.stringify(data));
 }
 
-function openReport(){
+function openReport() {
   ebi("report").classList.remove("hidden");
 }
 
