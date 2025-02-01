@@ -812,7 +812,7 @@ function openEvent(note) {
   ebi("popupConfrimButton").onclick = () => saveEvent(note);
   ebi("eventName").value = note.title;
   ebi("eventDescription").value = note.description;
-  let data = note.dataora.split('T')[0];
+  let data = note.date.split('T')[0];
   ebi("eventDate").value = data;
 }
 
@@ -1039,7 +1039,7 @@ loadCustomTheme();
 function createEvent() {
   const title = ebi("eventName").value.trim();
   const description = ebi("eventDescription").value.trim();
-  const date = ebi("eventDate").value.trim();
+  let date = ebi("eventDate").value.trim();
 
   if (!title || !description || !date) {
     displayError("eventError", "Please fill in all fields");
@@ -1332,7 +1332,7 @@ function saveEvent(note) {
 //-----------------------------------------------------------------
 
 function deleteEvent(id) {
-  const url = serverURL + "/deleteNote";
+  let url = serverURL + "/deleteNote";
 
   url += `?id=` + id;
 
