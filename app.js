@@ -1131,6 +1131,9 @@ function loadNotes() {
 
 
 function formatDate(date) {
+  if (typeof date !== 'string') {
+    date = date.toISOString().split('T')[0];
+  }
   const [year, month, day] = date.split("-");
   return `${month}/${day}/${year}`;
 }
