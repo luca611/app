@@ -1276,8 +1276,6 @@ function nextMonth() {
   currentDate.setMonth(currentDate.getMonth() + 1);
   renderCalendar();
 }
-
-renderCalendar();
 //-----------------------------------------------------------------
 
 function saveEvent(note) {
