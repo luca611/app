@@ -27,6 +27,12 @@ xhr.onerror = function () {
 xhr.open("GET", "pwaversion.txt?t=" + Date.now());
 xhr.send();
 
+
+// Check if cookies are enabled
+if (!navigator.cookieEnabled) {
+  alert("Cookies are disabled in your browser. Please enable cookies to use this application.");
+}
+
 //-----------------------------------------------------------------
 //app code
 
@@ -499,6 +505,7 @@ function swapToHome() {
   ebi("decoratedTitle").innerText = username;
 
   loadNotes();
+  disableLoading();
 }
 
 //-----------------------------------------------------------------
