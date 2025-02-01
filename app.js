@@ -33,7 +33,7 @@ xhr.send();
 const rootStyles = getComputedStyle(document.documentElement);
 const serverURL = "https://pocketserver.onrender.com";
 
-let email, password, username;
+let email, password, username = "loading";
 let sidebar, overlayBar;
 let overlayPopUp, popUp;
 let eventCreation, gradeCreation, hourCreation, nameChange, passwordChange;

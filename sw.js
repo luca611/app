@@ -12,6 +12,26 @@ const appFiles = [
   // add all PWA files here (except pwaversion.txt)
 ];
 
+const dontCache = [
+  'pwaversion.txt',
+  'isLogged',
+  'getNoteById',
+  'getTheme',
+  'getName',
+  'getCustomTheme',
+  'logout',
+  'login',
+  'register',
+  'deleteNote',
+  'addNote',
+  'updatePassword',
+  'updateTheme',
+  'updateName',
+  'updateCustomTheme',
+  'getDayNotes',
+  'updateNote',
+  // add all files that should not be cached here
+]
 // Caches all the PWA shell files (appFiles array) when the app is launched
 self.addEventListener('install', (e) => {
   console.log('[Service Worker] Install');
@@ -31,7 +51,7 @@ self.addEventListener('install', (e) => {
 self.addEventListener('fetch', (e) => {
   e.respondWith(
     (async () => {
-      if (e.request.url.includes('pwaversion.txt')) {
+      if (dontCache.some((url) => e.request.url.includes(url))) {
         return fetch(e.request);
       } else {
         const cachedResponse = await caches.match(e.request);
