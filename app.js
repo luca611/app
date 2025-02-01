@@ -1045,6 +1045,7 @@ function createEvent() {
     displayError("eventError", "Please fill in all fields");
     return;
   }
+  date = formatDate(date);
 
   const url = serverURL + "/addNote";
   const data = { title, description, date };
@@ -1086,6 +1087,7 @@ function loadNotes() {
   const url = serverURL + "/getDayNotes";
 
   let date = new Date();
+  date = formatDate(date);
   const body = JSON.stringify({ date });
 
   const xhr = new XMLHttpRequest();
@@ -1142,6 +1144,7 @@ function showCalendarNotes(notes) {
 function checkNotes(data, id) {
   const url = serverURL + "/getDayNotes";
 
+  data = formatDate(data);
   const body = JSON.stringify({ date: data });
 
   const xhr = new XMLHttpRequest();
@@ -1186,6 +1189,7 @@ function checkNotes(data, id) {
 function loadNotesByDate(date) {
   const url = serverURL + "/getDayNotes";
 
+  date = formatDate(date);
   const body = JSON.stringify({ date });
 
   const xhr = new XMLHttpRequest();
@@ -1221,10 +1225,7 @@ function loadNotesByDate(date) {
   xhr.send(body);
 }
 
-
-
-
-
+//-----------------------------------------------------------------
 
 
 let currentDate = new Date();
@@ -1282,7 +1283,7 @@ function saveEvent(note) {
   }
   const title = ebi("eventName").value.trim();
   const description = ebi("eventDescription").value.trim();
-  const date = ebi("eventDate").value.trim();
+  const date = formatDate(ebi("eventDate").value.trim());
 
   if (!title || !description || !date) {
     displayError("eventError", "Please fill in all fields");
